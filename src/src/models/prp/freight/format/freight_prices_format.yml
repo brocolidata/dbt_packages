@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: freight_prices_format
+    description: "Indice hebdomadaire du fret pour la ligne relignant la Chine et la Mer Méditerranée."
+    columns:
+      - name: min_price
+        description: "Indice min du fret (en $)"
+
+      - name: max_price
+        description: "Indice max du fret (en $)"
+
+      - name: price
+        description: "Prix du fret (en $)"
+
+      - name: upload_datetime
+        description: "Date de chargement de l'enregistrement"
+
+      - name: price_date
+        description: "Date d'enregistrement des valeurs"
+
+      - name: lane_code
+        description: "Code de la ligne maritime"

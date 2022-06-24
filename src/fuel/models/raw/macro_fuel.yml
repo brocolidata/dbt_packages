@@ -1,0 +1,14 @@
+version: 2
+sources:
+- name: macro_fuel
+  database: brocolitest-internal-back
+  schema: raw
+  loader: gcloud storage
+  tables:
+  - name: fuel_prices
+    description: Description for fuel_prices
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/macro/fuel/fuel_prices/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/macro/fuel/fuel_prices/"

@@ -1,0 +1,165 @@
+version: 2
+sources:
+- name: stg
+  database: brocolitest-internal-back
+  loader: gcloud storage
+  tables:
+  - name: weather
+    description: Description for weather
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/macro/weather/weather/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/macro/weather/weather/"
+  - name: weather_raw
+    description: Description for weather_raw
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/macro/weather/weather_raw/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/macro/weather/weather_raw/"
+  - name: freight_prices
+    description: Description for freight_prices
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/macro/freight/freight_prices/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/macro/freight/freight_prices/"
+  - name: fuel_prices
+    description: Description for fuel_prices
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/macro/fuel/fuel_prices/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/macro/fuel/fuel_prices/"
+  - name: currencies_exchange_rate
+    description: Description for currencies_exchange_rate
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/macro/currencies/currencies_exchange_rate/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/macro/currencies/currencies_exchange_rate/"
+  - name: holidays_morocco
+    description: Description for holidays_morocco
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/macro/holidays/holidays_morocco/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/macro/holidays/holidays_morocco/"
+  - name: product_template_attribute_value
+    description: Description for product_template_attribute_value
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/product/product_template_attribute_value/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/product/product_template_attribute_value/"
+  - name: product_attribute_product_template_rel
+    description: Description for product_attribute_product_template_rel
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/product/product_attribute_product_template_rel/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/product/product_attribute_product_template_rel/"
+  - name: product_category
+    description: Description for product_category
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/product/product_category/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/product/product_category/"
+  - name: product_attribute_value
+    description: Description for product_attribute_value
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/product/product_attribute_value/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/product/product_attribute_value/"
+  - name: product_pricelist_item
+    description: Description for product_pricelist_item
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/product/product_pricelist_item/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/product/product_pricelist_item/"
+  - name: product_product
+    description: Description for product_product
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/product/product_product/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/product/product_product/"
+  - name: product_template_attribute_line
+    description: Description for product_template_attribute_line
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/product/product_template_attribute_line/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/product/product_template_attribute_line/"
+  - name: product_attribute
+    description: Description for product_attribute
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/product/product_attribute/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/product/product_attribute/"
+  - name: product_pricelist
+    description: Description for product_pricelist
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/product/product_pricelist/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/product/product_pricelist/"
+  - name: product_template
+    description: Description for product_template
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/product/product_template/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/product/product_template/"
+  - name: product_variant_combination
+    description: Description for product_variant_combination
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/product/product_variant_combination/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/product/product_variant_combination/"
+  - name: customers
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/adventure_works/customers/*"
+      options:
+        format: parquet
+  - name: productsubcategories
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/adventure_works/productsubcategories/*"
+      options:
+        format: parquet
+  - name: vendors
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/adventure_works/vendors/*"
+      options:
+        format: parquet
+  - name: vendorproduct
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/adventure_works/vendorproduct/*"
+      options:
+        format: parquet
+  - name: productcategories
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/adventure_works/productcategories/*"
+      options:
+        format: parquet
+  - name: products
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/adventure_works/products/*"
+      options:
+        format: parquet
+  - name: employees
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/adventure_works/employees/*"
+      options:
+        format: parquet
+  - name: orders
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/adventure_works/orders/*"
+      options:
+        format: parquet

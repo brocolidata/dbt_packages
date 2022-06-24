@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: currencies_rates_format
+    description: "Indice journalier de la valeur du Dirham vs Euro € - Dollars $ - Livre £ "
+    columns:
+      - name: upload_date
+        description: "Date de chargement de l'enregistrement"
+
+      - name: price_date
+        description: "Date d'enregistrement des valeurs"
+
+      - name: usd_rate
+        description: "Valeur du Dollars americain par rapport à la devise de référence"
+
+      - name: gbp_rate
+        description: "Valeur de la Livre sterling par rapport à la devise de référence"
+
+      - name: euro_rate
+        description: "Valeur de l'Euro par rapport à la devise de référence"
+
+      - name: mad_base
+        description: "La devise de référence"
