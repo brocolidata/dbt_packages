@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+    dbt_packages:
+        image: brocolidata/dbt_packages
+        container_name: dbt_packages
+        environment:
+          - GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS
+          - FRONT_PROJECT_ID=$FRONT_PROJECT_ID
+          - BACK_PROJECT_ID=$BACK_PROJECT_ID
+          - GCP_REGION=$GCP_REGION
+          - DATALAKE_BUCKET=$DATALAKE_BUCKET
+          - GIT_TOKEN=$GIT_TOKEN
+          - DBT_DOCS_BUCKET=$DBT_DOCS_BUCKET
+          - DBT_DOCS_READ_GROUP=$DBT_DOCS_READ_GROUP
+          - DATASET_NAME_STG=stg
+          - DATASET_NAME_ODS=ods
+          - DATASET_NAME_PRS=prs
+          - DATASET_NAME_PRP=prp
+          - THREADS=2
+          # - DBT_PATH=/src/dbt_functions/dbt_repo/src
+          # - DBT_PROFILES_DIR=/src/dbt_functions/dbt_repo/profiles
+          # - VENV_DIR_PATH=/src/functions_venvs
+          - DEFAULT_GCS_PARTITIONNING_KEYS=["year","month"]
+        volumes:
+          - ./credentials:/opt/workspace/credentials
+          - ./src:/src
+          - ./profiles:/root/.dbt
+        working_dir: /src
+        stdin_open: true
+        tty: true

@@ -1,0 +1,15 @@
+{
+  "name": "Data Platform Functions",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "dbt_packages",
+  "workspaceFolder": "/src",
+  "shutdownAction": "stopCompose",
+  "extensions": [
+    "innoverio.vscode-dbt-power-user"
+  ],
+  "settings": {
+    "files.associations": {
+      "*.sql": "jinja-sql"
+    }
+  }
+}
