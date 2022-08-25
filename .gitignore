@@ -1,0 +1,10 @@
+
+profiles/.user.yml
+
+**/.env
+
+**/credentials/**
+
+**/.DS_Store
+
+**/dbt_packages/**

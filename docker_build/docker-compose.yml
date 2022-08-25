@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+
+    dbt_packages:
+        image: brocolidata/dbt_packages
+        build: .
