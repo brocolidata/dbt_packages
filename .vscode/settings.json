@@ -1,0 +1,10 @@
+{
+    "conventionalCommits.lineBreak":"\n",
+    "conventionalCommits.gitmoji": false,
+    "conventionalCommits.promptBody": false,
+    "conventionalCommits.scopes": [
+        "dbt_package",
+        "devops",
+        "core"
+    ]
+}

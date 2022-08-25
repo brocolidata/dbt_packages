@@ -1,0 +1,176 @@
+#!/usr/bin/bash
+
+cli_help() {
+  cat << EOF
+
+    ____           __          ____    __ 
+   / __/___ ______/ /_    ____/ / /_  / /_
+  / /_/ __ '/ ___/ __/   / __  / __ \/ __/
+ / __/ /_/ (__  ) /_    / /_/ / /_/ / /_  
+/_/  \__,_/____/\__/____\__,_/_.___/\__/  
+                  /_____/                 
+
+
+fast_dbt
+
+Usage: 
+  fast_dbt [command]                                  (except 'show', 'generate_sql' & 'run_branch' commands)
+  fast_dbt [command] source_name table_name           (for 'run_branch' and 'generate_sql' commands)
+  fast_dbt generate_yml table                         (for 'generate_yml' command)
+  
+
+
+Commands:
+  deploy_docs           Deploy dbt docs to GCS
+  deploy_docs_local     Run a local dbt docs server
+  deps                  Clean & Reinstall dbt packages
+  generate_sources      Refresh stg.yml from external tables in Datalake
+  generate_sql          Generate sql script from sources provided as arg
+  generate_yml          Generate yml file from table provided as arg
+  run_branch            Run dbt select for all child of source provided as arg
+  run_model             Run dbt select only for the model provided as arg
+  stage_sources         Stage unstaged sources
+  help                  Show this message
+  
+
+EOF
+  exit 1
+}
+
+
+case "$1" in
+  help)
+    cli_help
+    ;;
+esac
+
+
+
+case "$1" in
+  generate_sources)
+
+    cd $DBT_PATH
+
+    # run command to generate sources
+    echo "Refreshing stg.yml ..."
+    python3 -m brocolib_utils.fast_dbt.cli
+    
+    echo "Done"
+    ;;
+esac
+
+
+case "$1" in
+  stage_sources)
+
+    cd $DBT_PATH
+
+    # run command to generate sources
+    echo "Staging unstaged sources ..."
+    dbt run-operation stage_external_sources
+    echo "Done"
+    ;;
+esac
+
+
+case "$1" in
+  run_model)
+
+    model=$2
+    cd $DBT_PATH
+
+    # run command to generate sources
+    echo "Running for childs of source ${source} ..."
+    dbt run --select $model
+    
+    echo "Done"
+    ;;
+esac
+
+
+case "$1" in
+  run_branch)
+    
+    source=$2
+    table=$3
+    cd $DBT_PATH
+
+    # run command to generate sources
+    echo "Running for childs of source ${source} ..."
+    dbt run --select source:${source}.${table}+
+    
+    echo "Done"
+    ;;
+esac
+
+
+case "$1" in
+  deps)
+
+    cd $DBT_PATH
+
+    echo "Running dbt clean ..."
+    dbt clean
+
+    echo "Running dbt deps ..."
+    dbt deps
+    
+    echo "Done"
+    ;;
+esac
+
+
+case "$1" in
+  deploy_docs)
+
+    # Running dbt-docs deploy CLI
+    echo "Deploying dbt docs to GCS ..."
+    python3 -m brocolib_utils.catalog_gen.cli
+    
+    echo "Done"
+    ;;
+esac
+
+
+case "$1" in
+  deploy_docs_local)
+
+    cd $DBT_PATH
+
+    echo "Generating dbt docs ..."
+    dbt docs generate
+
+    echo "Serving dbt docs ..."
+    dbt docs serve
+    
+    ;;
+esac
+
+
+case "$1" in
+  generate_sql)
+
+    source=$2
+    table=$3
+    cd $DBT_PATH
+    
+    echo "Generating .sql for table ${table} in source ${source} ..."
+    dbt run-operation generate_base_model \
+      --args "{source_name: $source, table_name: $table}"
+    
+    ;;
+esac
+
+
+case "$1" in
+  generate_yml)
+
+    table=$2
+    cd $DBT_PATH
+
+    echo "Generating .yml for table ${table} ..."
+    dbt run-operation generate_model_yaml \
+      --args "{model_name: $table}"
+    
+    ;;
+esac
