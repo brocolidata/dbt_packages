@@ -6,18 +6,6 @@
     "plugins": [
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
-        "semantic-release-export-data",
-        [
-            "@semantic-release/github",
-            {
-                "assets": [
-                    {
-                        "path": "src/currencies/**",
-                        "name": "dbt_currencies_${nextRelease.gitTag}",
-                        "label": "dbt Currencies (${nextRelease.gitTag})"
-                    }
-                ]
-            }
-        ]    
+        "semantic-release-export-data"  
     ]
 }
