@@ -1,0 +1,94 @@
+name: '[CD] Release dbt packages'
+on:
+  push:
+    branches:
+      - main    
+    paths:
+      - 'src/**'
+jobs:
+  changes:
+    name: 'Check files for changes'
+    runs-on: ubuntu-latest
+    outputs:
+      currencies: ${{ steps.filter.outputs.currencies }}
+      freight: ${{ steps.filter.outputs.freight }}
+      fuel: ${{ steps.filter.outputs.fuel }}
+      adventure_works: ${{ steps.filter.outputs.adventure_works }}
+      changed_projects: ${{ steps.filter.outputs.changes }}
+    steps:
+      - name: 'Checkout branch'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: 'Filter updated dbt projects'
+        uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            currencies:
+              - 'src/currencies/**'
+            freight:
+              - 'src/freight/**'
+            fuel:
+              - 'src/fuel/**'
+            adventure_works:
+              - 'src/adventure_works/**'
+      
+      - name: 'Debug dorny/paths-filter'
+        run: echo ${{ steps.filter.outputs.changes }}
+  
+  release:
+    name: 'Release'
+    runs-on: ubuntu-latest
+    needs: changes
+    strategy:
+      matrix:
+        changed_project: ${{ fromJSON(needs.changes.outputs.changed_projects) }}
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: 'Setup Node.js'
+        uses: actions/setup-node@v2
+        with:
+          node-version: 'lts/*'
+
+      - name: 'Install npx'
+        run: npm i npx
+
+      - name: 'Get Next version'
+        id: get-next-version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: ${{ github.workspace }}/src/${{ matrix.changed_project }}
+        run: npx semantic-release --dry-run
+        
+      - name: 'Create Draft Release'
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: '${{ matrix.changed_project }}_v_${{ steps.get-next-version.outputs.new-release-version }}'
+          release_name: '${{ matrix.changed_project }} v${{ steps.get-next-version.outputs.new-release-version }}'
+          draft: true
+          prerelease: false
+
+      - name: 'Upload assets to release'
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: '${{ github.workspace }}/src/${{ matrix.changed_project }}'
+          asset_name: '${{ matrix.changed_project }}-artifact.zip'
+          asset_content_type: application/zip
+
+      - name: 'Publish release'
+        uses: eregon/publish-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_id: ${{ steps.create_release.outputs.id }}
