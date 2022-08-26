@@ -14,12 +14,14 @@ with source as (
 renamed as (
 
     select
-        cast(TIMESTAMP(FORMAT_TIMESTAMP('%F',upload_date)) as DATETIME) as upload_date,
-        cast(PARSE_DATETIME('%F', price_date) as DATETIME) as price_date,
+        cast(
+            timestamp(format_timestamp('%F', upload_date)) as DATETIME
+        ) as upload_date,
+        cast(parse_datetime('%F', price_date) as DATETIME) as price_date,
+        base_currency as mad_base,
         round(cast(usd as NUMERIC), 4) as usd_rate,
         round(cast(gbp as NUMERIC), 4) as gbp_rate,
-        round(cast(eur as NUMERIC), 4) as euro_rate,
-        base_currency as mad_base
+        round(cast(eur as NUMERIC), 4) as euro_rate
 
     from source
 
