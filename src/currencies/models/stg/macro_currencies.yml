@@ -1,0 +1,14 @@
+version: 2
+sources:
+- name: macro_currencies
+  database: brocolitest-internal-back
+  schema: stg
+  loader: gcloud storage
+  tables:
+  - name: currencies_exchange_rate
+    description: Description for currencies_exchange_rate
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/macro/currencies/currencies_exchange_rate/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/macro/currencies/currencies_exchange_rate/"

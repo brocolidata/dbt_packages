@@ -1,0 +1,59 @@
+
+# Project names should contain only lowercase characters and underscores
+name: 'currencies'
+config-version: 2
+version: '1.0.0'
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'my-bigquery-db'
+
+# These configurations specify where dbt should look for different types of files.
+model-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+log-path: '/tmp/dbt_logs'
+target-path: '/tmp/target'  # directory which will store compiled SQL files
+clean-targets:         # directories to be removed by `dbt clean`
+  - 'dbt_modules'
+
+
+# Variables
+
+
+
+
+# Configuring quoting & query comment
+quoting:
+  database: true # translates to gcp project
+  identifier: true
+  schema: true # translates to gcp dataset
+
+query-comment:
+  job-label: true
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+models:
+  dataplatform:
+    # Applies to all files under models/example/
+    ods:
+      +dataset: "{{ env_var('DATASET_NAME_ODS') }}"
+      materialized: table
+    prp:
+      +dataset: prp
+      materialized: table
+    prs:
+      +database: "brocolitest-internal-front"
+      materialized: view
+      macro:
+        +dataset: macro
+      purchases:
+        +schema: "purchases"
+
+# Configuring seeds
+seeds:
+  dataplatform:
+    +dataset: stg     
