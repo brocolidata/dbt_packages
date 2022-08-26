@@ -1,0 +1,15 @@
+my-bigquery-db:
+  target: prod
+  outputs:
+    prod:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('BACK_PROJECT_ID') }}"
+      dataset: "{{ env_var('DATASET_NAME_ODS') }}"
+      threads: "{{ env_var('THREADS', '2') | as_number }}"
+      timeout_seconds: 300
+      priority: interactive
+      retries: 1
+      location: "EU"
+
+
