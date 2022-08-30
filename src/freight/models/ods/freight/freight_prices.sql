@@ -10,7 +10,7 @@ with freight_prices as (
     select * from {{ ref('freight_prices_format') }}
 
     {% if is_incremental() %}
-      where upload_datetime > (select max(upload_datetime) from {{ this }})
+        where upload_datetime > (select max(upload_datetime) from {{ this }})
     {% endif %}
 
 )
