@@ -43,3 +43,26 @@ profile = my-bigquery-db
 target = prod
 
 ```
+
+## Lint `.sql` files with sqlfluff
+There are 2 ways of using sqlfuff : 
+- `lint` : Show linting violations
+- `fix` : Fix linting violations
+
+### From inside the remote dev container
+1. `cd` in the dbt project you want to lint
+2. Run the following command after making this substitutions :
+  - `COMMAND` by either `fix` or `lint`)*
+  - `PATH` by either `models/` (to lint all the project models) or the path to a model or directory of models
+```
+sqlfluff COMMAND PATH
+```
+
+### From outside the remote dev container
+Make sure you are in the root folder and run the following command after making this substitutions :
+  - `DBT_PROJECT_NAME` by the name of the dbt project folder 
+  - `COMMAND` by either `fix` or `lint`)*
+  - `PATH` by either `models/` (to lint all the project models) or the path to a model or directory of models
+```
+docker compose run -w /src/DBT_PROJECT_NAME dbt_packages sqlfluff COMMAND PATH
+```
