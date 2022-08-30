@@ -1,3 +1,4 @@
+![Brocolib Logo](dbt_packages_github_banner.png)
 # dbt_packages
 Repository that contains all dbt packages created by Brocoli Data
 
