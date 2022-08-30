@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: fuel_prices_per_stations
+    description: "Prix quotidiens des carburants par station Total au Maroc."
+    columns:
+      - name: prix_diesel
+        description: "Prix du Diesel (en DH)"
+
+
+      - name: prix_essence
+        description: "Prix de l'Essence (en DH)"
+
+
+      - name: prix_excelium_sp
+        description: "Prix de l'Excellium Sans Plomb 98 (en DH)"
+
+
+      - name: prix_aditive
+        description: "Prix additif"
+
+      - name: upload_datetime
+        description: "Date de chargement de l'enregistrement"
+
+      - name: station
+        description: "Nom de la station-service"
+
+      - name: city
+        description: "Ville de la station-service"
