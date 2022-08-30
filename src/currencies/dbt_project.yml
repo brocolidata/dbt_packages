@@ -17,12 +17,10 @@ snapshot-paths: ["snapshots"]
 log-path: '/tmp/dbt_logs'
 target-path: '/tmp/target'  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
-  - 'dbt_modules'
+  - 'dbt_packages'
 
 
 # Variables
-
-
 
 
 # Configuring quoting & query comment
@@ -37,23 +35,21 @@ query-comment:
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 models:
-  dataplatform:
+  currencies:
     # Applies to all files under models/example/
-    ods:
-      +dataset: "{{ env_var('DATASET_NAME_ODS') }}"
-      materialized: table
     prp:
       +dataset: prp
-      materialized: table
+      +materialized: table
+    ods:
+      +dataset: "{{ env_var('DATASET_NAME_ODS') }}"
+      +materialized: table
     prs:
-      +database: "brocolitest-internal-front"
-      materialized: view
+      +database: "{{ env_var('FRONT_PROJECT_ID') }}"
+      +materialized: table
       macro:
         +dataset: macro
-      purchases:
-        +schema: "purchases"
-
+      
 # Configuring seeds
 seeds:
-  dataplatform:
+  currencies:
     +dataset: stg     
