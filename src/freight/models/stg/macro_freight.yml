@@ -1,0 +1,14 @@
+version: 2
+sources:
+- name: macro_freight
+  database: brocolitest-internal-back
+  schema: stg
+  loader: gcloud storage
+  tables:
+  - name: freight_prices
+    description: Description for freight_prices
+    external:
+      location: "gs://brocolitest-internal-datalake-bucket/macro/freight/freight_prices/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolitest-internal-datalake-bucket/macro/freight/freight_prices/"

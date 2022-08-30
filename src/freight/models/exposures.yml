@@ -1,0 +1,19 @@
+version: 2
+exposures:
+  - name: MACO2
+    type: dashboard
+    maturity: low
+    url: https://datastudio.google.com/reporting/8ab893b7-c04c-4de5-a1c1-05eeac70a1f9
+    description: >
+      **Code** : [MAC02]
+      
+      **Nom** : Evolution de l'indice des prix de transport international
+      
+      **Détails** : Evolution quotidienne des prix du transport international pour la ligne Chine-Med
+    
+    depends_on:
+      - ref('freight_index')
+      
+    owner:
+      name: admins
+      email: administrators@brocoli.tech
