@@ -20,11 +20,12 @@ You can find all the pipelines in the [Actions section of the GitHub repository]
 - **GOOGLE_CREDENTIALS** : a service account json
 - **GCP_REGION** : Region of the project
 
-### Location of the `yml` file for the pipelines
-**All the `yml` files for CI/CD pipelines must be located in the `/.github/workflows` directory**
+### Location of the `.yml` file for the pipelines
+**All the `.yml` files for CI/CD pipelines must be located in the `/.github/workflows` directory**
 
 ## Update CI/CD pipelines
 Here are the places where code should be added/deleted when a dbt project is added/deleted :
+
 *In `.github/worklfows/dbt_validation_CI.yml` :*
 - update `jobs.changes.outputs` (2 lines to add)
 - update the `Filter updated dbt projects` (2 lines to add)
