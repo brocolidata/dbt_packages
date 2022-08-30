@@ -1,74 +1,28 @@
 # dbt_packages
 Repository that contains all dbt packages created by Brocoli Data
 
-## dbt conventions
-See : 
-- [dbt Style Guide](src/dbt_guide.md)
+## List of dbt projects
+| dbt project name & link                          | Description of the project                  |
+|--------------------------------------------------|---------------------------------------------|
+| [adventure works](src/adventure_works/README.md) | Adventure Works demo data                   |
+| [currencies](src/currencies/README.md)           | Currencies rate compared to Moroccan Dirham |
+| [freight](src/freight/README.md)                 | Shipping Container Price Index              |
+| [fuel](src/fuel/README.md)                       | Fuel prices in Casablanca, Morocco          |
 
-## Process to add a dbt project
+## Quickstart
+1. Make a copy of **.env.example** named **.env** both in the **root folder** and **/docker_build** then replace dummy values with yours in both files
+2. Add your credential file in `credentials` folder (rename the file to `google_credentials.json`) for local development purposes
+2. Run the [Development start](#development-start) process to create the image
+3. Open a Remote Window  *(click on blue button left-down corner and click "Reopen in Container)*
 
-### 1. [Process to create a dbt project](#process-to-create-a-dbt-project)
-
-### 2. Update CI/CD pipelines
-*In `.github/worklfows/dbt_validation_CI.yml` :*
-- update `jobs.changes.outputs` (2 lines to add)
-- update the `Filter updated dbt projects` (2 lines to add)
-
-*In `.github/worklfows/release_CD.yml` :*
-- update `jobs.changes.outputs` (2 lines to add)
-- update the `Filter updated dbt projects` (2 lines to add)
-
-
-## Process to create a dbt project
-1. Make sure you are in `/src` folder and run `dbt init` then follow the steps to create a skeleton for your dbt project.
-2. Create a file named `.releaserc` in the root folder created by the previous command and with the following code :
-  
-    Replace the following placeholders : 
-    *  `SHORT` by an abbreviation of your dbt project name (it can be similar to `LONG_NAME` if the latter is short) 
-    * `LONG_NAME` by the name of the dbt project you created in the previous step 
-    * `HUMAN NAME` by a long human name for your project (it can be similar to `LONG_NAME`)
+## Development start
+The first time you clone the project and each time you make changes to the Dockerfile, rerun
 ```
-{
-    "branches": [
-        "main"
-    ],
-    "tagFormat":"SHORT_v_${version}",
-    "plugins": [
-        "@semantic-release/commit-analyzer",
-        "@semantic-release/release-notes-generator",
-        [
-            "@semantic-release/github",
-            {
-                "assets": [
-                    {
-                        "path": "src/LONG_NAME/**",
-                        "name": "dbt_SHORT_${nextRelease.gitTag}",
-                        "label": "dbt HUMAN NAME  (${nextRelease.gitTag})"
-                    }
-                ]
-            }
-        ]    
-    ]
-}
-```
-3. Create a file named `.sqlfluff` in the root folder created by the previous command and with the following code :
-```
-[sqlfluff]
-templater = dbt
-dialect = bigquery
-sql_file_exts = .sql
-
-[tool.sqlfluff.templater.jinja]
-apply_dbt_builtins = True
-
-[sqlfluff:templater:dbt]
-project_dir = .
-profiles_dir = ../../profiles
-profile = my-bigquery-db
-target = prod
-
+docker compose -f docker_build/docker-compose.yml build
 ```
 
-
-## Process to update version
-- Update the version in `dbt_project.yml`
+## Useful links
+- [Create a brocoli dbt package](src/brocoli_dbt_packages.md)
+- [dbt Style Guide](src/dbt_style_guide.md)
+- [Release a brocoli dbt package](release.MD)
+- [CI/CD pipelines](.github/workflows/CI_CD_pipelines.md)
