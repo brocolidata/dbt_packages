@@ -4,12 +4,12 @@
 Our models (typically) fit into three main categories: 
 - **prp** : sources are renamed and recasted
 - **ods** : **prp** models are restructured as either dimensions or facts tables.
-- **marts** : **ods** fact and dimensiosn tables are unioned in order to create wide tables
+- **prs** : **ods** fact and dimensiosn tables are unioned in order to create wide tables
 
 The file and naming structures are as follows:
 ```
 └── models
-    ├── marts
+    ├── prs
     |   └── macro
     |       ├── fuel
     |       |   └── fuel_prices_per_stations.sql
@@ -17,16 +17,20 @@ The file and naming structures are as follows:
     ├── prp
     |   └── macro
     |       └── fuel
-    |       |   ├── fuel_prices_prp.sql
-    |       |   └── fuel_stations_prp.sql
-    |       └── macro_prp.yml
+    |           ├── _fuel_prp.yml
+    |           ├── prp_fuel_prices.sql
+    |           └── prp_fuel_stations.sql
+    |
     ├── ods
     |   └── macro
     |       ├── fuel
+    |       |   ├── _fuel_ods.yml
     |       |   ├── fct_fuel_prices.sql
     |       |   └── dim_fuel_stations.sql
     |       └── macro_ods.yml
-    └── stg.yml
+    └── stg
+        └── macro_fuel.yml
+
 ```
 - All objects should be plural, such as: `fuel_prices_prp`
 - prp models are suffixed with `_prp`, such as: `<source>_<object>_prp`
@@ -238,3 +242,7 @@ models:
 
 * When using Jinja delimiters, use spaces on the inside of your delimiter, like `{{ this }}` instead of `{{this}}`
 * Use newlines to visually indicate logical blocks of Jinja
+
+
+## Useful links
+- [dbt Documentation | How we structure our dbt projects](https://docs.getdbt.com/guides/best-practices/how-we-structure/1-guide-overview)
