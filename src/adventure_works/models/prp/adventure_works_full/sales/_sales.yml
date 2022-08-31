@@ -1,0 +1,258 @@
+version: 2
+models:
+  - name: Currency_prp
+    description: Devises ISO standard.
+    columns:
+      - name: code_devise
+        description: Le code ISO de la devise.
+      - name: nom_devise
+        description: Nom de la devise.
+      - name: date_modification
+        description: Date et heure de dernière mise à jour de l'enregistrement.
+  - name: CurrencyRate_prp
+    description: Taux de change.
+    columns:
+      - name: ID_taux_change
+        description: Clé primaire pour les enregistrements de devises.
+      - name: date_taux_change
+        description: Date et heure du taux de change.
+      - name: change_depuis
+        description: Le taux de change a été converti à partir de ce code de devise.
+      - name: change_vers
+        description: Le taux de change a été converti en ce code de devise.
+      - name: taux_change_moyen
+        description: Taux de change moyen pour la journée.
+      - name: taux_change_fin_journee
+        description: Taux de change final pour la journée.
+      - name: date_modification
+        description: Date et heure de dernière mise à jour de l'enregistrement.
+  - name: Customer_prp
+    description: Clients.
+    columns:
+      - name: ID_client
+        description: Clé primaire.
+      - name: ID_personne
+        description: Clé étrangère à la Person.BusinessEntityID
+      - name: ID_magasin
+        description: Clé étrangère pour Store.BusinessEntityID
+      - name: ID_territoire
+        description: >
+          ID du territoire dans lequel se trouve le client. Clé étrangère à
+          SalesTerritory.TerritoryID.
+      - name: numero_compte
+        description: Numéro unique d'identification du client.
+      - name: ID_unique
+        description: >
+          Identification unique de l'enregistrement. Utilisé pour soutenir un
+          échantillon de réplication de fusion.
+      - name: date_modification
+        description: Date et heure de dernière mise à jour de l'enregistrement.
+  - name: SalesOrderDetail_prp
+    description: Produits individuels associés à une commande commerciale spécifique.
+    columns:
+      - name: ID_commande_commerciale
+        description: Clé primaire. Clé étrangère à SalesOrderHeader.SalesOrderID.
+      - name: ID_ligne_commande
+        description: Clé primaire. Un nombre unique incrémentiel par produit vendu.
+      - name: numero_suivi_transporteur
+        description: Numéro de suivi de l'expédition fournis par l'expéditeur.
+      - name: quantite_commandee
+        description: Quantité commandée par produit.
+      - name: ID_produit
+        description: Produit vendu au client. Clé étrangère du Product.ProductID.
+      - name: ID_offre_promotionnelle
+        description: Code promotionnel. Clé étrangère à SpecialOffer.SpecialOfferID.
+      - name: prix_unitaire
+        description: Prix ​​de vente d'un seul produit.
+      - name: remise
+        description: Montant de réduction.
+      - name: total_ligne
+        description: >
+          Sous-total par produit. Calculé sous forme prix_unitaire * (1 -
+          remise) * quantite_commandee.
+      - name: ID_unique
+        description: Numéro d'identification unique de l'enregistrement.
+      - name: date_modification
+        description: Date et heure de dernière mise à jour de l'enregistrement.
+  - name: SalesOrderHeader_prp
+    description: Informations générales sur les commandes commerciales.
+    columns:
+      - name: ID_commande
+        description: Clé primaire.
+      - name: numero_revision
+        description: >
+          Nombre progressif pour suivre les modifications de la commande client
+          au fil du temps.
+      - name: date_commande
+        description: Date de la commande par le client.
+      - name: date_echeance
+        description: Date que la commande est due au client.
+      - name: date_expedition
+        description: Date que la commande a été expédiée au client.
+      - name: statut
+        description: >
+          L'état actuel de la commande. 1 = en cours; 2 = approuvé; 3 = bordé; 4
+          = rejeté; 5 = expédié; 6 = annulé
+      - name: est_une_commande_internet
+        description: >
+          0 = commande passée par le vendeur. 1 = commande passée en ligne par
+          le client.
+      - name: numero_commande_client
+        description: Numéro d'identification de commande client unique.
+      - name: numero_achat_client
+        description: Référence du numéro d'achat client.
+      - name: numero_compte
+        description: Référence du numéro de comptabilité financière.
+      - name: ID_client
+        description: >
+          Numéro d'identification client. Clé étrangère au
+          Client.BusinessEntityID.
+      - name: ID_vendeur
+        description: >
+          Vendeur qui a créé la commande client. Clé étrangère pour
+          Vendor.BusinessEntityID.
+      - name: ID_territoire
+        description: >
+          Territoire dans lequel la vente a été effectuée. Clé étrangère à
+          SalesTerritory.SalesTerritoryID.
+      - name: ID_adresse_facturation
+        description: Adresse de facturation du client. Clé étrangère à Address.AddressID.
+      - name: ID_adresse_expedition
+        description: Adresse d'expédition du client. Clé étrangère à Address.AddressID.
+      - name: ID_methode_livraison
+        description: Mode de livraison. Clé étrangère à ShipMethod.ShipMethodID.
+      - name: ID_carte_credit
+        description: >
+          Numéro d'identification de la carte de crédit. Clé étrangère à
+          CreditCard.CreditCardID.
+      - name: code_approbation_carte_credit
+        description: Code d'approbation fourni par la société de carte de crédit.
+      - name: ID_taux_change
+        description: Taux de change utilisé. Clé étrangère de Currencyrate.currencyRateid.
+      - name: sous_total
+        description: >
+          Sous-total des ventes. Calculé sous forme de somme
+          (SalesOrderDetail.linetotal) pour le SalesOrderId approprié.
+      - name: montant_taxe
+        description: Montant de la taxe.
+      - name: fret
+        description: Frais de port.
+      - name: total
+        description: Total dû du client. Calculé comme sous_total + montant_taxe + fret.
+      - name: commentaire
+        description: Commentaires des représentants commerciaux.
+      - name: ID_unique
+        description: Numéro d'identification unique de l'enregistrement.
+      - name: date_modification
+        description: Date et heure de dernière mise à jour de l'enregistrement.
+  - name: SalesPerson_prp
+    description: Représentant commercial.
+    columns:
+      - name: ID_entite_commerciale
+        description: >
+          Clé primaire pour les enregistrements du vendeur. Clé étrangère à
+          l'employé.BusinessEntityID
+      - name: ID_territoire
+        description: >
+          Territoire actuellement affecté. Clé étrangère à
+          SalesTerritory.SalesTerritoryID.
+      - name: quota_vente
+        description: Projection des ventes annuelles.
+      - name: prime
+        description: Bonus dû si le quota est rempli.
+      - name: pourcentage_commission
+        description: Pourcentage de commission reçu par vente.
+      - name: ventes_YTD
+        description: Ventes depuis le début de l'année en cours à aujourd'hui.
+      - name: ventes_annee_derniere
+        description: Total des ventes de l'année précédente.
+      - name: ID_unique
+        description: >
+          Identification unique de l'enregistrement. Utilisé pour soutenir un
+          échantillon de réplication de fusion.
+      - name: date_modification
+        description: Date et heure de dernière mise à jour de l'enregistrement.
+  - name: SalesTerritory_prp
+    description: Territoires de ventes.
+    columns:
+      - name: ID_territoire
+        description: Clé primaire pour les enregistrements de Salesterritory.
+      - name: nom_territoire
+        description: Description du territoire de ventes
+      - name: code_region
+        description: >
+          Code de pays ou région standard ISO. Clé étrangère de
+          CountryRegion.CountryRegionCode.
+      - name: zone_geographique
+        description: Zone géographique à laquelle appartient le territoire de ventes.
+      - name: ventes_YTD
+        description: Ventes sur le territoire depuis le début de l'année à ce jour.
+      - name: ventes_annee_derniere
+        description: Ventes sur le territoire l'année précédente.
+      - name: cout_YTD
+        description: Coûts commerciaux sur le territoire du début de l'année à ce jour.
+      - name: cout_annee_derniere
+        description: Les coûts des entreprises sur le territoire l'année précédente.
+      - name: ID_unique
+        description: Numéro d'identification unique de l'enregistrement.
+      - name: date_modification
+        description: Date et heure de dernière mise à jour de l'enregistrement.
+  - name: SpecialOffer_prp
+    description: Offres promotionnelles commerciales.
+    columns:
+      - name: ID_offre_promotionnelle
+        description: Clé primaire pour les enregistrements spéciaux.
+      - name: description
+        description: Description de l'offre promotionnelle.
+      - name: pourcentage_remise
+        description: Pourcentage de remise.
+      - name: type_remise
+        description: Type d'offre promotionnelle.
+      - name: beneficiaire_remise
+        description: Bénéficiaire de la réduction (s'applique au revendeur ou au client).
+      - name: date_debut
+        description: Date de début de remise.
+      - name: date_fin
+        description: Date de fin de remise.
+      - name: remise_minimale
+        description: Pourcentage de remise minimum autorisé.
+      - name: remise_maximale
+        description: Pourcentage de remise maximal autorisé.
+      - name: ID_unique
+        description: Identification unique de l'enregistrement.
+      - name: date_modification
+        description: Date et heure de dernière mise à jour de l'enregistrement.
+  - name: SpecialOfferProduct_prp
+    description: Table d'association entre Product et SpecialOffer.
+    columns:
+      - name: ID_offre_promotionnelle
+        description: >
+          Numéro d'identification de l'offre promotionnelle. Clé étrangère du
+          SpecialOffer.SpecialOfferID.
+      - name: ID_produit
+        description: >
+          Numéro d'identification du produit. Clé étrangère du
+          Product.ProductID.
+      - name: ID_unique
+        description: Numéro RowGuidCol Identification unique de l'enregistrement.
+      - name: date_modification
+        description: Date et heure de dernière mise à jour de l'enregistrement.
+  - name: Store_prp
+    description: Les clients (revendeurs) de l'aventure fonctionnent des produits.
+    columns:
+      - name: ID_entite_commerciale
+        description: Clé primaire. Clé étrangère au Client.BusinessEntityID.
+      - name: nom_magasin
+        description: Nom du magasin.
+      - name: ID_vendeur
+        description: >
+          ID du vendeur affecté au client. Clé étrangère pour
+          Vendor.BusinessEntityID.
+      - name: statistiques_magasin
+        description: >
+          Informations sur le magasin telles que le nombre d'employés, les
+          ventes annuelles et le type de magasin.
+      - name: ID_unique
+        description: Numéro d'identification unique de l'enregistrement.
+      - name: date_modification
+        description: Date et heure de dernière mise à jour de l'enregistrement.

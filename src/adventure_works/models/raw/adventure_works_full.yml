@@ -1,0 +1,1519 @@
+version: 2
+
+sources:
+  - name: adventure_works_full
+    database: brocolitest-internal-back
+    schema: stg
+    loader: gcloud storage
+    tables:
+      - name: Department
+        description: "Table de recherche contenant les départements de la société Adventure Works Cycles."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/Department/Department.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: DepartmentID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements du département."
+          - name: Name
+            data_type: string
+            description: "Nom du département."
+          - name: GroupName
+            data_type: string
+            description: "Nom du groupe auquel appartient le département."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: Employee
+        description: "Informations sur les employés tels que le salaire, le département et le titre."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/Employee/Employee.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: BusinessEntityID
+            data_type: int64
+            description: "Clé primaire pour les dossiers des employés. Clé étrangère à Businessentity.businessEntityId."
+          - name: NationalIDNumber
+            data_type: string
+            description: "Numéro d'identification national unique tel qu'un numéro de sécurité sociale."
+          - name: LoginID
+            data_type: string
+            description: "Connexion du réseau. Test2"
+          - name: OrganizationNode
+            data_type: bytes
+            description: "Où l'employé est situé dans la hiérarchie des entreprises."
+          - name: OrganizationLevel
+            data_type: int64
+            description: "La profondeur de l'employé dans la hiérarchie des entreprises."
+          - name: JobTitle
+            data_type: string
+            description: "Titre de travail tel que l'acheteur ou le représentant des ventes."
+          - name: BirthDate
+            data_type: date
+            description: "Date de naissance."
+          - name: MaritalStatus
+            data_type: string
+            description: "M = marié, s = célibataire"
+          - name: Gender
+            data_type: string
+            description: "M = mâle, f = femelle"
+          - name: HireDate
+            data_type: date
+            description: "Employé a embauché à cette date."
+          - name: SalariedFlag
+            data_type: bool
+            description: "Classification des emplois. 0 = horaire, non exempté de la négociation collective. 1 = salarié, exempté de négociation collective."
+          - name: VacationHours
+            data_type: int64
+            description: "Nombre d'heures de vacances disponibles."
+          - name: SickLeaveHours
+            data_type: int64
+            description: "Nombre d'heures de congé de maladie disponibles."
+          - name: CurrentFlag
+            data_type: bool
+            description: "0 = inactif, 1 = actif"
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: EmployeeDepartmentHistory
+        description: "Transfert du département des employés."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/EmployeeDepartmentHistory/EmployeeDepartmentHistory.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: BusinessEntityID
+            data_type: int64
+            description: "Numéro d'identification des employés. Clé étrangère à l'employé.businessEntityId."
+          - name: DepartmentID
+            data_type: int64
+            description: "Département dans lequel l'employé a travaillé, y compris actuellement. Clé étrangère du département.DepartmentId."
+          - name: ShiftID
+            data_type: int64
+            description: "Identifie le changement de 8 heures que l'employé travaille. Clé étrangère à shift.shift.id."
+          - name: StartDate
+            data_type: date
+            description: "Date que l'employé a commencé à travailler dans le département."
+          - name: EndDate
+            data_type: date
+            description: "Date que l'employé a quitté le ministère. NULL = Département actuel."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: EmployeePayHistory
+        description: "Les employés paient des antécédents."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/EmployeePayHistory/EmployeePayHistory.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: BusinessEntityID
+            data_type: int64
+            description: "Numéro d'identification des employés. Clé étrangère à l'employé.businessEntityId."
+          - name: RateChangeDate
+            data_type: datetime
+            description: "Date que le changement de rémunération est efficace"
+          - name: Rate
+            data_type: numeric
+            description: "Taux horaire salarial."
+          - name: PayFrequency
+            data_type: int64
+            description: "1 = salaire reçu mensuel, 2 = salaire reçu bihebdomadaire"
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: Shift
+        description: "Tableau de recherche de travail de travail."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/Shift/Shift.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ShiftID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements de décalage."
+          - name: Name
+            data_type: string
+            description: "Description du quart."
+          - name: StartTime
+            data_type: string
+            description: "Heure de début."
+          - name: EndTime
+            data_type: string
+            description: "Shift Fin Time."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: Address
+        description: "Informations sur l'adresse de la rue pour les clients, les employés et les vendeurs."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/Address/Address.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: AddressID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements d'adresse."
+          - name: AddressLine1
+            data_type: string
+            description: "Première ligne d'adresse de rue."
+          - name: AddressLine2
+            data_type: string
+            description: "Deuxième ligne d'adresse de rue."
+          - name: City
+            data_type: string
+            description: "Nom de la ville."
+          - name: StateProvinceID
+            data_type: int64
+            description: "Numéro d'identification unique pour l'État ou la province. Clé étrangère à la table de la province."
+          - name: PostalCode
+            data_type: string
+            description: "Code postal pour l'adresse de la rue."
+          - name: SpatialLocation
+            data_type: bytes
+            description: "Latitude et longitude de cette adresse."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: AddressType
+        description: "Types d'adresses stockés dans le tableau d'adresse."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/AddressType/AddressType.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: AddressTypeID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements d'adressype."
+          - name: Name
+            data_type: string
+            description: "Description du type d'adresse. Par exemple, la facturation, la maison ou l'expédition."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: ContactType
+        description: "Tableau de recherche contenant les types de contacts d'entités commerciaux."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/ContactType/ContactType.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ContactTypeID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements de contact."
+          - name: Name
+            data_type: string
+            description: "Description du type de contact."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: CountryRegion
+        description: "Tableau de recherche contenant les codes standard ISO pour les pays et les régions."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/CountryRegion/CountryRegion.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: CountryRegionCode
+            data_type: string
+            description: "Code standard ISO pour les pays et les régions."
+          - name: Name
+            data_type: string
+            description: "Nom du pays ou de la région."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: StateProvince
+        description: "Table de recherche d'État et de province."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/StateProvince/StateProvince.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: StateProvinceID
+            data_type: int64
+            description: "Clé primaire pour les dossiers de StateProvince."
+          - name: StateProvinceCode
+            data_type: string
+            description: "ISO Standard State ou Province Code."
+          - name: CountryRegionCode
+            data_type: string
+            description: "Code de pays ou région standard ISO. Clé étrangère de CountryRegion.CountryRegionCode."
+          - name: IsOnlyStateProvinceFlag
+            data_type: bool
+            description: "0 = StateProvinerCode existe. 1 = StateProvinCcode indisponible, en utilisant countryRegioncode."
+          - name: Name
+            data_type: string
+            description: "Description de l'État ou de la province."
+          - name: TerritoryID
+            data_type: int64
+            description: "ID du territoire dans lequel se trouve l'État ou la province. Clé étrangère à Salesterritory.SalesterritoryId."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: BillOfMaterials
+        description: "Articles nécessaires pour faire des vélos et des sous-évaluations de vélos. Il identifie la relation héirarchique entre un produit parent et ses composants."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/BillOfMaterials/BillOfMaterials.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: BillOfMaterialsID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements de facturation."
+          - name: ProductAssemblyID
+            data_type: int64
+            description: "Numéro d'identification du produit parent. Clé étrangère du produit.productID."
+          - name: ComponentID
+            data_type: int64
+            description: "Numéro d'identification des composants. Clé étrangère du produit.productID."
+          - name: StartDate
+            data_type: datetime
+            description: "Date que le composant a commencé à être utilisé dans l'élément d'assemblage."
+          - name: EndDate
+            data_type: datetime
+            description: "Date Le composant a cessé d'être utilisé dans l'élément d'assemblage."
+          - name: UnitMeasureCode
+            data_type: string
+            description: "Code standard identifiant l'unité de mesure pour la quantité."
+          - name: BOMLevel
+            data_type: int64
+            description: "Indique la profondeur que le composant provient de son parent (assemblyId)."
+          - name: PerAssemblyQty
+            data_type: numeric
+            description: "Quantité du composant nécessaire pour créer l'assemblage."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: Culture
+        description: "Table de recherche contenant les langues dans lesquelles certaines données AdventureWorks sont stockées."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/Culture/Culture.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: CultureID
+            data_type: string
+            description: "Clé primaire pour les enregistrements de culture."
+          - name: Name
+            data_type: string
+            description: "Description de la culture."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: Location
+        description: "Inventaire des produits et lieux de fabrication."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/Location/Location.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: LocationID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements de localisation."
+          - name: Name
+            data_type: string
+            description: "Description de l'emplacement."
+          - name: CostRate
+            data_type: numeric
+            description: "Coût horaire standard de l'emplacement de fabrication."
+          - name: Availability
+            data_type: numeric
+            description: "Capacité de travail (en heures) de l'emplacement de fabrication."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: Product
+        description: "Produits vendus ou utilisés dans la manfacturation des produits vendus."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/Product/Product.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ProductID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements de produits."
+          - name: Name
+            data_type: string
+            description: "Nom du produit."
+          - name: ProductNumber
+            data_type: string
+            description: "Numéro d'identification unique du produit."
+          - name: MakeFlag
+            data_type: bool
+            description: "0 = le produit est acheté, 1 = le produit est fabriqué en interne."
+          - name: FinishedGoodsFlag
+            data_type: bool
+            description: "0 = Le produit n'est pas un article vendable. 1 = Le produit est vendable."
+          - name: Color
+            data_type: string
+            description: "Couleur du produit."
+          - name: SafetyStockLevel
+            data_type: int64
+            description: "Quantité d'inventaire minimum."
+          - name: ReorderPoint
+            data_type: int64
+            description: "Niveau d'inventaire qui déclenche un bon de commande ou un bon de travail."
+          - name: StandardCost
+            data_type: numeric
+            description: "Coût standard du produit."
+          - name: ListPrice
+            data_type: numeric
+            description: "Prix ​​de vente."
+          - name: Size
+            data_type: string
+            description: "Taille du produit."
+          - name: SizeUnitMeasureCode
+            data_type: string
+            description: "Unité de mesure pour la colonne de taille."
+          - name: WeightUnitMeasureCode
+            data_type: string
+            description: "Unité de mesure pour la colonne de poids."
+          - name: Weight
+            data_type: numeric
+            description: "Poids du produit."
+          - name: DaysToManufacture
+            data_type: int64
+            description: "Nombre de jours nécessaires pour fabriquer le produit."
+          - name: ProductLine
+            data_type: string
+            description: "R = route, m = montagne, t = tournée, s = standard"
+          - name: Class
+            data_type: string
+            description: "H = haut, m = milieu, l = bas"
+          - name: Style
+            data_type: string
+            description: "W = femmes, m = hommes, u = universel"
+          - name: ProductSubcategoryID
+            data_type: int64
+            description: "Le produit est membre de cette sous-catégorie de produit. Clé étrangère de produits sous-catégorie.ProductSubCategoryId."
+          - name: ProductModelID
+            data_type: int64
+            description: "Le produit est membre de ce modèle de produit. Clé étrangère à ProductModel.ProductModelid."
+          - name: SellStartDate
+            data_type: datetime
+            description: "Date que le produit était disponible à la vente."
+          - name: SellEndDate
+            data_type: datetime
+            description: "Date que le produit n'était plus disponible à la vente."
+          - name: DiscontinuedDate
+            data_type: datetime
+            description: "Date que le produit a été interrompu."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: ProductCategory
+        description: "Catégorisation de produits de haut niveau."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/ProductCategory/ProductCategory.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ProductCategoryID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements de catégorie ProductCategory."
+          - name: Name
+            data_type: string
+            description: "Description de la catégorie."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: ProductCostHistory
+        description: "Changements dans le coût d'un produit au fil du temps."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/ProductCostHistory/ProductCostHistory.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ProductID
+            data_type: int64
+            description: "Numéro d'identification du produit. Clé étrangère du produit.productID"
+          - name: StartDate
+            data_type: datetime
+            description: "Date de début du coût du produit."
+          - name: EndDate
+            data_type: datetime
+            description: "Date de fin du coût du produit."
+          - name: StandardCost
+            data_type: numeric
+            description: "Coût standard du produit."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: ProductDocument
+        description: "Table à référence Cross-Reference Mapping Products à des documents de produits connexes."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/ProductDocument/ProductDocument.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ProductID
+            data_type: int64
+            description: "Numéro d'identification du produit. Clé étrangère du produit.productID."
+          - name: DocumentNode
+            data_type: bytes
+            description: "Numéro d'identification de document. Clé étrangère de document.DocumentNode."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: ProductInventory
+        description: "Informations sur l'inventaire des produits."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/ProductInventory/ProductInventory.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ProductID
+            data_type: int64
+            description: "Numéro d'identification du produit. Clé étrangère du produit.productID."
+          - name: LocationID
+            data_type: int64
+            description: "Numéro d'identification de l'emplacement des stocks. Clé étrangère de localisation.locationId."
+          - name: Shelf
+            data_type: string
+            description: "Compartiment de stockage dans un emplacement d'inventaire."
+          - name: Bin
+            data_type: int64
+            description: "Conteneur de stockage sur une étagère dans un emplacement d'inventaire."
+          - name: Quantity
+            data_type: int64
+            description: "Quantité de produits dans l'emplacement des stocks."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: ProductListPriceHistory
+        description: "Changements dans le prix de la liste d'un produit dans le temps."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/ProductListPriceHistory/ProductListPriceHistory.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ProductID
+            data_type: int64
+            description: "Numéro d'identification du produit. Clé étrangère du produit.productID"
+          - name: StartDate
+            data_type: datetime
+            description: "Date de début du prix de la liste."
+          - name: EndDate
+            data_type: datetime
+            description: "Date de fin du prix de la liste"
+          - name: ListPrice
+            data_type: numeric
+            description: "Prix ​​de la liste des produits."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: ProductModelIllustration
+        description: "Mappage et illustrations de produits de cartographie des tableaux croisés."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/ProductModelIllustration/ProductModelIllustration.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ProductModelID
+            data_type: int64
+            description: "Clé primaire. Clé étrangère à ProductModel.ProductModelid."
+          - name: IllustrationID
+            data_type: int64
+            description: "Clé primaire. Clé étrangère à l'illustration.illustrationId."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: ProductModelProductDescriptionCulture
+        description: "Descriptions de mappage de table de référence croisée et la langue dans laquelle la description est écrite."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/ProductModelProductDescriptionCulture/ProductModelProductDescriptionCulture.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ProductModelID
+            data_type: int64
+            description: "Clé primaire. Clé étrangère à ProductModel.ProductModelid."
+          - name: ProductDescriptionID
+            data_type: int64
+            description: "Clé primaire. Clé étrangère de ProductDescription.ProductDescriptionId."
+          - name: CultureID
+            data_type: string
+            description: "Numéro d'identification de la culture. Clé étrangère de la culture.cultureid."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: ProductProductPhoto
+        description: "Produits de mappage de tables croisés et photos de produits."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/ProductProductPhoto/ProductProductPhoto.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ProductID
+            data_type: int64
+            description: "Numéro d'identification du produit. Clé étrangère du produit.productID."
+          - name: ProductPhotoID
+            data_type: int64
+            description: "Numéro d'identification de la photo du produit. Clé étrangère de ProductPhoto.productphotoïde."
+          - name: Primary
+            data_type: bool
+            description: "0 = La photo n'est pas l'image principale. 1 = La photo est l'image principale."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: ProductSubcategory
+        description: "Sous-catégories de produits. Voir ProductCategory Table."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/ProductSubcategory/ProductSubcategory.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ProductSubcategoryID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements de la catégorie des produits."
+          - name: ProductCategoryID
+            data_type: int64
+            description: "Numéro d'identification de la catégorie de produit. Clé étrangère pour productcategory.productcategoryId."
+          - name: Name
+            data_type: string
+            description: "Description de la sous-catégorie."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: ScrapReason
+        description: "Table de recherche de raisons de défaillance de fabrication."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/ScrapReason/ScrapReason.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ScrapReasonID
+            data_type: int64
+            description: "Clé primaire pour les records de scrap-saison."
+          - name: Name
+            data_type: string
+            description: "Description de l'échec."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: TransactionHistory
+        description: "Enregistrement de chaque commande d'achat, commande client ou transaction de travail à ce jour."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/TransactionHistory/TransactionHistory.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: TransactionID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements de transaction."
+          - name: ProductID
+            data_type: int64
+            description: "Numéro d'identification du produit. Clé étrangère du produit.productID."
+          - name: ReferenceOrderID
+            data_type: int64
+            description: "Commande d'achat, commande client ou numéro d'identification des bons de travail."
+          - name: ReferenceOrderLineID
+            data_type: int64
+            description: "Numéro de ligne associé au bon de commande, à la commande client ou à la commande de travail."
+          - name: TransactionDate
+            data_type: datetime
+            description: "Date et heure de la transaction."
+          - name: TransactionType
+            data_type: string
+            description: "W = workorder, s = SalesOrder, p = achatOrder"
+          - name: Quantity
+            data_type: int64
+            description: "La quantité de produit."
+          - name: ActualCost
+            data_type: numeric
+            description: "Coût du produit."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: TransactionHistoryArchive
+        description: "Transactions pour les années précédentes."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/TransactionHistoryArchive/TransactionHistoryArchive.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: TransactionID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements TransactionHistoryArchive."
+          - name: ProductID
+            data_type: int64
+            description: "Numéro d'identification du produit. Clé étrangère du produit.productID."
+          - name: ReferenceOrderID
+            data_type: int64
+            description: "Commande d'achat, commande client ou numéro d'identification des bons de travail."
+          - name: ReferenceOrderLineID
+            data_type: int64
+            description: "Numéro de ligne associé au bon de commande, à la commande client ou à la commande de travail."
+          - name: TransactionDate
+            data_type: datetime
+            description: "Date et heure de la transaction."
+          - name: TransactionType
+            data_type: string
+            description: "W = bon de travail, S = commande commerciale, p = bon de commande"
+          - name: Quantity
+            data_type: int64
+            description: "La quantité de produit."
+          - name: ActualCost
+            data_type: numeric
+            description: "Coût du produit."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: UnitMeasure
+        description: "Tableau de recherche d'unité de mesure."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/UnitMeasure/UnitMeasure.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: UnitMeasureCode
+            data_type: string
+            description: "Clé primaire."
+          - name: Name
+            data_type: string
+            description: "Description de l'unité de mesure."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: WorkOrderRouting
+        description: "Détails de bon de travail."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/WorkOrderRouting/WorkOrderRouting.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: WorkOrderID
+            data_type: int64
+            description: "Clé primaire. Clé étrangère pour workorder.workOrderId."
+          - name: ProductID
+            data_type: int64
+            description: "Clé primaire. Clé étrangère du produit.productID."
+          - name: OperationSequence
+            data_type: int64
+            description: "Clé primaire. Indique la séquence de processus de fabrication."
+          - name: LocationID
+            data_type: int64
+            description: "Emplacement de fabrication où la pièce est traitée. Clé étrangère de localisation.locationId."
+          - name: ScheduledStartDate
+            data_type: datetime
+            description: "Date de début de fabrication prévue."
+          - name: ScheduledEndDate
+            data_type: datetime
+            description: "Date de fin de fabrication planifiée."
+          - name: ActualStartDate
+            data_type: datetime
+            description: "Date de début réelle."
+          - name: ActualEndDate
+            data_type: datetime
+            description: "Date de fin réelle."
+          - name: ActualResourceHrs
+            data_type: numeric
+            description: "Nombre d'heures de fabrication utilisées."
+          - name: PlannedCost
+            data_type: numeric
+            description: "Coût de fabrication estimé."
+          - name: ActualCost
+            data_type: numeric
+            description: "Coût de fabrication réel."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: ProductVendor
+        description: "Table à références transversales cartographier les fournisseurs avec les produits qu'ils fournissent."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/ProductVendor/ProductVendor.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ProductID
+            data_type: int64
+            description: "Clé primaire. Clé étrangère du produit.productID."
+          - name: BusinessEntityID
+            data_type: int64
+            description: "Clé primaire. Clé étrangère du vendeur.businessEntityId."
+          - name: AverageLeadTime
+            data_type: int64
+            description: "La durée moyenne (en jours) entre passer une commande avec le fournisseur et recevoir le produit acheté."
+          - name: StandardPrice
+            data_type: numeric
+            description: "Le prix de vente habituel du vendeur."
+          - name: LastReceiptCost
+            data_type: numeric
+            description: "Le prix de vente lors de la dernière fois acheté."
+          - name: LastReceiptDate
+            data_type: datetime
+            description: "Date du produit a été reçu pour la dernière fois par le vendeur."
+          - name: MinOrderQty
+            data_type: int64
+            description: "La quantité maximale qui doit être commandée."
+          - name: MaxOrderQty
+            data_type: int64
+            description: "La quantité minimale qui doit être commandée."
+          - name: OnOrderQty
+            data_type: int64
+            description: "La quantité actuellement sur commande."
+          - name: UnitMeasureCode
+            data_type: string
+            description: "L'unité de mesure du produit."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: PurchaseOrderDetail
+        description: "Produits individuels associés à un bon de commande spécifique. Voir achatOrderHeader."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/PurchaseOrderDetail/PurchaseOrderDetail.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: PurchaseOrderID
+            data_type: int64
+            description: "Clé primaire. Clé étrangère à achatOrderHeader.PurchaseOrderId."
+          - name: PurchaseOrderDetailID
+            data_type: int64
+            description: "Clé primaire. Un numéro de ligne par produit acheté."
+          - name: DueDate
+            data_type: datetime
+            description: "Date du produit devrait être reçu."
+          - name: OrderQty
+            data_type: int64
+            description: "Quantité commandée."
+          - name: ProductID
+            data_type: int64
+            description: "Numéro d'identification du produit. Clé étrangère du produit.productID."
+          - name: UnitPrice
+            data_type: numeric
+            description: "Le prix de vente du vendeur d'un seul produit."
+          - name: LineTotal
+            data_type: numeric
+            description: "Par produit sous-total. Calculé comme OrderQty * UNITPRICE."
+          - name: ReceivedQty
+            data_type: numeric
+            description: "La quantité a réellement reçu du vendeur."
+          - name: RejectedQty
+            data_type: numeric
+            description: "Quantité rejetée lors de l'inspection."
+          - name: StockedQty
+            data_type: numeric
+            description: "Quantité acceptée en stock. Calculé comme reçusqty - rejettedqty."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: PurchaseOrderHeader
+        description: "Informations générales sur le bon de commande. Voir achatOrderDetail."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/PurchaseOrderHeader/PurchaseOrderHeader.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: PurchaseOrderID
+            data_type: int64
+            description: "Clé primaire."
+          - name: RevisionNumber
+            data_type: int64
+            description: "Numéro incrémentiel pour suivre les modifications du bon de commande au fil du temps."
+          - name: Status
+            data_type: int64
+            description: "Commandez l'état actuel. 1 = en attente; 2 = approuvé; 3 = rejeté; 4 = complet"
+          - name: EmployeeID
+            data_type: int64
+            description: "Employé qui a créé le bon de commande. Clé étrangère à l'employé.businessEntityId."
+          - name: VendorID
+            data_type: int64
+            description: "Vendeur avec qui le bon de commande est placé. Clé étrangère du vendeur.businessEntityId."
+          - name: ShipMethodID
+            data_type: int64
+            description: "Mode de livraison. Clé étrangère à ShipMethod.ShipMethodid."
+          - name: OrderDate
+            data_type: datetime
+            description: "Date de création de commande d'achat."
+          - name: ShipDate
+            data_type: datetime
+            description: "Date d'expédition estimée du vendeur."
+          - name: SubTotal
+            data_type: numeric
+            description: "Sous-total de bon de commande. Calculé sous forme de somme (achatOrderDetail.linetotal) pour le buyOrderId approprié."
+          - name: TaxAmt
+            data_type: numeric
+            description: "Montant de la taxe."
+          - name: Freight
+            data_type: numeric
+            description: "Frais de port."
+          - name: TotalDue
+            data_type: numeric
+            description: "Total en raison du vendeur. Calculé comme sous-total + taxamt + fret."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: ShipMethod
+        description: "Table de recherche de compagnie maritime."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/ShipMethod/ShipMethod.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ShipMethodID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements de ShipMethod."
+          - name: Name
+            data_type: string
+            description: "Nom de la compagnie maritime."
+          - name: ShipBase
+            data_type: numeric
+            description: "Frais d'expédition minimum."
+          - name: ShipRate
+            data_type: numeric
+            description: "Frais d'expédition par livre."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: Vendor
+        description: "Des entreprises dont Adventure Works Cycles achète des pièces ou d'autres marchandises."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/Vendor/Vendor.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: BusinessEntityID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements des fournisseurs. Clé étrangère pour affaires.businessEntityId"
+          - name: AccountNumber
+            data_type: string
+            description: "Numéro de compte du fournisseur (identification)."
+          - name: Name
+            data_type: string
+            description: "Nom de l'entreprise."
+          - name: CreditRating
+            data_type: int64
+            description: "1 = supérieur, 2 = excellent, 3 = supérieur à la moyenne, 4 = moyenne, 5 = inférieur à la moyenne"
+          - name: PreferredVendorStatus
+            data_type: bool
+            description: "0 = N'utilisez pas si un autre fournisseur est disponible. 1 = préféré aux autres fournisseurs fournissant le même produit."
+          - name: ActiveFlag
+            data_type: bool
+            description: "0 = le vendeur n'est plus utilisé. 1 = le vendeur est activement utilisé."
+          - name: PurchasingWebServiceURL
+            data_type: string
+            description: "URL du vendeur."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: CountryRegionCurrency
+        description: "Table à référence Cartage des codes de monnaie ISO dans un pays ou une région."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/CountryRegionCurrency/CountryRegionCurrency.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: CountryRegionCode
+            data_type: string
+            description: "Code ISO pour les pays et les régions. Clé étrangère de CountryRegion.CountryRegionCode."
+          - name: CurrencyCode
+            data_type: string
+            description: "Code de devise standard ISO. Clé étrangère à la devise.CurrencyCode."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: CreditCard
+        description: "Informations sur la carte de crédit client."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/CreditCard/CreditCard.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: CreditCardID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements de CreditCard."
+          - name: CardType
+            data_type: string
+            description: "Nom de la carte de crédit."
+          - name: CardNumber
+            data_type: string
+            description: "Numéro de Carte de Crédit."
+          - name: ExpMonth
+            data_type: int64
+            description: "Mois d'expiration de la carte de crédit."
+          - name: ExpYear
+            data_type: int64
+            description: "Année d'expiration de la carte de crédit."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: Currency
+        description: "Tableau de recherche contenant des monnaies ISO standard."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/Currency/Currency.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: CurrencyCode
+            data_type: string
+            description: "Le code ISO pour la devise."
+          - name: Name
+            data_type: string
+            description: "Nom de la devise."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: CurrencyRate
+        description: "Taux de change."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/CurrencyRate/CurrencyRate.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: CurrencyRateID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements de devises."
+          - name: CurrencyRateDate
+            data_type: datetime
+            description: "Date et heure Le taux de change a été obtenu."
+          - name: FromCurrencyCode
+            data_type: string
+            description: "Le taux de change a été converti à partir de ce code de devise."
+          - name: ToCurrencyCode
+            data_type: string
+            description: "Le taux de change a été converti en ce code de devise."
+          - name: AverageRate
+            data_type: numeric
+            description: "Taux de change moyen pour la journée."
+          - name: EndOfDayRate
+            data_type: numeric
+            description: "Taux de change final pour la journée."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: Customer
+        description: "Informations client actuelles. Voir également la personne et les tables de stockage."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/Customer/Customer.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: CustomerID
+            data_type: int64
+            description: "Clé primaire."
+          - name: PersonID
+            data_type: int64
+            description: "Clé étrangère à la personne.businessEntityId"
+          - name: StoreID
+            data_type: int64
+            description: "Clé étrangère pour stocker.businessentityId"
+          - name: TerritoryID
+            data_type: int64
+            description: "ID du territoire dans lequel se trouve le client. Clé étrangère à Salesterritory.SalesterritoryId."
+          - name: AccountNumber
+            data_type: string
+            description: "Numéro unique Identification du client Affectu le système comptable."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: Person
+        description: "Les êtres humains impliqués dans AdventureWorks: employés, contacts des clients et contacts des fournisseurs."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/Person/Person.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: BusinessEntityID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements des personnes."
+          - name: PersonType
+            data_type: string
+            description: "Type principal de la personne: SC = Contact de magasin, IN = Client individuel (vente au détail), SP = vendeur, EM = Employé (non-vente), VC = Contact du fournisseur, GC = Contact général"
+          - name: NameStyle
+            data_type: bool
+            description: "0 = Les données de FirstName et LastName sont stockées dans l'ordre de style occidental (prénom, nom de famille). 1 = STYLE EST (nom de famille, prénom) Ordre."
+          - name: Title
+            data_type: string
+            description: "Un titre de courtoisie. Par exemple, M. ou Mme"
+          - name: FirstName
+            data_type: string
+            description: "Prénom de la personne."
+          - name: MiddleName
+            data_type: string
+            description: "Deuxième prénom ou initiale centrale de la personne."
+          - name: LastName
+            data_type: string
+            description: "Nom de famille de la personne."
+          - name: Suffix
+            data_type: string
+            description: "Suffix de nom de famille. Par exemple, Sr. ou Jr."
+          - name: EmailPromotion
+            data_type: int64
+            description: "0 = Contact ne souhaite pas recevoir de promotions de messagerie, 1 = Contact souhaite recevoir des promotions de messagerie de l'aventure"
+          - name: AdditionalContactInfo
+            data_type: string
+            description: "Coordonnées supplémentaires sur la personne stockée au format XML."
+          - name: Demographics
+            data_type: string
+            description: "Des informations personnelles telles que des passe-temps et des revenus collectés auprès des acheteurs en ligne. Utilisé pour l'analyse des ventes."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: PersonCreditCard
+        description: "Table de référence Cross-Reference Mappage des personnes à leurs informations de carte de crédit dans la table de carte de crédit."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/PersonCreditCard/PersonCreditCard.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: BusinessEntityID
+            data_type: int64
+            description: "Numéro d'identification de l'entité commerciale. Clé étrangère à la personne.businessEntityId."
+          - name: CreditCardID
+            data_type: int64
+            description: "Numéro d'identification de la carte de crédit. Clé étrangère à CreditCard.CreditCardid."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: SalesOrderDetail
+        description: "Produits individuels associés à une commande commerciale spécifique. Voir SalesOrderHeader."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/SalesOrderDetail/SalesOrderDetail.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: SalesOrderID
+            data_type: int64
+            description: "Clé primaire. Clé étrangère à SalesOrderHeader.SalesOrderId."
+          - name: SalesOrderDetailID
+            data_type: int64
+            description: "Clé primaire. Un nombre unique incrémentiel par produit vendu."
+          - name: CarrierTrackingNumber
+            data_type: string
+            description: "Numéro de suivi de l'expédition fournis par l'expéditeur."
+          - name: OrderQty
+            data_type: int64
+            description: "Quantité commandée par produit."
+          - name: ProductID
+            data_type: int64
+            description: "Produit vendu au client. Clé étrangère du produit.productID."
+          - name: SpecialOfferID
+            data_type: int64
+            description: "Code promotionnel. Clé étrangère à SpecialOFFER.SpecialOFFERID."
+          - name: UnitPrice
+            data_type: numeric
+            description: "Prix ​​de vente d'un seul produit."
+          - name: UnitPriceDiscount
+            data_type: numeric
+            description: "Montant de réduction."
+          - name: LineTotal
+            data_type: bignumeric
+            description: "Par produit sous-total. Calculé sous forme d'UnitPrice * (1 - UnitPricediscount) * OrderQty."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: SalesOrderHeader
+        description: "Informations générales sur les commandes commerciales."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/SalesOrderHeader/SalesOrderHeader.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: SalesOrderID
+            data_type: int64
+            description: "Clé primaire."
+          - name: RevisionNumber
+            data_type: int64
+            description: "Nombre progressif pour suivre les modifications de la commande client au fil du temps."
+          - name: OrderDate
+            data_type: datetime
+            description: "Dates La commande client a été créée."
+          - name: DueDate
+            data_type: datetime
+            description: "Date que la commande est due au client."
+          - name: ShipDate
+            data_type: datetime
+            description: "Date que la commande a été expédiée au client."
+          - name: Status
+            data_type: int64
+            description: "Commandez l'état actuel. 1 = en cours; 2 = approuvé; 3 = bordé; 4 = rejeté; 5 = expédié; 6 = annulé"
+          - name: OnlineOrderFlag
+            data_type: bool
+            description: "0 = commande passée par le vendeur. 1 = commande passée en ligne par le client."
+          - name: SalesOrderNumber
+            data_type: string
+            description: "Numéro d'identification de commande client unique."
+          - name: PurchaseOrderNumber
+            data_type: string
+            description: "Référence du numéro d'achat client."
+          - name: AccountNumber
+            data_type: string
+            description: "Référence du numéro de comptabilité financière."
+          - name: CustomerID
+            data_type: int64
+            description: "Numéro d'identification client. Clé étrangère au client.businessEntityId."
+          - name: SalesPersonID
+            data_type: int64
+            description: "Sales qui ont créé la commande client. Clé étrangère pour vendeur.businessEntityId."
+          - name: TerritoryID
+            data_type: int64
+            description: "Territoire dans lequel la vente a été effectuée. Clé étrangère à Salesterritory.SalesterritoryId."
+          - name: BillToAddressID
+            data_type: int64
+            description: "Adresse de facturation du client. Clé étrangère à l'adresse.addressId."
+          - name: ShipToAddressID
+            data_type: int64
+            description: "Adresse d'expédition du client. Clé étrangère à l'adresse.addressId."
+          - name: ShipMethodID
+            data_type: int64
+            description: "Mode de livraison. Clé étrangère à ShipMethod.ShipMethodid."
+          - name: CreditCardID
+            data_type: int64
+            description: "Numéro d'identification de la carte de crédit. Clé étrangère à CreditCard.CreditCardid."
+          - name: CreditCardApprovalCode
+            data_type: string
+            description: "Code d'approbation fourni par la société de carte de crédit."
+          - name: CurrencyRateID
+            data_type: int64
+            description: "Taux de change utilisé. Clé étrangère de Currencyrate.currencyRateid."
+          - name: SubTotal
+            data_type: numeric
+            description: "Sous-total des ventes. Calculé sous forme de somme (SalesOrderDetail.linetotal) pour le SalesOrderId approprié."
+          - name: TaxAmt
+            data_type: numeric
+            description: "Montant de la taxe."
+          - name: Freight
+            data_type: numeric
+            description: "Frais de port."
+          - name: TotalDue
+            data_type: numeric
+            description: "Total dû du client. Calculé comme sous-total + taxamt + fret."
+          - name: Comment
+            data_type: string
+            description: "Commentaires des représentants commerciaux."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: SalesOrderHeaderSalesReason
+        description: "Table à référence CARTAGE MAPPAGNE Les commandes de vente aux codes de raison de vente."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/SalesOrderHeaderSalesReason/SalesOrderHeaderSalesReason.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: SalesOrderID
+            data_type: int64
+            description: "Clé primaire. Clé étrangère à SalesOrderHeader.SalesOrderId."
+          - name: SalesReasonID
+            data_type: int64
+            description: "Clé primaire. Clé étrangère de SalesReason.SalesReasonId."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: SalesPerson
+        description: "Représentant commercial Informations actuelles."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/SalesPerson/SalesPerson.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: BusinessEntityID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements du vendeur. Clé étrangère à l'employé.businessEntityId"
+          - name: TerritoryID
+            data_type: int64
+            description: "Territoire actuellement affecté à. Clé étrangère à Salesterritory.SalesterritoryId."
+          - name: SalesQuota
+            data_type: numeric
+            description: "Ventes annuelles projetées."
+          - name: Bonus
+            data_type: numeric
+            description: "Bonus due si le quota est rempli."
+          - name: CommissionPct
+            data_type: numeric
+            description: "Pourcentage de commission reçu par vente."
+          - name: SalesYTD
+            data_type: numeric
+            description: "Ventes total pour un an à ce jour."
+          - name: SalesLastYear
+            data_type: numeric
+            description: "Total des ventes de l'année précédente."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: SalesPersonQuotaHistory
+        description: "Suivi des performances des ventes."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/SalesPersonQuotaHistory/SalesPersonQuotaHistory.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: BusinessEntityID
+            data_type: int64
+            description: "Numéro d'identification des vendeurs. Clé étrangère pour vendeur.businessEntityId."
+          - name: QuotaDate
+            data_type: datetime
+            description: "Date de quota de vente."
+          - name: SalesQuota
+            data_type: numeric
+            description: "Montant du quota de vente."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: SalesReason
+        description: "Tableau de recherche des raisons d'achat des clients."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/SalesReason/SalesReason.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: SalesReasonID
+            data_type: int64
+            description: "Clé primaire pour les dossiers de la saison."
+          - name: Name
+            data_type: string
+            description: "Description des raisons de vente."
+          - name: ReasonType
+            data_type: string
+            description: "Catégorie à laquelle appartient la raison des ventes."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: SalesTaxRate
+        description: "Tableau de recherche de taux d'imposition."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/SalesTaxRate/SalesTaxRate.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: SalesTaxRateID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements de Salestaxrate."
+          - name: StateProvinceID
+            data_type: int64
+            description: "État, province ou pays / région à laquelle la taxe de vente s'applique."
+          - name: TaxType
+            data_type: int64
+            description: "1 = taxe appliquée aux transactions au détail, 2 = taxe appliquée aux transactions en gros, 3 = taxe appliquée à toutes les transactions de vente (vente au détail et en gros)."
+          - name: TaxRate
+            data_type: numeric
+            description: "Montant du taux d'imposition."
+          - name: Name
+            data_type: string
+            description: "Description du taux d'imposition."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: SalesTerritory
+        description: "Table de recherche de territoire de vente."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/SalesTerritory/SalesTerritory.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: TerritoryID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements de Salesterritory."
+          - name: Name
+            data_type: string
+            description: "Description du territoire des ventes"
+          - name: CountryRegionCode
+            data_type: string
+            description: "Code de pays ou région standard ISO. Clé étrangère de CountryRegion.CountryRegionCode."
+          - name: Groupe
+            data_type: string
+            description: "Zone géographique à laquelle appartiennent le territoire des ventes."
+          - name: SalesYTD
+            data_type: numeric
+            description: "Ventes sur le territoire à ce jour."
+          - name: SalesLastYear
+            data_type: numeric
+            description: "Ventes sur le territoire l'année précédente."
+          - name: CostYTD
+            data_type: numeric
+            description: "Coûts commerciaux sur le territoire de l'année à ce jour."
+          - name: CostLastYear
+            data_type: numeric
+            description: "Les coûts des entreprises sur le territoire l'année précédente."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: SalesTerritoryHistory
+        description: "Le représentant des ventes transfère à d'autres territoires de vente."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/SalesTerritoryHistory/SalesTerritoryHistory.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: BusinessEntityID
+            data_type: int64
+            description: "Clé primaire. Le représentant des ventes. Clé étrangère pour vendeur.businessEntityId."
+          - name: TerritoryID
+            data_type: int64
+            description: "Clé primaire. Numéro d'identification du territoire. Clé étrangère à Salesterritory.SalesterritoryId."
+          - name: StartDate
+            data_type: datetime
+            description: "Clé primaire. Date que la représentation des ventes a commencé à travailler sur le territoire."
+          - name: EndDate
+            data_type: datetime
+            description: "Date le représentant des ventes a quitté les travaux sur le territoire."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: ShoppingCartItem
+        description: "Contient les commandes des clients en ligne jusqu'à ce que la commande soit soumise ou annulée."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/ShoppingCartItem/ShoppingCartItem.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: ShoppingCartItemID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements de l'écart de Shopping."
+          - name: ShoppingCartID
+            data_type: string
+            description: "Numéro d'identification du panier d'achat."
+          - name: Quantity
+            data_type: int64
+            description: "Quantité du produit commandé."
+          - name: ProductID
+            data_type: int64
+            description: "Produit commandé. Clé étrangère du produit.productID."
+          - name: DateCreated
+            data_type: datetime
+            description: "Date de l'heure de la création du dossier."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: SpecialOffer
+        description: "Table de recherche de réductions de vente."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/SpecialOffer/SpecialOffer.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: SpecialOfferID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements spéciaux."
+          - name: Description
+            data_type: string
+            description: "Description de réduction."
+          - name: DiscountPct
+            data_type: numeric
+            description: "Precentage de réduction."
+          - name: Type
+            data_type: string
+            description: "Catégorie de type de réduction."
+          - name: Category
+            data_type: string
+            description: "GRASSE La réduction s'applique à la revendeur ou au client."
+          - name: StartDate
+            data_type: datetime
+            description: "Date de début de remise."
+          - name: EndDate
+            data_type: datetime
+            description: "Date de fin de réduction."
+          - name: MinQty
+            data_type: int64
+            description: "Pourcentage de remise minimum autorisé."
+          - name: MaxQty
+            data_type: int64
+            description: "Pourcentage de remise maximal autorisé."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: SpecialOfferProduct
+        description: "Table à référence Cross-Reference Products à des réductions d'offre spéciales."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/SpecialOfferProduct/SpecialOfferProduct.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: SpecialOfferID
+            data_type: int64
+            description: "Clé primaire pour les enregistrements spéciaux de l'OrdProduct."
+          - name: ProductID
+            data_type: int64
+            description: "Numéro d'identification du produit. Clé étrangère du produit.productID."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+      - name: Store
+        description: "Les clients (revendeurs) de l'aventure fonctionnent des produits."
+        external:
+          location: "gs://brocolitest-internal-datalake-bucket/full_adventure_works/Store/Store.parquet"
+          options:
+            format: parquet
+        columns:
+          - name: BusinessEntityID
+            data_type: int64
+            description: "Clé primaire. Clé étrangère au client.businessEntityId."
+          - name: Name
+            data_type: string
+            description: "Nom du magasin."
+          - name: SalesPersonID
+            data_type: int64
+            description: "ID du vendeur affecté au client. Clé étrangère pour vendeur.businessEntityId."
+          - name: Demographics
+            data_type: string
+            description: "Informations démographiques sur le magasin telles que le nombre d'employés, les ventes annuelles et le type de magasin."
+          - name: rowguid
+            data_type: string
+            description: "Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé pour soutenir un échantillon de réplication de fusion."
+          - name: ModifiedDate
+            data_type: datetime
+            description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."

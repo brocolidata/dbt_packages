@@ -1,0 +1,199 @@
+version: 2
+
+models:
+  - name: achats_fournisseurs
+    description: "Modèle d'analyse des achats fournisseurs"
+    columns:
+      - name: id_commande_dachat
+        description: "Clé primaire. Clé étrangère à PurchaseOrderHeader.PurchaseOrderId."
+
+      - name: statut_de_la_commande
+        description: "Libellé de l'état actuel de la commande."
+
+      - name: date_commande
+        description: "Date de création de commande d'achat."
+
+      - name: soustotal_commande
+        description: "Sous-total de bon de commande. Calculé sous forme de somme (PurchaseOrderDetail.linetotal) pour le buyOrderId approprié."
+
+      - name: montant_taxe_commande
+        description: "Montant de la taxe."
+
+      - name: frais_de_port
+        description: "Frais de port."
+
+      - name: total_commande
+        description: "Total en raison du vendeur. Calculé comme sous-total + taxamt + fret."
+
+      - name: methode_expedition
+        description: Nom de la compagnie maritime.
+
+      - name: base_min_expedition
+        description: "Frais d'expédition minimum."
+
+      - name: taux_expedition
+        description: "Frais d'expédition par livre."
+
+      - name: nom_produit
+        description: Nom du produit.
+
+      - name: couleur
+        description: Couleur du produit.
+
+      - name: stock_securite
+        description: Quantité d'inventaire minimum.
+
+      - name: stock_alerte
+        description: >
+          Niveau d'inventaire qui déclenche un bon de commande ou un bon de
+          travail.
+
+      - name: cout_standard
+        description: "Coût standard du produit."
+
+      - name: prix_vente_conseille
+        description: "Prix ​​de vente"
+
+      - name: taille_produit
+        description: Taille du produit.
+
+
+      - name: unite_mesure_taille
+        description: Unité de mesure pour la colonne de taille.
+
+
+      - name: unite_mesure_poids
+        description: Unité de mesure pour la colonne de poids.
+
+
+      - name: poids_produit
+        description: Poids du produit.
+
+
+      - name: nombre_jours_fabrication_produit
+        description: Nombre de jours nécessaires pour fabriquer le produit.
+
+
+      - name: gamme
+        description: 'R = route, m = montagne, t = tournée, s = standard'
+
+
+      - name: ligne_produit
+        description: 'H = haut, m = milieu, l = bas'
+
+
+      - name: style
+        description: 'W = femme, m = homme, u = universel'
+
+
+      - name: date_debut_vente
+        description: Date que le produit était disponible à la vente.
+
+      - name: date_fin_vente
+        description: Date que le produit n'était plus disponible à la vente.
+
+      - name: date_interruption
+        description: Date que le produit a été interrompu.
+
+      - name: nom_sous_categorie
+        description: Description de la sous-catégorie.
+
+      - name: nom_categorie
+        description: Description de la catégorie.
+
+      - name: date_debut_cout_produit
+        description: Date de début du coût du produit.
+
+      - name: date_fin_cout_produit
+        description: Date de fin du coût du produit.
+
+      - name: date_echeance_reception
+        description: "Date du produit devrait être reçu."
+
+      - name: quantite_commandee
+        description: "Quantité commandée."
+
+      - name: prix_unitaire_achat
+        description: "Le prix de vente du vendeur d'un seul produit."
+
+      - name: ligne_totale_achat
+        description: "Par produit sous-total. Calculé comme OrderQty * UNITPRICE."
+
+      - name: qte_recue
+        description: "La quantité a réellement reçu du vendeur."
+
+      - name: qte_rejetee
+        description: "Quantité rejetée lors de l'inspection."
+
+      - name: qte_stockee
+        description: "Quantité acceptée en stock. Calculé comme reçusqty - rejettedqty."
+
+      - name: noeud_organisation
+        description: Où l'employé est situé dans la hiérarchie des entreprises.
+
+      - name: niveau_organisation
+        description: La profondeur de l'employé dans la hiérarchie des entreprises.
+
+      - name: titre_poste
+        description: Titre de travail tel que l'acheteur ou le représentant des ventes.
+
+      - name: date_naissance
+        description: Date de naissance.
+
+      - name: etat_civil
+        description: 'M = marié, s = célibataire'
+
+      - name: genre
+        description: 'M = mâle, f = femelle'
+
+      - name: date_embauche
+        description: Employé a embauché à cette date.
+
+      - name: est_salarie
+        description: >
+          Classification des emplois. 0 = horaire, non exempté de la négociation
+          collective. 1 = salarié, exempté de négociation collective.
+
+      - name: heures_vacances
+        description: Nombre d'heures de vacances disponibles.
+      - name: heures_conge_maladie
+        description: Nombre d'heures de congé de maladie disponibles.
+      - name: est_actuel
+        description: '0 = inactif, 1 = actif'
+      - name: nom_fournisseur
+        description: "Nom de l'entreprise."
+
+      - name: cote_credit
+        description: "1 = supérieur, 2 = excellent, 3 = supérieur à la moyenne, 4 = moyenne, 5 = inférieur à la moyenne"
+
+      - name: statut_fournisseur_prefere
+        description: "0 = Ne sollicitez pas si un autre fournisseur est disponible. 1 = préféré aux autres fournisseurs fournissant le même produit."
+
+      - name: fournisseur_est_actif
+        description: >
+          0 = le vendeur n'est plus sollicité. 1 = le vendeur est activement
+          sollicité.
+
+      - name: achat_service_web_url
+        description: "URL du vendeur."
+
+      - name: delai_moyen_reception
+        description: "La durée moyenne (en jours) entre passer une commande avec le fournisseur et recevoir le produit acheté."
+
+      - name: prix_standard_fournisseur
+        description: Le prix de vente habituel du vendeur.
+
+      - name: cout_derniere_reception
+        description: "Le prix de vente lors de la dernière fois acheté."
+
+      - name: derniere_date_reception
+        description: "Date du produit a été reçu pour la dernière fois par le vendeur."
+
+      - name: qte_commande_minimale
+        description: "La quantité maximale qui doit être commandée."
+
+      - name: qte_commande_maximale
+        description: "La quantité minimale qui doit être commandée."
+
+      - name: qte_commande_en_cours
+        description: "La quantité actuellement sur commande."
