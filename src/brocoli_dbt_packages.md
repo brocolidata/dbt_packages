@@ -44,25 +44,30 @@ target = prod
 
 ```
 
-## Lint `.sql` files with sqlfluff
-There are 2 ways of using sqlfuff : 
+## Lint `.sql` files with SQLFluff
+There are 2 ways of using SQLFluff : 
 - `lint` : Show linting violations
 - `fix` : Fix linting violations
 
-### From inside the remote dev container
-1. `cd` in the dbt project you want to lint
-2. Run the following command after making this substitutions :
+### Basic SQLFluff commands
+*Make sure you are inside the remote dev container & `cd` in the dbt project you want to lint*
+- **Command pattern** : `sqlfluff COMMAND PATH`
+
+  Substitutions :
   - `COMMAND` by either `fix` or `lint`)*
   - `PATH` by either `models/` (to lint all the project models) or the path to a model or directory of models
-```
-sqlfluff COMMAND PATH
-```
+- `lint` : run `sqlfluff lint PATH`
+- `fix` : run `sqlfluff fix PATH` (you can add `-f`between `fix` & `PATG` to skip confirmation)
 
 ### From outside the remote dev container
-Make sure you are in the root folder and run the following command after making this substitutions :
-  - `DBT_PROJECT_NAME` by the name of the dbt project folder 
-  - `COMMAND` by either `fix` or `lint`)*
-  - `PATH` by either `models/` (to lint all the project models) or the path to a model or directory of models
+Make sure you are in the root folder and run the [Basic SQLFluff](#basic-sqlfluff-commands) prefixed by 
 ```
-docker compose run -w /src/DBT_PROJECT_NAME dbt_packages sqlfluff COMMAND PATH
+docker compose run -w /src/DBT_PROJECT_NAME dbt_packages
 ```
+  Substitutions :
+  - `DBT_PROJECT_NAME` by the name of the dbt project folder
+
+  Examples : 
+  ```
+  docker compose run -w /src/fuel dbt_packages sqlfluff fix -f models/
+  ```
