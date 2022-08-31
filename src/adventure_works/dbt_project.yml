@@ -62,4 +62,4 @@ models:
 
 seeds:
   adventure_works:
-    +dataset: stg     
+    +dataset: stg
