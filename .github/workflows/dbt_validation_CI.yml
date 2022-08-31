@@ -67,8 +67,10 @@ jobs:
       DBT_PROFILES_DIR: ${{ github.workspace }}/profiles
     if: needs.changes.outputs.changed_projects != '[]'
     strategy:
+      fail-fast: false
       matrix:
         changed_project: ${{ fromJSON(needs.changes.outputs.changed_projects) }}
+        
     steps:
     
       - name: 'Checkout branch'
