@@ -7,17 +7,17 @@ with source as (
 renamed as (
 
     select
-        CAST(ProductID AS int64) AS ID_produit,
-        CAST(BusinessEntityID AS int64) AS ID_fournisseur,
-        CAST(AverageLeadTime AS int64) AS delai_moyen_reception,
-        CAST(StandardPrice AS numeric) AS prix_standard,
-        CAST(LastReceiptCost AS numeric) AS cout_derniere_reception,
-        CAST(LastReceiptDate AS datetime) AS derniere_date_reception,
-        CAST(MinOrderQty AS int64) AS qte_commande_minimale,
-        CAST(MaxOrderQty AS int64) AS qte_commande_maximale,
-        CAST(OnOrderQty AS int64) AS qte_commande_en_cours,
-        CAST(UnitMeasureCode AS string) AS unite_de_mesure,
-        CAST(ModifiedDate AS datetime) AS date_modifiee,
+        CAST(productid as int64) as id_produit,
+        CAST(businessentityid as int64) as id_fournisseur,
+        CAST(averageleadtime as int64) as delai_moyen_reception,
+        CAST(standardprice as numeric) as prix_standard,
+        CAST(lastreceiptcost as numeric) as cout_derniere_reception,
+        CAST(lastreceiptdate as datetime) as derniere_date_reception,
+        CAST(minorderqty as int64) as qte_commande_minimale,
+        CAST(maxorderqty as int64) as qte_commande_maximale,
+        CAST(onorderqty as int64) as qte_commande_en_cours,
+        CAST(unitmeasurecode as string) as unite_de_mesure,
+        CAST(modifieddate as datetime) as date_modifiee
 
 
     from source

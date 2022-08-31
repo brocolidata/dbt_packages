@@ -4,13 +4,13 @@ with sales_territory_prp as (
 
 sales_territory as (
     select
-        ID_territoire,
+        id_territoire,
         nom_territoire,
         code_region,
         zone_geographique,
-        ventes_YTD,
+        ventes_ytd,
         ventes_annee_derniere,
-        cout_YTD,
+        cout_ytd,
         cout_annee_derniere
     from sales_territory_prp
 )

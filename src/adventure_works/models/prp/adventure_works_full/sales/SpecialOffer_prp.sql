@@ -4,17 +4,17 @@ with source as (
 
 prepared_source as (
     select
-        CAST(SpecialOfferID AS int64) AS ID_offre_promotionnelle,
-        CAST(Description AS string) AS description,
-        CAST(DiscountPct AS numeric) AS pourcentage_remise,
-        CAST(Type AS string) AS type_remise,
-        CAST(Category AS string) AS beneficiaire_remise,
-        CAST(StartDate AS datetime) AS date_debut,
-        CAST(EndDate AS datetime) AS date_fin,
-        CAST(MinQty AS int64) AS remise_minimale,
-        CAST(MaxQty AS int64) AS remise_maximale,
-        CAST(rowguid AS string) AS ID_unique,
-        CAST(ModifiedDate AS datetime) AS date_modification
+        CAST(specialofferid as int64) as id_offre_promotionnelle,
+        CAST(description as string) as description,
+        CAST(discountpct as numeric) as pourcentage_remise,
+        CAST(type as string) as type_remise,
+        CAST(category as string) as beneficiaire_remise,
+        CAST(startdate as datetime) as date_debut,
+        CAST(enddate as datetime) as date_fin,
+        CAST(minqty as int64) as remise_minimale,
+        CAST(maxqty as int64) as remise_maximale,
+        CAST(rowguid as string) as id_unique,
+        CAST(modifieddate as datetime) as date_modification
     from source
 )
 

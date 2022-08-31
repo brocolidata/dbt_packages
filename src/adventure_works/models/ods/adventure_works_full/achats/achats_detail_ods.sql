@@ -5,11 +5,11 @@ with purchaseorderdetail_prp as (
 
 achats as (
 
-    select 
-        orderdetail.ID_commande_dachat,
+    select
+        orderdetail.id_commande_dachat,
         orderdetail.date_echeance_reception,
         orderdetail.quantite_commandee,
-        orderdetail.ID_produit,
+        orderdetail.id_produit,
         orderdetail.prix_unitaire_achat,
         orderdetail.ligne_totale_achat,
         orderdetail.qte_recue,
@@ -17,7 +17,7 @@ achats as (
         orderdetail.qte_stockee
 
 
-    from purchaseorderdetail_prp as orderdetail 
+    from purchaseorderdetail_prp as orderdetail
 )
 
 select * from achats

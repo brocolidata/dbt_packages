@@ -30,8 +30,8 @@ employees as (
 
 achats_union as (
 
-    select 
-        acha.ID_commande_dachat,
+    select
+        acha.id_commande_dachat,
         acha.statut_de_la_commande,
         acha.date_commande,
         acha.soustotal_commande,
@@ -84,7 +84,7 @@ achats_union as (
         empl.heures_vacances,
         empl.heures_conge_maladie,
         empl.est_actuel,
-        
+
 
         frs.nom_fournisseur,
         frs.cote_credit,
@@ -101,10 +101,12 @@ achats_union as (
 
 
     from achats as acha
-    left join employees as empl on acha.ID_employes = empl.ID_entite_commerciale
-    left join fournisseurs as frs on acha.ID_fournisseur = frs.ID_fournisseur
-    left join achats_detail as achadet on acha.ID_commande_dachat = achadet.ID_commande_dachat    
-    left join produits as prod on achadet.ID_produit = prod.ID_produit
+    left join employees as empl on acha.id_employes = empl.id_entite_commerciale
+    left join fournisseurs as frs on acha.id_fournisseur = frs.id_fournisseur
+    left join
+        achats_detail as achadet on
+            acha.id_commande_dachat = achadet.id_commande_dachat
+    left join produits as prod on achadet.id_produit = prod.id_produit
 )
 
 select * from achats_union

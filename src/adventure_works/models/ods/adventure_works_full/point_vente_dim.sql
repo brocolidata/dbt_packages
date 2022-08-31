@@ -8,18 +8,18 @@ vendeur as (
 
 store as (
     select
-        ID_entite_commerciale,
+        id_entite_commerciale,
         nom_magasin,
-        ID_vendeur
+        id_vendeur
     from store_prp
 ),
 
 point_vente as (
     select
         s.*,
-        v.* 
-    from store s 
-    left join vendeur v on s.ID_vendeur = v.ID_entite_commerciale
+        v.*
+    from store as s
+    left join vendeur as v on s.id_vendeur = v.id_entite_commerciale
 )
 
 select * from store

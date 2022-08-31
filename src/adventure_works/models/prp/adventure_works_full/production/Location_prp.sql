@@ -7,7 +7,7 @@ with source as (
 renamed as (
 
     select
-        cast(locationid as int64) as ID_emplacement,
+        cast(locationid as int64) as id_emplacement,
         cast(name as string) as nom_emplacement,
         cast(costrate as numeric) as cout_standard_emplacement,
         cast(availability as numeric) as disponibilite_emplacement,

@@ -7,12 +7,12 @@ with source as (
 renamed as (
 
     select
-        CAST(ShipMethodID AS int64) AS ID_methode_expedition,
-        CAST(Name AS string) AS nom_methode_exepdition,
-        CAST(ShipBase AS numeric) AS base_min_expedition,
-        CAST(ShipRate AS numeric) AS taux_expedition,
-        CAST(rowguid AS string) AS ID_ligne,
-        CAST(ModifiedDate AS datetime) AS date_modifiee,
+        CAST(shipmethodid as int64) as id_methode_expedition,
+        CAST(name as string) as nom_methode_exepdition,
+        CAST(shipbase as numeric) as base_min_expedition,
+        CAST(shiprate as numeric) as taux_expedition,
+        CAST(rowguid as string) as id_ligne,
+        CAST(modifieddate as datetime) as date_modifiee
 
 
     from source

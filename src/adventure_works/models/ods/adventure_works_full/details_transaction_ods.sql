@@ -12,7 +12,7 @@ transaction_history_archive as (
 detail_transaction as (
 
     select * from transaction_history
-    union all 
+    union all
     select * from transaction_history_archive
 
 )

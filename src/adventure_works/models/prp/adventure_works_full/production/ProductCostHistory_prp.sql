@@ -7,7 +7,7 @@ with source as (
 renamed as (
 
     select
-        cast(productid as int64) as ID_produit,
+        cast(productid as int64) as id_produit,
         cast(startdate as datetime) as date_debut_cout_produit,
         cast(enddate as datetime) as date_fin_cout_produit,
         cast(standardcost as numeric) as cout_standard,

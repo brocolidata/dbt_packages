@@ -8,18 +8,18 @@ renamed as (
 
     select
 
-        CAST(PurchaseOrderID AS int64) AS ID_commande_dachat,
-        CAST(PurchaseOrderDetailID AS int64) AS ID_ligne_commande_dachat,
-        CAST(DueDate AS datetime) AS date_echeance_reception,
-        CAST(OrderQty AS int64) AS quantite_commandee,
-        CAST(ProductID AS int64) AS ID_produit,
-        CAST(UnitPrice AS numeric) AS prix_unitaire_achat,
-        CAST(LineTotal AS numeric) AS ligne_totale_achat,
-        CAST(ReceivedQty AS numeric) AS qte_recue,
-        CAST(RejectedQty AS numeric) AS qte_rejetee,
-        CAST(StockedQty AS numeric) AS qte_stockee,
-        CAST(ModifiedDate AS datetime) AS date_modifiee,
-        
+        CAST(purchaseorderid as int64) as id_commande_dachat,
+        CAST(purchaseorderdetailid as int64) as id_ligne_commande_dachat,
+        CAST(duedate as datetime) as date_echeance_reception,
+        CAST(orderqty as int64) as quantite_commandee,
+        CAST(productid as int64) as id_produit,
+        CAST(unitprice as numeric) as prix_unitaire_achat,
+        CAST(linetotal as numeric) as ligne_totale_achat,
+        CAST(receivedqty as numeric) as qte_recue,
+        CAST(rejectedqty as numeric) as qte_rejetee,
+        CAST(stockedqty as numeric) as qte_stockee,
+        CAST(modifieddate as datetime) as date_modifiee
+
     from source
 
 )

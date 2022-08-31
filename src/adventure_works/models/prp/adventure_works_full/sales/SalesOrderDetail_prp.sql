@@ -1,20 +1,22 @@
 with source as (
-    select * from {{source('adventure_works_full', 'SalesOrderDetail')}}
+    select *
+    from
+        {{ source('adventure_works_full', 'SalesOrderDetail') }}
 ),
 
 prepared_source as (
     select
-        CAST(SalesOrderID AS int64) AS ID_commande_commerciale,
-        CAST(SalesOrderDetailID AS int64) AS ID_ligne_commande,
-        CAST(CarrierTrackingNumber AS string) AS numero_suivi_transporteur,
-        CAST(OrderQty AS int64) AS quantite_commandee,
-        CAST(ProductID AS int64) AS ID_produit,
-        CAST(SpecialOfferID AS int64) AS ID_offre_promotionnelle,
-        CAST(UnitPrice AS numeric) AS prix_unitaire,
-        CAST(UnitPriceDiscount AS numeric) AS remise,
-        CAST(LineTotal AS bignumeric) AS total_ligne,
-        CAST(rowguid AS string) AS ID_unique,
-        CAST(ModifiedDate AS datetime) AS date_modification
+        CAST(salesorderid as int64) as id_commande_commerciale,
+        CAST(salesorderdetailid as int64) as id_ligne_commande,
+        CAST(carriertrackingnumber as string) as numero_suivi_transporteur,
+        CAST(orderqty as int64) as quantite_commandee,
+        CAST(productid as int64) as id_produit,
+        CAST(specialofferid as int64) as id_offre_promotionnelle,
+        CAST(unitprice as numeric) as prix_unitaire,
+        CAST(unitpricediscount as numeric) as remise,
+        CAST(linetotal as bignumeric) as total_ligne,
+        CAST(rowguid as string) as id_unique,
+        CAST(modifieddate as datetime) as date_modification
     from source
 )
 

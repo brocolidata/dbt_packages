@@ -15,12 +15,12 @@ shipmethod_prp as (
 
 achats as (
 
-    select 
-        orderheader.ID_commande_dachat,
+    select
+        orderheader.id_commande_dachat,
         orderheader.numero_revision,
         orderheader.statut_de_la_commande,
-        orderheader.ID_employes,
-        orderheader.ID_fournisseur,
+        orderheader.id_employes,
+        orderheader.id_fournisseur,
         orderheader.date_commande,
         orderheader.date_expedition,
         orderheader.soustotal_commande,
@@ -28,13 +28,15 @@ achats as (
         orderheader.frais_de_port,
         orderheader.total_commande,
         orderheader.date_modifiee,
-        
+
         shipmethod.nom_methode_exepdition,
         shipmethod.base_min_expedition,
         shipmethod.taux_expedition
 
-    from purchaseorderheader_prp as orderheader 
-    left join shipmethod_prp as shipmethod on orderheader.ID_methode_expedition = shipmethod.ID_methode_expedition
+    from purchaseorderheader_prp as orderheader
+    left join
+        shipmethod_prp as shipmethod on
+            orderheader.id_methode_expedition = shipmethod.id_methode_expedition
 )
 
 select * from achats

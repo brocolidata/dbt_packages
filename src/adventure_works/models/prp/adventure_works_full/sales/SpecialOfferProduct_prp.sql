@@ -1,13 +1,15 @@
 with source as (
-    select * from {{source('adventure_works_full', 'SpecialOfferProduct')}}
+    select *
+    from
+        {{ source('adventure_works_full', 'SpecialOfferProduct') }}
 ),
 
 prepared_source as (
     select
-        CAST(SpecialOfferID AS int64) AS ID_offre_promotionnelle,
-        CAST(ProductID AS int64) AS ID_produit,
-        CAST(rowguid AS string) AS ID_unique,
-        CAST(ModifiedDate AS datetime) AS date_modification
+        CAST(specialofferid as int64) as id_offre_promotionnelle,
+        CAST(productid as int64) as id_produit,
+        CAST(rowguid as string) as id_unique,
+        CAST(modifieddate as datetime) as date_modification
     from source
 )
 

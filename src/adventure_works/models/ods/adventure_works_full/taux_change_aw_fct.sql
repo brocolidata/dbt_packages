@@ -14,8 +14,8 @@ currency_analytic as (
 ),
 
 currency_rate_analytic as (
-    select 
-        ID_taux_change,
+    select
+        id_taux_change,
         date_taux_change,
         change_depuis,
         change_vers,
@@ -25,13 +25,13 @@ currency_rate_analytic as (
 ),
 
 taux_change_fct as (
-    select 
+    select
         cr.* except(change_depuis, change_vers),
         cd.nom_devise as change_depuis,
         cv.nom_devise as change_vers
-    from currency_rate_analytic cr
-    right join currency_analytic cd on cr.change_depuis = cd.code_devise
-    right join currency_analytic cv on cr.change_vers = cd.code_devise
+    from currency_rate_analytic as cr
+    right join currency_analytic as cd on cr.change_depuis = cd.code_devise
+    right join currency_analytic as cv on cr.change_vers = cd.code_devise
 )
 
 select * from taux_change_fct

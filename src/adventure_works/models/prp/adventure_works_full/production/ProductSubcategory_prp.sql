@@ -7,10 +7,10 @@ with source as (
 renamed as (
 
     select
-        cast(productsubcategoryid as int64) as ID_sous_categorie_produit,
-        cast(productcategoryid as int64) as ID_categorie_produit,
+        cast(productsubcategoryid as int64) as id_sous_categorie_produit,
+        cast(productcategoryid as int64) as id_categorie_produit,
         cast(name as string) as nom_sous_categorie,
-        cast(rowguid as string) as ID_unique,
+        cast(rowguid as string) as id_unique,
         cast(modifieddate as datetime) as date_modification
 
     from source

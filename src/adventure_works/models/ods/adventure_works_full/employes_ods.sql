@@ -1,11 +1,11 @@
 with employees as (
-     
-     select * from {{ ref('Employee_prp') }}
+
+    select * from {{ ref('Employee_prp') }}
 ),
 
 employees_ods as (
-    select 
-        ID_entite_commerciale,
+    select
+        id_entite_commerciale,
         noeud_organisation,
         niveau_organisation,
         titre_poste,
@@ -21,4 +21,5 @@ employees_ods as (
     from employees
 
 )
+
 select * from employees_ods

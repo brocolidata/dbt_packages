@@ -7,8 +7,8 @@ taux_change_fct as (
 ),
 
 territoire_vente_dim as (
-    select 
-        ID_territoire,
+    select
+        id_territoire,
         nom_territoire,
         code_region,
         zone_geographique
@@ -17,16 +17,16 @@ territoire_vente_dim as (
 
 sales_order_header as (
     select
-        ID_commande,
+        id_commande,
         date_commande,
         date_echeance,
         date_expedition,
         est_une_commande_internet,
-        ID_client,
-        ID_vendeur,
-        ID_territoire,
-        ID_methode_livraison,
-        ID_taux_change,
+        id_client,
+        id_vendeur,
+        id_territoire,
+        id_methode_livraison,
+        id_taux_change,
         sous_total,
         montant_taxe,
         fret,
@@ -35,8 +35,8 @@ sales_order_header as (
 ),
 
 taux_change as (
-    select 
-        ID_taux_change,
+    select
+        id_taux_change,
         date_taux_change,
         change_depuis,
         change_vers,
@@ -49,13 +49,13 @@ taux_change as (
     -  ShipMethod
 #}
 en_tete_commande as (
-    select 
-        soh.* except (ID_taux_change),
+    select
+        soh.* except (id_taux_change),
         tc.*,
-        tv.* except(ID_territoire)
-    from sales_order_header soh
-    left join taux_change tc on soh.ID_taux_change = tc.ID_taux_change
-    left join territoire_vente_dim tv on soh.ID_territoire = tv.ID_territoire
+        tv.* except(id_territoire)
+    from sales_order_header as soh
+    left join taux_change as tc on soh.id_taux_change = tc.id_taux_change
+    left join territoire_vente_dim as tv on soh.id_territoire = tv.id_territoire
 )
 
 select * from en_tete_commande

@@ -4,9 +4,9 @@ with source as (
 
 prepared_source as (
     select
-        CAST(CurrencyCode AS string) AS code_devise,
-        CAST(Name AS string) AS nom_devise,
-        CAST(ModifiedDate AS datetime) AS date_modification
+        CAST(currencycode as string) as code_devise,
+        CAST(name as string) as nom_devise,
+        CAST(modifieddate as datetime) as date_modification
     from source
 )
 

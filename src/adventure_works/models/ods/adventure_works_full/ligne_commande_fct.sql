@@ -3,13 +3,13 @@ with sales_order_detail_prp as (
 ),
 
 sales_order_detail as (
-    select 
-        ID_commande_commerciale,
-        ID_ligne_commande,
+    select
+        id_commande_commerciale,
+        id_ligne_commande,
         numero_suivi_transporteur,
         quantite_commandee,
-        ID_produit,
-        ID_offre_promotionnelle,
+        id_produit,
+        id_offre_promotionnelle,
         prix_unitaire,
         remise,
         total_ligne

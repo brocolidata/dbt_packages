@@ -12,17 +12,17 @@ store_prp as (
 
 customer as (
     select
-        ID_client,
-        ID_personne,
-        ID_magasin,
-        ID_territoire,
+        id_client,
+        id_personne,
+        id_magasin,
+        id_territoire,
         numero_compte
     from customer_prp
 ),
 
 person as (
-    select 
-        ID_entite_commerciale,
+    select
+        id_entite_commerciale,
         type_personne,
         nom_complet,
         contact_par_email,
@@ -33,19 +33,19 @@ person as (
 
 store as (
     select
-        ID_entite_commerciale,
+        id_entite_commerciale,
         nom_magasin
     from store_prp
 ),
 
 client as (
-    select 
-        c.* except (ID_personne),
+    select
+        c.* except (id_personne),
         p.*,
         s.nom_magasin
-    from customer c
-    left join person p on c.ID_personne = p.ID_entite_commerciale
-    left join store s on c.ID_magasin = s.ID_entite_commerciale
+    from customer as c
+    left join person as p on c.id_personne = p.id_entite_commerciale
+    left join store as s on c.id_magasin = s.id_entite_commerciale
 )
 
 select * from client

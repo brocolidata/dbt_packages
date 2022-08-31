@@ -4,16 +4,16 @@ with source as (
 
 prepared_source as (
     select
-        CAST(TerritoryID AS int64) AS ID_territoire,
-        CAST(Name AS string) AS nom_territoire,
-        CAST(CountryRegionCode AS string) AS code_region,
-        CAST(Groupe AS string) AS zone_geographique,
-        CAST(SalesYTD AS numeric) AS ventes_YTD,
-        CAST(SalesLastYear AS numeric) AS ventes_annee_derniere,
-        CAST(CostYTD AS numeric) AS cout_YTD,
-        CAST(CostLastYear AS numeric) AS cout_annee_derniere,
-        CAST(rowguid AS string) AS ID_unique,
-        CAST(ModifiedDate AS datetime) AS date_modification
+        CAST(territoryid as int64) as id_territoire,
+        CAST(name as string) as nom_territoire,
+        CAST(countryregioncode as string) as code_region,
+        CAST(groupe as string) as zone_geographique,
+        CAST(salesytd as numeric) as ventes_ytd,
+        CAST(saleslastyear as numeric) as ventes_annee_derniere,
+        CAST(costytd as numeric) as cout_ytd,
+        CAST(costlastyear as numeric) as cout_annee_derniere,
+        CAST(rowguid as string) as id_unique,
+        CAST(modifieddate as datetime) as date_modification
     from source
 )
 

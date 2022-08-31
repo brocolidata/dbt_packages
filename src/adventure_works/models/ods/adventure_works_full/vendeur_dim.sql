@@ -7,8 +7,8 @@ person_prp as (
 ),
 
 territoire_vente_dim as (
-    select 
-        ID_territoire,
+    select
+        id_territoire,
         nom_territoire,
         code_region,
         zone_geographique
@@ -18,32 +18,32 @@ territoire_vente_dim as (
 
 sales_person as (
     select
-        ID_entite_commerciale,
-        ID_territoire,
+        id_entite_commerciale,
+        id_territoire,
         quota_vente,
         prime,
         pourcentage_commission,
-        ventes_YTD,
+        ventes_ytd,
         ventes_annee_derniere
     from sales_person_prp
 ),
 
 person as (
     select
-        ID_entite_commerciale,
+        id_entite_commerciale,
         nom_complet
     from person_prp
     where type_personne = 'SP'
 ),
 
 vendeur as (
-    select 
+    select
         sp.*,
-        p.nom_complet,
-        tv.* except(ID_territoire)
-    from sales_person sp
-    left join person p on sp.ID_entite_commerciale = p.ID_entite_commerciale
-    left join territoire_vente_dim tv on sp.ID_territoire = tv.ID_territoire
+        tv.* except(id_territoire),
+        p.nom_complet
+    from sales_person as sp
+    left join person as p on sp.id_entite_commerciale = p.id_entite_commerciale
+    left join territoire_vente_dim as tv on sp.id_territoire = tv.id_territoire
 )
 
 select * from vendeur

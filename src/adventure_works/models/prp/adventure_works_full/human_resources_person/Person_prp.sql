@@ -4,25 +4,25 @@ with source as (
 
 prepared_source as (
     select
-        CAST(BusinessEntityID AS int64) AS ID_entite_commerciale,
-        CAST(PersonType AS string) AS type_personne,
-        CAST(NameStyle AS bool) AS style_nom,
-        CAST(Title AS string) AS titre,
-        CAST(FirstName AS string) AS prenom,
-        CAST(MiddleName AS string) AS deuxieme_prenom,
-        CAST(LastName AS string) AS nom_famille,
-        CAST(Suffix AS string) AS suffixe,
-        CAST (
-            ARRAY_TO_STRING([Title, FirstName, MiddleName, LastName, Suffix], ' ') AS string
-        ) AS nom_complet,
-        CAST(EmailPromotion AS int64) AS contact_par_email,
-        CAST(AdditionalContactInfo AS string) AS coordonnees_supplementaires,
-        CAST(Demographics AS string) AS informations_supplementaires,
-        CAST(rowguid AS string) AS ID_unique,
-        CAST(ModifiedDate AS datetime) AS date_modification
+        CAST(businessentityid as int64) as id_entite_commerciale,
+        CAST(persontype as string) as type_personne,
+        CAST(namestyle as bool) as style_nom,
+        CAST(title as string) as titre,
+        CAST(firstname as string) as prenom,
+        CAST(middlename as string) as deuxieme_prenom,
+        CAST(lastname as string) as nom_famille,
+        CAST(suffix as string) as suffixe,
+        CAST(
+            ARRAY_TO_STRING(
+                [title, firstname, middlename, lastname, suffix], ' '
+            ) as string
+        ) as nom_complet,
+        CAST(emailpromotion as int64) as contact_par_email,
+        CAST(additionalcontactinfo as string) as coordonnees_supplementaires,
+        CAST(demographics as string) as informations_supplementaires,
+        CAST(rowguid as string) as id_unique,
+        CAST(modifieddate as datetime) as date_modification
     from source
 )
 
 select * from prepared_source
-
-

@@ -7,9 +7,9 @@ with source as (
 renamed as (
 
     select
-        cast(productcategoryid as int64) as ID_categorie_produit,
+        cast(productcategoryid as int64) as id_categorie_produit,
         cast(name as string) as nom_categorie,
-        cast(rowguid as string) as ID_unique,
+        cast(rowguid as string) as id_unique,
         cast(modifieddate as datetime) as date_modification
 
     from source

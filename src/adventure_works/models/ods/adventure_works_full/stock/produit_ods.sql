@@ -1,4 +1,3 @@
-
 with product_prp as (
 
     select * from {{ ref('product_prp') }}
@@ -26,10 +25,10 @@ product_costhistory_prp as (
 
 product_union as (
     select
-        pdt.ID_produit,
+        pdt.id_produit,
         pdt.nom_produit,
         pdt.numero_produit,
-        pdt.est_manufacture_parAW,
+        pdt.est_manufacture_paraw,
         pdt.est_vendable,
         pdt.couleur,
         pdt.stock_securite,
@@ -44,27 +43,33 @@ product_union as (
         pdt.ligne_produit,
         pdt.gamme,
         pdt.style,
-        pdt.ID_sous_categorie_produit,
-        pdt.ID_model_produit,
+        pdt.id_sous_categorie_produit,
+        pdt.id_model_produit,
         pdt.date_debut_vente,
         pdt.date_fin_vente,
         pdt.date_interruption,
-        sub.ID_categorie_produit,
+        sub.id_categorie_produit,
         sub.nom_sous_categorie,
-        CASE
-            WHEN cat.nom_categorie is null THEN 'Others'
-            ELSE cat.nom_categorie
-        END as nom_categorie,
         unitt.nom_unite_mesure as unite_mesure_taille,
         unitp.nom_unite_mesure as unite_mesure_poids,
         cost.date_debut_cout_produit,
-        cost.date_fin_cout_produit
+        cost.date_fin_cout_produit,
+        coalesce(cat.nom_categorie, 'Others') as nom_categorie
     from product_prp as pdt
-    left join productsubcategory_prp as sub on pdt.ID_sous_categorie_produit = sub.ID_sous_categorie_produit
-    left join productcategory_prp as cat on sub.ID_categorie_produit = cat.ID_categorie_produit
-    left join unitmeasure_prp as unitt on pdt.code_unite_mesure_taille = unitt.code_unite_mesure 
-    left join unitmeasure_prp as unitp on pdt.code_unite_mesure_poids = unitp.code_unite_mesure
-    left join product_costhistory_prp as cost on pdt.ID_produit = cost.ID_produit
+    left join
+        productsubcategory_prp as sub on
+            pdt.id_sous_categorie_produit = sub.id_sous_categorie_produit
+    left join
+        productcategory_prp as cat on
+            sub.id_categorie_produit = cat.id_categorie_produit
+    left join
+        unitmeasure_prp as unitt on
+            pdt.code_unite_mesure_taille = unitt.code_unite_mesure
+    left join
+        unitmeasure_prp as unitp on
+            pdt.code_unite_mesure_poids = unitp.code_unite_mesure
+    left join
+        product_costhistory_prp as cost on pdt.id_produit = cost.id_produit
 )
 
 select * from product_union

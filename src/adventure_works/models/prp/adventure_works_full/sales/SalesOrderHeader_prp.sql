@@ -1,35 +1,37 @@
 with source as (
-    select * from {{source('adventure_works_full', 'SalesOrderHeader')}}
+    select *
+    from
+        {{ source('adventure_works_full', 'SalesOrderHeader') }}
 ),
 
 prepared_source as (
     select
-        CAST(SalesOrderID AS int64) AS ID_commande,
-        CAST(RevisionNumber AS int64) AS numero_revision,
-        CAST(OrderDate AS datetime) AS date_commande,
-        CAST(DueDate AS datetime) AS date_echeance,
-        CAST(ShipDate AS datetime) AS date_expedition,
-        CAST(Status AS int64) AS statut,
-        CAST(OnlineOrderFlag AS bool) AS est_une_commande_internet,
-        CAST(SalesOrderNumber AS string) AS numero_commande_client,
-        CAST(PurchaseOrderNumber AS string) AS numero_achat_client,
-        CAST(AccountNumber AS string) AS numero_compte,
-        CAST(CustomerID AS int64) AS ID_client,
-        CAST(SalesPersonID AS int64) AS ID_vendeur,
-        CAST(TerritoryID AS int64) AS ID_territoire,
-        CAST(BillToAddressID AS int64) AS ID_adresse_facturation,
-        CAST(ShipToAddressID AS int64) AS ID_adresse_expedition,
-        CAST(ShipMethodID AS int64) AS ID_methode_livraison,
-        CAST(CreditCardID AS int64) AS ID_carte_credit,
-        CAST(CreditCardApprovalCode AS string) AS code_approbation_carte_credit,
-        CAST(CurrencyRateID AS int64) AS ID_taux_change,
-        CAST(SubTotal AS numeric) AS sous_total,
-        CAST(TaxAmt AS numeric) AS montant_taxe,
-        CAST(Freight AS numeric) AS fret,
-        CAST(TotalDue AS numeric) AS total,
-        CAST(Comment AS string) AS commentaire,
-        CAST(rowguid AS string) AS ID_unique,
-        CAST(ModifiedDate AS datetime) AS date_modification
+        CAST(salesorderid as int64) as id_commande,
+        CAST(revisionnumber as int64) as numero_revision,
+        CAST(orderdate as datetime) as date_commande,
+        CAST(duedate as datetime) as date_echeance,
+        CAST(shipdate as datetime) as date_expedition,
+        CAST(status as int64) as statut,
+        CAST(onlineorderflag as bool) as est_une_commande_internet,
+        CAST(salesordernumber as string) as numero_commande_client,
+        CAST(purchaseordernumber as string) as numero_achat_client,
+        CAST(accountnumber as string) as numero_compte,
+        CAST(customerid as int64) as id_client,
+        CAST(salespersonid as int64) as id_vendeur,
+        CAST(territoryid as int64) as id_territoire,
+        CAST(billtoaddressid as int64) as id_adresse_facturation,
+        CAST(shiptoaddressid as int64) as id_adresse_expedition,
+        CAST(shipmethodid as int64) as id_methode_livraison,
+        CAST(creditcardid as int64) as id_carte_credit,
+        CAST(creditcardapprovalcode as string) as code_approbation_carte_credit,
+        CAST(currencyrateid as int64) as id_taux_change,
+        CAST(subtotal as numeric) as sous_total,
+        CAST(taxamt as numeric) as montant_taxe,
+        CAST(freight as numeric) as fret,
+        CAST(totaldue as numeric) as total,
+        CAST(comment as string) as commentaire,
+        CAST(rowguid as string) as id_unique,
+        CAST(modifieddate as datetime) as date_modification
     from source
 )
 
