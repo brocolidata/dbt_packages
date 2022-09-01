@@ -1,4 +1,5 @@
 [sqlfluff]
+exclude_rules = L055
 templater = dbt
 dialect = bigquery
 sql_file_exts = .sql

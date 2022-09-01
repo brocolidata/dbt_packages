@@ -22,4 +22,4 @@ point_vente as (
     left join vendeur as v on s.id_vendeur = v.id_entite_commerciale
 )
 
-select * from store
+select * from point_vente

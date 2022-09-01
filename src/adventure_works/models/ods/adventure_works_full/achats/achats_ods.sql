@@ -3,10 +3,10 @@ with purchaseorderheader_prp as (
     select * from {{ ref('PurchaseOrderHeader_prp') }}
 ),
 
-purchaseorderdetail_prp as (
+{# purchaseorderdetail_prp as (
 
     select * from {{ ref('PurchaseOrderDetail_prp') }}
-),
+), #}
 
 shipmethod_prp as (
 
