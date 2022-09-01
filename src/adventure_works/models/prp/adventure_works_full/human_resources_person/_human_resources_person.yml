@@ -1,0 +1,125 @@
+version: 2
+models:
+  - name: Employee_prp
+    description: >
+      Informations sur les employés tels que le salaire, le département et le
+      titre.
+    columns:
+      - name: ID_entite_commerciale
+        description: >
+          Clé primaire pour les dossiers des employés. Clé étrangère à
+          Businessentity.businessEntityId.
+      - name: numero_national_identite
+        description: >
+          Numéro d'identification national unique tel qu'un numéro de sécurité
+          sociale.
+      - name: identifiant_connexion
+        description: Connexion du réseau. Test2
+      - name: noeud_organisation
+        description: Où l'employé est situé dans la hiérarchie des entreprises.
+      - name: niveau_organisation
+        description: La profondeur de l'employé dans la hiérarchie des entreprises.
+      - name: titre_poste
+        description: Titre de travail tel que l'acheteur ou le représentant des ventes.
+      - name: date_naissance
+        description: Date de naissance.
+      - name: etat_civil
+        description: 'M = marié, s = célibataire'
+      - name: genre
+        description: 'M = mâle, f = femelle'
+      - name: date_embauche
+        description: Employé a embauché à cette date.
+      - name: est_salarie
+        description: >
+          Classification des emplois. 0 = horaire, non exempté de la négociation
+          collective. 1 = salarié, exempté de négociation collective.
+      - name: heures_vacances
+        description: Nombre d'heures de vacances disponibles.
+      - name: heures_maladie
+        description: Nombre d'heures de congé de maladie disponibles.
+      - name: est_actuel
+        description: '0 = inactif, 1 = actif'
+      - name: ID_unique
+        description: >
+          Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé
+          pour soutenir un échantillon de réplication de fusion.
+      - name: date_modification
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.
+  - name: Person_prp
+    description: >
+      Les êtres humains impliqués dans AdventureWorks: employés, contacts des
+      clients et contacts des fournisseurs.
+    columns:
+      - name: ID_entite_commerciale
+        description: Clé primaire pour les enregistrements des personnes.
+      - name: type_personne
+        description: >
+          Type principal de la personne: SC = Contact de magasin, IN = Client
+          individuel (vente au détail), SP = vendeur, EM = Employé (non-vente),
+          VC = Contact du fournisseur, GC = Contact général
+      - name: style_nom
+        description: >
+          0 = Les données de prenom et nom_famille sont stockées dans l'ordre de
+          style occidental (prenom, nom_famille). 1 = Les données de FirstName
+          et LastName sont stockées dans l'ordre de style oriental (nom_famille,
+          prenom).
+      - name: titre
+        description: 'Un titre de courtoisie. Par exemple, M. ou Mme'
+      - name: prenom
+        description: Prénom de la personne.
+      - name: deuxieme_prenom
+        description: Deuxième prénom ou initiale centrale de la personne.
+      - name: nom_famille
+        description: Nom de famille de la personne.
+      - name: suffixe
+        description: 'Suffix de nom de famille. Par exemple, Sr. ou Jr.'
+      - name: nom_complet
+        description: >
+          Nom complet. Concaténation de [titre, prenom, deuxieme_prenom,
+          nom_famille, suffixe] (style occidental)
+      - name: contact_par_email
+        description: >
+          0 = Contact ne souhaite pas recevoir de promotions de messagerie, 1 =
+          Contact souhaite recevoir des promotions de messagerie de l'aventure
+      - name: coordonnees_supplementaires
+        description: Coordonnées supplémentaires sur la personne stockée au format XML.
+      - name: informations_supplementaires
+        description: >
+          Des informations personnelles telles que des passe-temps et des
+          revenus collectés auprès des acheteurs en ligne. Utilisé pour
+          l'analyse des ventes.
+      - name: ID_unique
+        description: >
+          Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé
+          pour soutenir un échantillon de réplication de fusion.
+      - name: date_modification
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.
+  - name: StateProvince_prp
+    description: Provinces et Régions.
+    columns:
+      - name: ID_province
+        description: Clé primaire de StateProvince.
+      - name: code_province
+        description: Code ISO Standard de la Province.
+      - name: code_region
+        description: >
+          Code ISO standard de pays ou région. Clé étrangère de
+          CountryRegion.CountryRegionCode.
+      - name: est_uniquement_une_province
+        description: >
+          0 = code_province existe. 1 = code_province, indisponible en utilisant
+          CountryRegionCode.
+      - name: nom_province
+        description: Description de l'État ou de la province.
+      - name: ID_territoire
+        description: >
+          ID du territoire dans lequel se trouve l'État ou la province. Clé
+          étrangère à SalesTerritory.SalesTerritoryID.
+      - name: ID_unique
+        description: Numéro d'identification unique de l'enregistrement.
+      - name: date_modification
+        description: Date et heure de dernière mise à jour de l'enregistrement.

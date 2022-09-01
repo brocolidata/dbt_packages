@@ -1,0 +1,229 @@
+version: 2
+models:
+  - name: Location_prp
+    description: Inventaire des produits et lieux de fabrication.
+    columns:
+      - name: ID_emplacement
+        description: Clé primaire pour les enregistrements de localisation.
+      - name: nom_emplacement
+        description: Description de l'emplacement.
+      - name: cout_standard_emplacement
+        description: Coût horaire standard de l'emplacement de fabrication.
+      - name: disponibilite_enplacement
+        description: Capacité de travail (en heures) de l'emplacement de fabrication.
+      - name: date_modifiee
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.
+  - name: product_prp
+    description: Produits vendus ou utilisés dans la manfacturation des produits vendus.
+    columns:
+      - name: ID_produit
+        description: Clé primaire pour les enregistrements de produits.
+      - name: nom_produit
+        description: Nom du produit.
+      - name: numero_produit
+        description: Numéro d'identification unique du produit.
+      - name: est_manufacture_parAW
+        description: '0 = le produit est acheté, 1 = le produit est fabriqué en interne.'
+      - name: est_vendable
+        description: >
+          0 = Le produit n'est pas un article vendable. 1 = Le produit est
+          vendable.
+      - name: couleur
+        description: Couleur du produit.
+      - name: stock_securite
+        description: Quantité d'inventaire minimum.
+      - name: stock_alerte
+        description: >
+          Niveau d'inventaire qui déclenche un bon de commande ou un bon de
+          travail.
+      - name: cout_standard
+        description: Coût standard du produit.
+      - name: prix_vente
+        description: Prix ​​de vente.
+      - name: taille_produit
+        description: Taille du produit.
+      - name: code_unite_mesure_taille
+        description: Unité de mesure pour la colonne de taille.
+      - name: code_unite_mesure_poids
+        description: Unité de mesure pour la colonne de poids.
+      - name: poids_produit
+        description: Poids du produit.
+      - name: nombre_jours_fabrication_produit
+        description: Nombre de jours nécessaires pour fabriquer le produit.
+      - name: gamme
+        description: 'R = route, m = montagne, t = tournée, s = standard'
+      - name: ligne_produit
+        description: 'H = haut, m = milieu, l = bas'
+      - name: style
+        description: 'W = femmes, m = hommes, u = universel'
+      - name: ID_sous_categorie_produit
+        description: >
+          Le produit est membre de cette sous-catégorie de produit. Clé
+          étrangère de produits sous-catégorie.ProductSubCategoryId.
+      - name: ID_model_produit
+        description: >
+          Le produit est membre de ce modèle de produit. Clé étrangère à
+          ProductModel.ProductModelid.
+      - name: date_debut_vente
+        description: Date que le produit était disponible à la vente.
+      - name: date_fin_vente
+        description: Date que le produit n'était plus disponible à la vente.
+      - name: date_interruption
+        description: Date que le produit a été interrompu.
+      - name: ID_unique
+        description: >
+          Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé
+          pour soutenir un échantillon de réplication de fusion.
+      - name: date_modifiee
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.
+  - name: ProductCategory_prp
+    description: Catégorisation de produits de haut niveau.
+    columns:
+      - name: ID_categorie_produit
+        description: Clé primaire pour les enregistrements de catégorie ProductCategory.
+      - name: nom_categorie
+        description: Description de la catégorie.
+      - name: ID_unique
+        description: >
+          Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé
+          pour soutenir un échantillon de réplication de fusion.
+      - name: date_modifiee
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.
+  - name: ProductCostHistory_prp
+    description: Changements dans le coût d'un produit au fil du temps.
+    columns:
+      - name: ID_produit
+        description: Numéro d'identification du produit. Clé étrangère du produit.productID
+      - name: date_debut
+        description: Date de début du coût du produit.
+      - name: date_fin
+        description: Date de fin du coût du produit.
+      - name: cout_standard
+        description: Coût standard du produit.
+      - name: date_modifiee
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.
+  - name: ProductInventory_prp
+    description: Informations sur l'inventaire des produits.
+    columns:
+      - name: ID_produit
+        description: >
+          Numéro d'identification du produit. Clé étrangère du
+          produit.productID.
+      - name: ID_emplacement
+        description: >
+          Numéro d'identification de l'emplacement des stocks. Clé étrangère de
+          localisation.locationId.
+      - name: etagere
+        description: Compartiment de stockage dans un emplacement d'inventaire.
+      - name: compartiment
+        description: >
+          Conteneur de stockage sur une étagère dans un emplacement
+          d'inventaire.
+      - name: quantite_emplacement
+        description: Quantité de produits dans l'emplacement des stocks.
+      - name: ID_unique
+        description: >
+          Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé
+          pour soutenir un échantillon de réplication de fusion.
+      - name: date_modifiee
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.
+  - name: ProductSubcategory_prp
+    description: Sous-catégories de produits. Voir ProductCategory Table.
+    columns:
+      - name: ID_sous_categorie_produit
+        description: Clé primaire pour les enregistrements de la catégorie des produits.
+      - name: ID_categorie_produit
+        description: >
+          Numéro d'identification de la catégorie de produit. Clé étrangère pour
+          productcategory.productcategoryId.
+      - name: nom_sous_categorie
+        description: Description de la sous-catégorie.
+      - name: ID_unique
+        description: >
+          Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé
+          pour soutenir un échantillon de réplication de fusion.
+      - name: date_modifiee
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.
+  - name: TransactionHistory_prp
+    description: >
+      Enregistrement de chaque commande d'achat, commande client ou transaction
+      de travail à ce jour.
+    columns:
+      - name: ID_transaction
+        description: Clé primaire pour les enregistrements de transaction.
+      - name: ID_produit
+        description: >
+          Numéro d'identification du produit. Clé étrangère du
+          produit.productID.
+      - name: ID_commande
+        description: >
+          Commande d'achat, commande client ou numéro d'identification des bons
+          de travail.
+      - name: ID_ligne_commande
+        description: >
+          Numéro de ligne associé au bon de commande, à la commande client ou à
+          la commande de travail.
+      - name: date_transaction
+        description: Date et heure de la transaction.
+      - name: type_transaction
+        description: 'W = workorder, s = SalesOrder, p = achatOrder'
+      - name: quantite_produit
+        description: La quantité de produit.
+      - name: cout_produit
+        description: Coût du produit.
+      - name: date_modification
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.
+  - name: TransactionHistoryArchive_prp
+    description: Transactions pour les années précédentes.
+    columns:
+      - name: ID_transaction
+        description: Clé primaire pour les enregistrements TransactionHistoryArchive.
+      - name: ID_produit
+        description: >
+          Numéro d'identification du produit. Clé étrangère du
+          produit.productID.
+      - name: ID_commande
+        description: >
+          Commande d'achat, commande client ou numéro d'identification des bons
+          de travail.
+      - name: ID_ligne_commande
+        description: >
+          Numéro de ligne associé au bon de commande, à la commande client ou à
+          la commande de travail.
+      - name: date_transaction
+        description: Date et heure de la transaction.
+      - name: type_transaction
+        description: 'W = bon de travail, S = commande commerciale, p = bon de commande'
+      - name: quantite_produit
+        description: La quantité de produit.
+      - name: cout_produit
+        description: Coût du produit.
+      - name: date_modification
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.
+  - name: UnitMeasure_prp
+    description: Tableau de recherche d'unité de mesure.
+    columns:
+      - name: cle_primaire
+        description: Clé primaire.
+      - name: nom_unite_mesure
+        description: Description de l'unité de mesure.
+      - name: date_modifiee
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.

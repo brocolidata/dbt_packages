@@ -1,0 +1,160 @@
+version: 2
+models:
+  - name: ProductVendor_prp
+    description: >
+      Table à références transversales qui cartographie les fournisseurs avec
+      les produits qu'ils fournissent.
+    columns:
+      - name: ID_produit
+        description: Clé primaire. Clé étrangère du produit.productID.
+      - name: ID_fournisseur
+        description: Clé primaire. Clé étrangère du vendeur.businessEntityId.
+      - name: delai_moyen_reception
+        description: >
+          La durée moyenne (en jours) entre passer une commande avec le
+          fournisseur et recevoir le produit acheté.
+      - name: prix_standard
+        description: Le prix de vente habituel du vendeur.
+      - name: cout_derniere_reception
+        description: Le prix de vente lors de la dernière fois acheté.
+      - name: derniere_date_reception
+        description: Date du produit a été reçu pour la dernière fois par le vendeur.
+      - name: qte_commande_minimale
+        description: La quantité maximale qui doit être commandée.
+      - name: qte_commande_maximale
+        description: La quantité minimale qui doit être commandée.
+      - name: qte_commande_en_cours
+        description: La quantité actuellement sur commande.
+      - name: unite_de_mesure
+        description: L'unité de mesure du produit.
+      - name: date_modifiee
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.
+  - name: PurchaseOrderDetail_prp
+    description: >
+      Ligne individuel de commande de produits associés à un bon de commande
+      spécifique. Voir PurchaseOrderHeader.
+    columns:
+      - name: ID_commande_dachat
+        description: Clé primaire. Clé étrangère à PurchaseOrderHeader.PurchaseOrderId.
+      - name: ID_ligne_commande_dachat
+        description: Clé primaire. Un numéro de ligne par produit acheté.
+      - name: date_echeance_reception
+        description: Date du produit devrait être reçu.
+      - name: quantite_commandee
+        description: Quantité commandée.
+      - name: ID_produit
+        description: >
+          Numéro d'identification du produit. Clé étrangère du
+          produit.productID.
+      - name: prix_unitaire_achat
+        description: Le prix de vente du vendeur d'un seul produit.
+      - name: ligne_totale_achat
+        description: Par produit sous-total. Calculé comme OrderQty * UNITPRICE.
+      - name: qte_recue
+        description: La quantité a réellement reçu du vendeur.
+      - name: qte_rejetee
+        description: Quantité rejetée lors de l'inspection.
+      - name: qte_stockee
+        description: Quantité acceptée en stock. Calculé comme reçusqty - rejettedqty.
+      - name: date_modifiee
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.
+  - name: PurchaseOrderHeader_prp
+    description: Informations générales sur le bon de commande. Voir PurchaseOrderHeader.
+    columns:
+      - name: ID_commande_dachat
+        description: Clé primaire.
+      - name: numero_revision
+        description: >
+          Numéro incrémentiel pour suivre les modifications du bon de commande
+          au fil du temps.
+      
+      - name: statut_de_la_commande
+        description: >
+          Libellé de l'état actuel de la commande . 1 = en attente; 2 = approuvé; 3 = rejeté; 4 =
+          complet
+      - name: ID_employes
+        description: >
+          Employé qui a créé le bon de commande. Clé étrangère à
+          l'employé.businessEntityId.
+      - name: ID_fournisseur
+        description: >
+          Vendeur avec qui le bon de commande est placé. Clé étrangère du
+          vendeur.businessEntityId.
+      - name: ID_methode_expedition
+        description: Mode de livraison. Clé étrangère à ShipMethod.ShipMethodid.
+      - name: date_commande
+        description: Date de création de commande d'achat.
+      - name: date_expedition
+        description: Date d'expédition estimée du vendeur.
+      - name: soustotal_commande
+        description: >
+          Sous-total de bon de commande. Calculé sous forme de somme
+          (PurchaseOrderDetail.linetotal) pour le buyOrderId approprié.
+      - name: montant_taxe_commande
+        description: Montant de la taxe.
+      - name: frais_de_port
+        description: Frais de port.
+      - name: total_commande
+        description: Total en raison du vendeur. Calculé comme sous-total + taxamt + fret.
+      - name: date_modifiee
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.
+  - name: ShipMethod_prp
+    description: Table de recherche de compagnie maritime.
+    columns:
+      - name: ID_methode_expedition
+        description: Clé primaire pour les enregistrements de ShipMethod.
+      - name: nom_methode_exepdition
+        description: Nom de la compagnie maritime.
+      - name: base_min_expedition
+        description: Frais d'expédition minimum.
+      - name: taux_expedition
+        description: Frais d'expédition par livre.
+      - name: ID_ligne
+        description: >
+          Numéro RowGuidCol Identification unique de l'enregistrement. Utilisé
+          pour soutenir un échantillon de réplication de fusion.
+      - name: date_modifiee
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.
+  - name: Vendor_prp
+    description: >
+      Des entreprises dont Adventure Works Cycles achète des pièces ou d'autres
+      marchandises.
+    columns:
+      - name: ID_fournisseur
+        description: >
+          Clé primaire pour les enregistrements des fournisseurs. Clé étrangère
+          pour affaires.businessEntityId
+      - name: numero_compte
+        description: Numéro de compte du fournisseur (identification).
+      - name: nom_fournisseur
+        description: Nom de l'entreprise.
+      - name: cote_credit
+        description: >
+          1 = supérieur, 2 = excellent, 3 = supérieur à la moyenne, 4 = moyenne,
+          5 = inférieur à la moyenne
+      - name: statut_fournisseur_prefere
+        description: >
+          0 = Ne sollicitez pas si un autre fournisseur est disponible. 1 =
+          préféré aux autres fournisseurs fournissant le même produit.
+      - name: est_actif
+        description: >
+          0 = le vendeur n'est plus sollicité. 1 = le vendeur est activement
+          sollicité.
+      - name: achat_service_web_url
+        description: URL du vendeur.
+      - name: date_modifiee
+        description: >
+          Date et heure que l'enregistrement a été mise à jour pour la dernière
+          fois.
+
+
+
+
