@@ -26,11 +26,11 @@ You can find all the pipelines in the [Actions section of the GitHub repository]
 ## Update CI/CD pipelines
 Here are the places where code should be added/deleted when a dbt project is added/deleted :
 
-*In `.github/worklfows/dbt_validation_CI.yml` :*
+*In `.github/worklfows/dbt_validation_CI.yml`* :
 - update `jobs.changes.outputs` (2 lines to add)
 - update the `Filter updated dbt projects` (2 lines to add)
 
-*In `.github/worklfows/release_CD.yml` :*
+*In `.github/worklfows/release_CD.yml`* :
 - update `jobs.changes.outputs` (2 lines to add)
 - update the `Filter updated dbt projects` (2 lines to add)
-[hello](#update-cicd-pipelines)
+[Update CI/CD pipelines](#update-cicd-pipelines)
