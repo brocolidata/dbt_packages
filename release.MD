@@ -53,7 +53,7 @@ Must be one of the following:
 * **refactor**: A code change that neither fixes a bug nor adds a feature
 * **perf**: A code change that improves performance
 * **test**: Adding missing or correcting existing tests
-* **chore**: Changes to the build process or auxiliary tools and libraries such as documentation generation
+* **build**: Changes to the build process or auxiliary tools and libraries such as documentation generation
 
 ### Scope
 The scope could be anything specifying place of the commit change. 
