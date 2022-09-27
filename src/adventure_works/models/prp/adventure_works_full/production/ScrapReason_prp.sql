@@ -7,14 +7,11 @@ with source as (
 renamed as (
 
     select
-        CAST(ScrapReasonID AS int64) AS ID_raison,
-        CAST(Name AS string) AS raison,
-        CAST(ModifiedDate AS datetime) AS date_modification,
+        CAST(scrapreasonid as int64) as id_raison,
+        CAST(name as string) as raison,
+        CAST(modifieddate as datetime) as date_modification
     from source
 
 )
 
 select * from renamed
-
-
-

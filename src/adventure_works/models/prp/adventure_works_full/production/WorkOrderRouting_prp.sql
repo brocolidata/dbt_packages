@@ -7,23 +7,20 @@ with source as (
 renamed as (
 
     select
-        CAST(WorkOrderID AS int64) AS ID_commande_travail,
-        CAST(ProductID AS int64) AS ID_produit,
-        CAST(OperationSequence AS int64) AS sequence_operation,
-        CAST(LocationID AS int64) AS ID_emplacement,
-        CAST(ScheduledStartDate AS datetime) AS date_debut_prevue,
-        CAST(ScheduledEndDate AS datetime) AS date_fin_planifiee,
-        CAST(ActualStartDate AS datetime) AS date_debut_reelle,
-        CAST(ActualEndDate AS datetime) AS date_fin_reelle,
-        CAST(ActualResourceHrs AS numeric) AS heures_ressources_reelles,
-        CAST(PlannedCost AS numeric) AS cout_prevu,
-        CAST(ActualCost AS numeric) AS prix_actuel,
-        CAST(ModifiedDate AS datetime) AS date_modification
+        CAST(workorderid as int64) as id_commande_travail,
+        CAST(productid as int64) as id_produit,
+        CAST(operationsequence as int64) as sequence_operation,
+        CAST(locationid as int64) as id_emplacement,
+        CAST(scheduledstartdate as datetime) as date_debut_prevue,
+        CAST(scheduledenddate as datetime) as date_fin_planifiee,
+        CAST(actualstartdate as datetime) as date_debut_reelle,
+        CAST(actualenddate as datetime) as date_fin_reelle,
+        CAST(actualresourcehrs as numeric) as heures_ressources_reelles,
+        CAST(plannedcost as numeric) as cout_prevu,
+        CAST(actualcost as numeric) as prix_actuel,
+        CAST(modifieddate as datetime) as date_modification
     from source
 
 )
 
 select * from renamed
-
-
-

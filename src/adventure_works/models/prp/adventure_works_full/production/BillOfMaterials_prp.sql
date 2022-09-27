@@ -7,15 +7,15 @@ with source as (
 renamed as (
 
     select
-        CAST(BillOfMaterialsID AS int64) AS nomenclature_id,
-        CAST(ProductAssemblyID AS int64) AS ID_assemblage_produit,
-        CAST(ComponentID AS int64) AS ID_composant,
-        CAST(StartDate AS datetime) AS date_debut,
-        CAST(EndDate AS datetime) AS date_fin,
-        CAST(UnitMeasureCode AS string) AS code_unite_mesure,
-        CAST(BOMLevel AS int64) AS niveau_nomenclature,
-        CAST(PerAssemblyQty AS numeric) AS quantite_par_assemblage,
-        CAST(ModifiedDate AS datetime) AS date_modification
+        CAST(billofmaterialsid as int64) as nomenclature_id,
+        CAST(productassemblyid as int64) as id_assemblage_produit,
+        CAST(componentid as int64) as id_composant,
+        CAST(startdate as datetime) as date_debut,
+        CAST(enddate as datetime) as date_fin,
+        CAST(unitmeasurecode as string) as code_unite_mesure,
+        CAST(bomlevel as int64) as niveau_nomenclature,
+        CAST(perassemblyqty as numeric) as quantite_par_assemblage,
+        CAST(modifieddate as datetime) as date_modification
     from source
 
 )

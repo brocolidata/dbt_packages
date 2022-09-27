@@ -7,21 +7,18 @@ with source as (
 renamed as (
 
     select
-        CAST(WorkOrderID AS int64) AS ID_commande_travail,
-        CAST(ProductID AS int64) AS ID_produit,
-        CAST(OrderQty AS int64) AS quantite_commandee,
-        CAST(StockedQty AS int64) AS quantite_stockee,
-        CAST(ScrappedQty AS int64) AS quantite_supprimee,
-        CAST(StartDate AS datetime) AS date_debut,
-        CAST(EndDate AS datetime) AS date_fin,
-        CAST(DueDate AS datetime) AS date_echeance,
-        CAST(ScrapReasonID AS int64) AS ID_raison,
-        CAST(ModifiedDate AS datetime) AS date_modification
+        CAST(workorderid as int64) as id_commande_travail,
+        CAST(productid as int64) as id_produit,
+        CAST(orderqty as int64) as quantite_commandee,
+        CAST(stockedqty as int64) as quantite_stockee,
+        CAST(scrappedqty as int64) as quantite_supprimee,
+        CAST(startdate as datetime) as date_debut,
+        CAST(enddate as datetime) as date_fin,
+        CAST(duedate as datetime) as date_echeance,
+        CAST(scrapreasonid as int64) as id_raison,
+        CAST(modifieddate as datetime) as date_modification
     from source
 
 )
 
 select * from renamed
-
-
-
