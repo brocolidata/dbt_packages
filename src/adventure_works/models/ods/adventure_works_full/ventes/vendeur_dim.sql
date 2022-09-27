@@ -7,14 +7,8 @@ person_prp as (
 ),
 
 territoire_vente_dim as (
-    select
-        id_territoire,
-        nom_territoire,
-        code_region,
-        zone_geographique
-    from {{ ref('territoire_vente_dim') }}
+    select * from {{ ref('territoire_vente_dim') }}
 ),
-
 
 sales_person as (
     select
@@ -36,6 +30,15 @@ person as (
     where type_personne = 'SP'
 ),
 
+territoire_vente as (
+    select
+        id_territoire,
+        nom_territoire,
+        code_region,
+        zone_geographique
+    from territoire_vente_dim
+),
+
 vendeur as (
     select
         sp.*,
@@ -43,7 +46,8 @@ vendeur as (
         p.nom_complet
     from sales_person as sp
     left join person as p on sp.id_entite_commerciale = p.id_entite_commerciale
-    left join territoire_vente_dim as tv on sp.id_territoire = tv.id_territoire
+    left join territoire_vente as tv on sp.id_territoire = tv.id_territoire
+    left join store as s on sp. = s.
 )
 
 select * from vendeur
