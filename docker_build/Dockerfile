@@ -13,8 +13,15 @@ RUN apt-get -y update \
         python3-pip \
         git \
         jq \
-        zsh
+        zsh \
+        apt-transport-https \
+        ca-certificates \
+        gnupg
 
+RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - \
+    && apt-get update -y \
+    && apt-get install google-cloud-cli -y
+      
 
 # Copy & Install the dependencies file to the working directory
 COPY requirements.txt .
