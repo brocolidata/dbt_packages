@@ -47,7 +47,6 @@ vendeur as (
     from sales_person as sp
     left join person as p on sp.id_entite_commerciale = p.id_entite_commerciale
     left join territoire_vente as tv on sp.id_territoire = tv.id_territoire
-    left join store as s on sp. = s.
 )
 
 select * from vendeur

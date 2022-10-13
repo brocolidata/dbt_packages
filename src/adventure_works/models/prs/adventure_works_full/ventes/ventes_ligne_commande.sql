@@ -103,7 +103,7 @@ client as (
 ),
 
 vendeur as (
-    select 
+    select
         id_entite_commerciale,
         nom_complet as nom_complet_vendeur,
         pourcentage_commission,
@@ -122,7 +122,9 @@ ventes_ligne_commande as (
         v.* except(id_entite_commerciale),
         p.cout_standard * lc.quantite_commandee as cout_total,
         lc.prix_unitaire * lc.quantite_commandee as chiffre_daffaires_brut,
-        lc.prix_unitaire * lc.remise * lc.quantite_commandee as montant_remise_ligne,
+        (
+            lc.prix_unitaire * lc.remise * lc.quantite_commandee
+        ) as montant_remise_ligne,
         (
             (lc.prix_unitaire * (1 - lc.remise)) * lc.quantite_commandee
         ) * (1 - op.pourcentage_remise) as chiffre_daffaires_net
