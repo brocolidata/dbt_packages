@@ -11,7 +11,7 @@ Repository that contains all dbt packages created by Brocoli Data
 | [fuel](src/fuel/README.md)                       | Fuel prices in Casablanca, Morocco          |
 
 ## Quickstart
-1. Make a copy of **.env.example** named **.env** both in the **root folder** and **/docker_build** then replace dummy values with yours in both files
+1. Make a copy of **.env.example** named **.env** in the **root folder**  then replace dummy values with yours in both files
 2. Add your credential file in `credentials` folder (rename the file to `google_credentials.json`) for local development purposes
 2. Run the [Development start](#development-start) process to create the image
 3. Open a Remote Window  *(click on blue button left-down corner and click "Reopen in Container)*
