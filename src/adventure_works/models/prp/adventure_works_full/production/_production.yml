@@ -227,3 +227,83 @@ models:
         description: >
           Date et heure que l'enregistrement a été mise à jour pour la dernière
           fois.
+  - name: ScrapReason_prp
+    description: "Table de recherche de raisons de défaillance de fabrication."
+    columns:
+      - name: ID_raison
+        description: "Clé primaire"
+      - name: raison
+        description: "Description de la raison de l'échec."
+      - name: date_modification
+        description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+  - name: WorkOrder_prp
+    description: "Ordres de fabrication."
+    columns:
+      - name: ID_commande_travail
+        description: "Clé primaire pour les enregistrements de commandement."
+      - name: ID_produit
+        description: "Numéro d'identification du produit. Clé étrangère du produit.productID."
+      - name: quantite_commandee
+        description: "Quantité du produit à construire."
+      - name: quantite_stockee
+        description: "Quantité construite et inventaire."
+      - name: quantite_supprimee
+        description: "Quantité qui a échoué l'inspection."
+      - name: date_debut
+        description: "Date de début de commande de travail."
+      - name: date_fin
+        description: "Date de fin de commande de travail."
+      - name: date_echeance
+        description: "Date d'échéance de commande."
+      - name: ID_raison
+        description: "Raison de l'échec de l'inspection."
+      - name: date_modification
+        description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+  - name: WorkOrderRouting_prp
+    description: "Détails de bon de travail."
+    columns:
+      - name: ID_commande_travail
+        description: "Clé primaire. Clé étrangère pour workorder.workOrderId."
+      - name: ID_produit
+        description: "Clé primaire. Clé étrangère du produit.productID."
+      - name: sequence_operation
+        description: "Clé primaire. Indique la séquence de processus de fabrication."
+      - name: ID_emplacement
+        description: "Emplacement de fabrication où la pièce est traitée. Clé étrangère de localisation.locationId."
+      - name: date_debut_prevue
+        description: "Date de début de fabrication prévue."
+      - name: date_fin_planifiee
+        description: "Date de fin de fabrication planifiée."
+      - name: date_debut_reelle
+        description: "Date de début réelle."
+      - name: date_fin_reelle
+        description: "Date de fin réelle."
+      - name: heures_ressources_reelles
+        description: "Nombre d'heures de fabrication utilisées."
+      - name: cout_prevu
+        description: "Coût de fabrication estimé."
+      - name: prix_actuel
+        description: "Coût de fabrication réel."
+      - name: date_modification
+        description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+  - name: BillOfMaterials_prp
+    description: "Articles nécessaires pour faire des vélos et des sous-évaluations de vélos. Il identifie la relation héirarchique entre un produit parent et ses composants."
+    columns:
+      - name: nomenclature_id
+        description: "Clé primaire pour les enregistrements de facturation."
+      - name: ID_assemblage_produit
+        description: "Numéro d'identification du produit parent. Clé étrangère du produit.productID."
+      - name: ID_composant
+        description: "Numéro d'identification des composants. Clé étrangère du produit.productID."
+      - name: date_debut
+        description: "Date que le composant a commencé à être utilisé dans l'élément d'assemblage."
+      - name: date_fin
+        description: "Date Le composant a cessé d'être utilisé dans l'élément d'assemblage."
+      - name: code_unite_mesure
+        description: "Code standard identifiant l'unité de mesure pour la quantité."
+      - name: niveau_nomenclature
+        description: "Indique la profondeur que le composant provient de son parent (assemblyId)."
+      - name: quantite_par_assemblage
+        description: "Quantité du composant nécessaire pour créer l'assemblage."
+      - name: date_modification
+        description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
