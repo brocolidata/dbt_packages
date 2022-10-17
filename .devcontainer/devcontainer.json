@@ -1,15 +1,10 @@
 {
-  "name": "Data Platform Functions",
+  "name": "dbt development environment",
   "dockerComposeFile": "../docker-compose.yml",
   "service": "dbt_packages",
   "workspaceFolder": "/src",
   "shutdownAction": "stopCompose",
   "extensions": [
-    "innoverio.vscode-dbt-power-user"
-  ],
-  "settings": {
-    "files.associations": {
-      "*.sql": "jinja-sql"
-    }
-  }
+	"Fivetran.dbt-language-server"
+  ]
 }
