@@ -6,5 +6,8 @@
   "shutdownAction": "stopCompose",
   "extensions": [
 	"Fivetran.dbt-language-server"
-  ]
+  ],
+  "settings": {
+    "WizardForDbtCore(TM).dbtCompiler": "dbt"
+  }
 }

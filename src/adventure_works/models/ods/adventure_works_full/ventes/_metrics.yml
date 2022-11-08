@@ -1,0 +1,101 @@
+version: 2
+
+metrics:
+  # - name: ca_brut
+  #   label: Chiffre d'Affaires Brut
+  #   model: ref('ligne_commande_fct')
+  #   description: "Chiffre d'Affaires Brut"
+
+  #   calculation_method: sum
+  #   expression: prix_unitaire * quantite_commandee
+
+  #   timestamp: date_commande
+  #   time_grains: [day, week, month, quarter, year]
+
+  #   dimensions:
+  #     - id_commande
+  #     - id_ligne_commande
+    
+  #   # general properties
+  #   config:
+  #     treat_null_values_as_zero: true
+
+  #   meta: {domaine: Ventes}
+  
+
+  - name: quantite_commandee
+    label: Quantitée Commandée
+    model: ref('ligne_commande_fct')
+    description: "Quantitée Commandée"
+
+    calculation_method: sum
+    expression: quantite_commandee
+
+    timestamp: date_commande
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_commande
+      - id_ligne_commande
+      - id_client
+      - id_produit
+      - id_vendeur
+      - id_territoire
+      - id_offre_promotionnelle
+    
+    # general properties
+    config:
+      treat_null_values_as_zero: true
+
+    meta: {domaine: Ventes}
+
+  - name: prix_unitaire
+    label: Prix Unitaire
+    model: ref('ligne_commande_fct')
+    description: "Prix unitaire"
+
+    calculation_method: sum
+    expression: prix_unitaire
+
+    timestamp: date_commande
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_commande
+      - id_ligne_commande
+      - id_client
+      - id_produit
+      - id_vendeur
+      - id_territoire
+      - id_offre_promotionnelle
+    
+    # general properties
+    config:
+      treat_null_values_as_zero: true
+
+    meta: {domaine: Ventes}
+
+  - name: ca_brut
+    label: Chiffre d'Affaires Brut
+    description: "Chiffre d'Affaires Brut"
+
+    calculation_method: derived
+    expression: "{{metric('prix_unitaire')}} / {{metric('quantite_commandee')}}"
+
+    timestamp: date_commande
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_commande
+      - id_ligne_commande
+      - id_client
+      - id_produit
+      - id_vendeur
+      - id_territoire
+      - id_offre_promotionnelle
+    
+    # general properties
+    config:
+      treat_null_values_as_zero: true
+
+    meta: {domaine: Ventes}

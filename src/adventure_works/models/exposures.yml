@@ -3,6 +3,7 @@ version: 2
 exposures:
   
   - name: ADW001
+    label: "Analyse des achats"
     type: dashboard
     maturity: low
     url: https://datastudio.google.com/reporting/56fa3583-5f5d-49a8-b5c4-794dda86ff10

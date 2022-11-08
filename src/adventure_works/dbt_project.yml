@@ -24,7 +24,8 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 
 # Variables
-
+vars:
+  dbt_metrics_calendar_model: custom_calendar_dim
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
