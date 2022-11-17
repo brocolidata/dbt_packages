@@ -1,14 +1,13 @@
 with ligne_commande_fct as (
+
     select * from {{ ref('ligne_commande_fct') }}
+    
 ),
 
-produit_ods as (
-    select * from {{ ref('produit_ods') }}
+produit_dim as (
+    select * from {{ ref('produit_dim') }}
 ),
 
-offre_promotionnelle_fct as (
-    select * from {{ ref('offre_promotionnelle_fct') }}
-),
 
 client_dim as (
     select * from {{ ref('client_dim') }}
@@ -31,7 +30,7 @@ ligne_commande as (
         id_commande,
         date_commande,
         date_echeance,
-        date_expedition,
+        date_mouvement,
         est_une_commande_internet,
         id_client,
         id_vendeur,
@@ -72,22 +71,7 @@ produit as (
         date_debut_cout_produit,
         date_fin_cout_produit,
         nom_categorie
-    from produit_ods
-),
-
-offre_promotionnelle as (
-    select
-        id_offre_promotionnelle,
-        description,
-        pourcentage_remise,
-        type_remise,
-        beneficiaire_remise,
-        date_debut,
-        date_fin,
-        remise_minimale,
-        remise_maximale,
-        id_produit
-    from offre_promotionnelle_fct
+    from produit_dim
 ),
 
 client as (
@@ -115,9 +99,8 @@ vendeur as (
 
 ventes_ligne_commande as (
     select
-        lc.* except(id_produit),
+        lc.*,
         p.* except(id_produit),
-        op.* except(id_offre_promotionnelle, id_produit),
         c.* except(id_client),
         v.* except(id_entite_commerciale),
         p.cout_standard * lc.quantite_commandee as cout_total,
@@ -127,12 +110,9 @@ ventes_ligne_commande as (
         ) as montant_remise_ligne,
         (
             (lc.prix_unitaire * (1 - lc.remise)) * lc.quantite_commandee
-        ) * (1 - op.pourcentage_remise) as chiffre_daffaires_net
+        )  as chiffre_daffaires_net
     from ligne_commande as lc
     left join produit as p on p.id_produit = lc.id_produit
-    left join offre_promotionnelle as op
-        on op.id_offre_promotionnelle = lc.id_offre_promotionnelle
-            and op.id_produit = lc.id_produit
     left join client as c on c.id_client = lc.id_client
     left join vendeur as v on v.id_entite_commerciale = lc.id_vendeur
 ),
@@ -141,11 +121,11 @@ computed_ventes_ligne_commande as (
     select
         *,
         (
-            chiffre_daffaires_net / (1 - pourcentage_remise)
+            chiffre_daffaires_net / (1 - remise)
         ) - chiffre_daffaires_net as montant_remise_promo,
         cout_total - chiffre_daffaires_net as marge,
         (
-            chiffre_daffaires_net / (1 - pourcentage_remise)
+            chiffre_daffaires_net / (1 - remise)
         ) - chiffre_daffaires_net + montant_remise_ligne as total_remise
     from ventes_ligne_commande
 )

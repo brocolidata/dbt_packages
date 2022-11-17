@@ -12,7 +12,7 @@ achats_detail as (
 
 produits as (
 
-    select * from {{ ref('produit_ods') }}
+    select * from {{ ref('produit_dim') }}
 
 ),
 
@@ -42,6 +42,7 @@ achats_union as (
         acha.base_min_expedition,
         acha.taux_expedition,
 
+        prod.id_produit,
         prod.nom_produit,
         prod.couleur,
         prod.stock_securite,
@@ -72,6 +73,7 @@ achats_union as (
         achadet.qte_recue,
         achadet.qte_rejetee,
         achadet.qte_stockee,
+        achadet.date_modifiee,
 
         empl.noeud_organisation,
         empl.niveau_organisation,

@@ -1165,7 +1165,7 @@ sources:
             data_type: int64
             description: "Code promotionnel. Clé étrangère à SpecialOFFER.SpecialOFFERID."
           - name: UnitPrice
-            data_type: numeric
+            data_type: float
             description: "Prix ​​de vente d'un seul produit."
           - name: UnitPriceDiscount
             data_type: numeric

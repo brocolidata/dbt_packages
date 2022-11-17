@@ -1,0 +1,236 @@
+version: 2
+
+metrics:
+  - name: stock_final
+    label: Stock final
+    model: ref('produit_dim')
+    description: "Stock final du dernier Exercice"
+
+    calculation_method: sum
+    expression: quantite_emplacement 
+
+    timestamp: date_modification_stock
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+  - name: stock_initial
+    label: Stock initial
+    model: ref('stock_initial_calcule_fct')
+    description: "Stock initial du premier Exercice"
+
+    calculation_method: sum
+    expression: stock_init 
+
+    timestamp: date_month
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+
+  - name: quantite_achetee
+    label: Quantite achetee
+    model: ref('achats_detail_ods')
+    description: "Quantite achetee et recu"
+
+    calculation_method: sum
+    expression: qte_stockee 
+
+    timestamp: date_echeance_reception
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+      - id_commande_dachat
+
+
+  - name: quantite_consommee
+    label: Quantite consommee
+    model: ref('consommation_production')
+    description: "Quantite consommee"
+
+    calculation_method: sum
+    expression: quantite_consomee 
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+      - id_composant
+    
+
+    config:
+      treat_null_values_as_zero: True
+
+  - name: quantite_produite
+    label: Quantite produite
+    model: ref('entete_bon_de_travail_fct')
+    description: "Quantite produite"
+
+    calculation_method: sum
+    expression: quantite_commandee 
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+    config:
+      treat_null_values_as_zero: True
+
+  - name: quantite_rejetee
+    label: Quantite rejetee
+    model: ref('entete_bon_de_travail_fct')
+    description: "Quantite rejetee"
+
+    calculation_method: sum
+    expression: quantite_supprimee 
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+    config:
+      treat_null_values_as_zero: True
+
+  - name: quantite_vendue
+    label: Quantite vendue
+    model: ref('ligne_commande_fct')
+    description: "Quantite vendue et livree"
+
+    calculation_method: sum
+    expression: quantite_commandee 
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+      - id_commande
+
+    config:
+      treat_null_values_as_zero: True
+
+  - name: quantite_restante
+    label: Quantite restante
+    model: ref('mouvements_produit_conso_fct')
+    description: "Quantite restante"
+
+    calculation_method: sum
+    expression: coalesce(running_quantite_restante,0)
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+    config:
+      treat_null_values_as_zero: True
+  
+      
+  - name: quantite_entree
+    label: Quantite entree
+    model: ref('mouvements_produit_fct')
+    description: "Quantite entree"
+
+    calculation_method: sum
+    expression: coalesce(quantite_entree,0)
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+    config:
+      treat_null_values_as_zero: True
+
+  - name: quantite_sortie
+    label: Quantite sortie
+    model: ref('mouvements_produit_fct')
+    description: "Quantite sortie"
+
+    calculation_method: sum
+    expression: coalesce(quantite_sortie,0)
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+    config:
+      treat_null_values_as_zero: True
+
+  - name: stock_moyen
+    label: Stock moyen
+    model: ref('stock_actuel')
+    description: "Stock moyen"
+
+    calculation_method: sum
+    expression: coalesce(quantite_restante_stock_moyen,0)
+
+    timestamp: date_month
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+    config:
+      treat_null_values_as_zero: True
+
+  - name: sorties_moyennes
+    label: Sorties moyennes
+    model: ref('stock_sorties_fct')
+    description: "Sorties moyennes sur 6 mois"
+
+    calculation_method: sum
+    expression: coalesce(quantite_sortie_sorties_moyennes_6mois,0)
+
+    timestamp: date_month
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+    config:
+      treat_null_values_as_zero: True
+
+  - name: rotation_stock
+    label: Ratio de rotation des stocks
+    description: "Ratio de rotation des stocks"
+
+    calculation_method: derived
+    expression: "coalesce(coalesce({{metric('stock_moyen')}},0) / coalesce({{metric('sorties_moyennes')}},0),0)"
+
+    timestamp: date_month
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+    config:
+      treat_null_values_as_zero: True  
+
+  - name: temps_ecoulement
+    label: Temps d'ecoulement des stocks
+    description: "Exprime combien de temps, en moyenne, un produit restera en stock avant d'etre ecoule"
+
+    calculation_method: derived
+    expression: "coalesce({{metric('rotation_stock')}},0) * 365 / 12"
+
+    timestamp: date_month
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+    config:
+      treat_null_values_as_zero: True  

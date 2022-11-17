@@ -26,7 +26,7 @@ sales_order_header as (
         id_commande,
         date_commande,
         date_echeance,
-        date_expedition,
+        date_expedition as date_mouvement,
         est_une_commande_internet,
         id_client,
         id_vendeur,
