@@ -19,6 +19,9 @@ with non_der as (
     ) }}  
 ),
 
+
+
+
 der as (
     select *
     from {{ metrics.calculate(
@@ -27,6 +30,7 @@ der as (
         dimensions=['id_produit']
     ) }}  
 ),
+
 
 iss as (
     select
@@ -69,5 +73,6 @@ iss as (
             and nd.date_month = d.date_month
 )
 
-select *
-from iss
+
+
+select * from iss

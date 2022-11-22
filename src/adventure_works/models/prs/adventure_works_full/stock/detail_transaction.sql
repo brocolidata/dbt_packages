@@ -6,7 +6,7 @@ with detail_transaction as (
 
 produit as (
 
-    select * from {{ ref('produit_dim') }}
+    select * from {{ ref('produit_avec_stock_dim') }}
 ),
 
 transaction_details as (

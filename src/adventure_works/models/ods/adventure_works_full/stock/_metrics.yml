@@ -3,7 +3,7 @@ version: 2
 metrics:
   - name: stock_final
     label: Stock final
-    model: ref('produit_dim')
+    model: ref('produit_avec_stock_dim')
     description: "Stock final du dernier Exercice"
 
     calculation_method: sum

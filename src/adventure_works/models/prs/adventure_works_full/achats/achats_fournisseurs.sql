@@ -12,7 +12,7 @@ achats_detail as (
 
 produits as (
 
-    select * from {{ ref('produit_dim') }}
+    select * from {{ ref('produit_avec_stock_dim') }}
 
 ),
 

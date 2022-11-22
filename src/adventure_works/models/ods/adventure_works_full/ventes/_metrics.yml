@@ -1,0 +1,158 @@
+version: 2
+
+metrics:
+  - name: cout_total
+    label: Cout total
+    model: ref('ventes_ligne_commande')
+    description: "Cout total de la ligne de commande"
+
+    calculation_method: sum
+    expression: cout_total 
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+  - name: chiffre_daffaires_brut
+    label: Chiffre daffaires brut
+    model: ref('ventes_ligne_commande')
+    description: "Chiffre daffaires brut de la ligne de commande"
+
+    calculation_method: sum
+    expression: chiffre_daffaires_brut 
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+
+  - name: montant_remise_ligne
+    label: Montant remise ligne
+    model: ref('ventes_ligne_commande')
+    description: "Montant remise ligne de la ligne de commande et recu"
+
+    calculation_method: sum
+    expression: montant_remise_ligne 
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+  - name: chiffre_daffaires_net_remise
+    label: Chiffre daffaires net de remise
+    model: ref('ventes_ligne_commande')
+    description: "Chiffre daffaires net prenant en compte la remise ligne mais ne prenant pas en compte la remise de l'offre promotionnelle"
+
+    calculation_method: sum
+    expression: chiffre_daffaires_net_remise
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+  - name: chiffre_daffaires_net
+    label: Chiffre daffaires net
+    model: ref('ventes_ligne_commande')
+    description: "Chiffre daffaires net de la remise ligne et de la remise promo"
+
+    calculation_method: sum
+    expression: chiffre_daffaires_net
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+    config:
+      treat_null_values_as_zero: True
+
+  - name: pourcentage_remise_promo
+    label: Pourcentage remise
+    model: ref('ventes_ligne_commande')
+    description: "Pourcentage remise de la promo"
+    
+    calculation_method: sum
+    expression: pourcentage_remise
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+    config:
+      treat_null_values_as_zero: True
+
+  - name: pourcentage_ca_non_remise
+    label: Pourcentage chiffre daffaires non remise
+    description: "Pourcentage chiffre daffaires a payer"
+    
+    calculation_method: derived
+    expression: "1 - {{metric('pourcentage_remise_promo')}}"
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+    config:
+      treat_null_values_as_zero: True     
+
+
+  - name: montant_remise_promo
+    label: Montant remise promo
+    description: "Montant remise offre promotionnelle"
+
+    calculation_method: derived
+    expression: "{{metric('chiffre_daffaires_net_remise')}} - {{metric('chiffre_daffaires_net')}}"
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+    config:
+      treat_null_values_as_zero: True  
+
+  - name: marge_ligne
+    label: Marge ligne
+    description: "Marge de la ligne de commande"
+
+    calculation_method: derived
+    expression: " coalesce({{metric('chiffre_daffaires_net')}},0) - coalesce({{metric('cout_total')}},0)"
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+    config:
+      treat_null_values_as_zero: True
+  
+  - name: total_remise
+    label: Total remise
+    description: "Total remise de la ligne de commande"
+
+    calculation_method: derived
+    expression: "{{metric('montant_remise_promo')}} + {{metric('montant_remise_ligne')}} "
+
+    timestamp: date_mouvement
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - id_produit
+
+    config:
+      treat_null_values_as_zero: True 

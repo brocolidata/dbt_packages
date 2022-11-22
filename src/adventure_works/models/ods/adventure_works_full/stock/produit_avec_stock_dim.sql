@@ -23,6 +23,17 @@ product_costhistory_prp as (
     select * from {{ ref('ProductCostHistory_prp') }}
 ),
 
+productinventory_prp as (
+
+    select * from {{ ref('ProductInventory_prp') }}
+),
+
+location_prp as (
+
+    select * from {{ ref('Location_prp') }}
+),
+
+
 product_union as (
     select
         pdt.id_produit,
@@ -54,7 +65,15 @@ product_union as (
         unitp.nom_unite_mesure as unite_mesure_poids,
         cost.date_debut_cout_produit,
         cost.date_fin_cout_produit,
-        coalesce(cat.nom_categorie, 'Others') as nom_categorie
+        coalesce(cat.nom_categorie, 'Others') as nom_categorie,
+        inv.etagere,
+        inv.compartiment,
+        inv.quantite_emplacement,
+        inv.date_modification as date_modification_stock,
+        loc.nom_emplacement,
+        loc.cout_standard_emplacement,
+        loc.disponibilite_emplacement
+
     from product_prp as pdt
     left join
         productsubcategory_prp as sub on
@@ -69,7 +88,14 @@ product_union as (
         unitmeasure_prp as unitp on
             pdt.code_unite_mesure_poids = unitp.code_unite_mesure
     left join
-        product_costhistory_prp as cost on pdt.id_produit = cost.id_produit
+        product_costhistory_prp as cost on
+            pdt.id_produit = cost.id_produit
+    left join
+        productinventory_prp as inv on
+            pdt.id_produit = inv.id_produit
+    left join
+        location_prp as loc on
+            inv.id_emplacement = loc.id_emplacement
 )
 
 select * from product_union
