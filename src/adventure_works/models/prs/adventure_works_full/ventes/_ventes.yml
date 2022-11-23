@@ -133,7 +133,7 @@ models:
       - name: id_offre_promotionnelle
         description: ID unique de l'offre promotionnelle.
       - name: prix_unitaire
-        description: Prix ​​de vente d'un seul produit.
+        description: Prix de vente d'un seul produit.
       - name: remise
         description: Montant de réduction.
       - name: total_ligne
