@@ -20,4 +20,23 @@ exposures:
     owner:
       name: admins
       email: administrators@brocoli.tech
+
+  - name: ADW002
+    type: dashboard
+    maturity: low
+    url: https://datastudio.google.com/reporting/180b81f8-b751-4938-b354-33d6f61c083a
+    description: >
+      **Code** : [ADW002]
+      
+      **Nom** : Instant stocks and sales 
+      
+      **Détails** : Analyse des produits en termes de stock, ventes et mouvements
+    
+    depends_on:
+      - ref('iss_produit')
+
+      
+    owner:
+      name: admins
+      email: administrators@brocoli.tech
   
