@@ -15,7 +15,7 @@ liste as (
         bi.niveau_nomenclature,
         bi.quantite_par_assemblage,
         bi.date_modification
-        
+
 
 
     from billofmaterials_prp as bi

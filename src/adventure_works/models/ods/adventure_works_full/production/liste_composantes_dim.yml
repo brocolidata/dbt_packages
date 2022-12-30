@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: liste_composantes_dim
+    description: "Table (dim) de la liste des composantes du produit"
+    columns:
+      - name: nomenclature_id
+        description: "L'ID de la nomenclature"
+
+      - name: id_assemblage_produit
+        description: "L'ID de l'assemblage du produit"
+
+      - name: id_composant
+        description: "L'ID du composant"
+
+      - name: date_debut
+        description: "La date de début de "
+
+      - name: date_fin
+        description: "La date de fin de "
+
+      - name: code_unite_mesure
+        description: "Le code de l'unité de mesure"
+
+      - name: niveau_nomenclature
+        description: "Le niveau de la nomenclature"
+
+      - name: quantite_par_assemblage
+        description: "La quantité par assemblage"
+
+      - name: date_modification
+        description: "La date de modification"
