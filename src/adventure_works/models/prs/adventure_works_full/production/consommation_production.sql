@@ -38,25 +38,25 @@ liste_composantes as (
         niveau_nomenclature,
         quantite_par_assemblage,
         date_modification
-        
+
     from liste_composantes_dim
 ),
 
 conso_prod as (
     select
+        bi.* except(nomenclature_id, date_modification, id_produit),
         e.id_commande_travail,
         e.date_mouvement,
         e.id_produit,
         e.quantite_produite,
         e.quantite_produite_stockee,
         e.quantite_produite_supprimee,
-        bi.* except(nomenclature_id,date_modification, id_produit),
         e.quantite_produite * bi.quantite_par_assemblage as quantite_consomee
 
     from entete_bon_de_travail as e
     left join liste_composantes as bi on e.id_produit = bi.id_produit
-    
-    
+
+
 )
 
 select * from conso_prod
