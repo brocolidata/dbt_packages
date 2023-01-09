@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: dbt_metrics_default_calendar
+    description: "Table de reférence pour le calendrier"
+    columns:
+      - name: date_day
+        description: "Jour du mois"
+
+      - name: date_week
+        description: "Semaine de l'année"
+
+      - name: date_month
+        description: "Mois"
+
+      - name: date_quarter
+        description: "Trimestre"
+
+      - name: date_year
+        description: "Année"

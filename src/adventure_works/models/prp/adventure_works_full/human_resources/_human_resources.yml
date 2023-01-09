@@ -5,7 +5,7 @@ models:
       Informations sur les employés tels que le salaire, le département et le
       titre.
     columns:
-      - name: ID_entite_commerciale
+      - name: id_entite_commerciale
         description: >
           Clé primaire pour les dossiers des employés. Clé étrangère à
           Businessentity.businessEntityId.
@@ -35,7 +35,7 @@ models:
           collective. 1 = salarié, exempté de négociation collective.
       - name: heures_vacances
         description: Nombre d'heures de vacances disponibles.
-      - name: heures_maladie
+      - name: heures_conge_maladie
         description: Nombre d'heures de congé de maladie disponibles.
       - name: est_actuel
         description: '0 = inactif, 1 = actif'
