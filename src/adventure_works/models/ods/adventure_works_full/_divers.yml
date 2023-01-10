@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: dbt_metrics_default_calendar
-    description: "Table de reférence pour le calendrier"
+    description: "Table de reférence pour le calendrier d'Adventure Works"
     columns:
       - name: date_day
         description: "Jour du mois"
