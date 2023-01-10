@@ -1,0 +1,399 @@
+version: 2
+
+models:
+  - name: iss_fct
+    description: "Etat du stock et des mouvements de stock avec des calculs secondaires tel les ecarts par rapports au periodes passees ou la rotation de stock"
+    columns:
+      - name: id_produit
+        description: "Clé primaire pour les enregistrements de produits."
+
+      - name: date_month
+        description: "Date marquant le debut du mois"
+
+      - name: date_quarter
+        description: "Date marquant le debut du trimestre"
+
+      - name: date_year
+        description: "Date marquant le debut de l'annee"
+
+      - name: quantite_entree
+        description: "Quantite entrées du produit tel que les achats et la production"
+
+      - name: quantite_sortie
+        description: "Quantite entrées du produit tel que les ventes, les quantités non-conformes et les consommations."
+
+      - name: quantite_restante
+        description: "Quantite en stock du produit"
+
+      - name: quantite_entree_past_month
+        description: "Quantite entrée du mois passe"
+
+      - name: quantite_sortie_past_month
+        description: "Quantite sortie du mois passe"
+
+      - name: quantite_restante_past_month
+        description: "Quantite stock du mois passe"
+
+      - name: quantite_entree_same_month_last_year
+        description: "Quantite entrée du meme mois l'année precedente"
+
+      - name: quantite_sortie_same_month_last_year
+        description: "Quantite sortie du meme mois l'année precedente"
+
+      - name: quantite_restante_same_month_last_year
+        description: "Quantite stock du meme mois l'année precedente"
+
+      - name: quantite_entree_sum_past_3months
+        description: "Cumul des quantites entrées des trois derniers mois"
+
+      - name: quantite_sortie_sum_past_3months
+        description: "Cumul des quantites sorties des trois derniers mois"
+
+      - name: quantite_entree_sum_past_6months
+        description: "Cumul des quantites entrées des six derniers mois"
+
+      - name: quantite_sortie_sum_past_6months
+        description: "Cumul des quantites sorties des six derniers mois"
+
+      - name: quantite_entree_avg_past_3months
+        description: "Moyenne des quantites entrées des 3 derniers mois"
+
+      - name: quantite_sortie_avg_past_3months
+        description: "Moyenne des quantites sorties des 3 derniers mois"
+
+      - name: quantite_entree_avg_past_6months
+        description: "Moyenne des quantites entrées des 6 derniers mois"
+
+      - name: quantite_sortie_avg_past_6months
+        description: "Moyenne des quantites sorties des 6 derniers mois"
+
+      - name: quantite_entree_pop_difference_prev_month
+        description: "Ecart des quantites entrées par rapport au mois precedent"
+
+      - name: quantite_sortie_pop_difference_prev_month
+        description: "Ecart des quantites sorties par rapport au mois precedent"
+
+      - name: quantite_entree_pop_difference_same_month_prev_year
+        description: "Ecart des quantites entrées par rapport a l'annee precedente"
+
+      - name: quantite_sortie_pop_difference_same_month_prev_year
+        description: "Ecart des quantites sorties par rapport a l'annee precedente"
+
+      - name: quantite_entree_ptd_sum_quarter
+        description: "Cumul des quantites entrées du trimestre a ce jour"
+
+      - name: quantite_sortie_ptd_sum_quarter
+        description: "Cumul des quantites sorties du trimestre a ce jour"
+
+      - name: quantite_entree_ptd_sum_year
+        description: "Cumul des quantites entrées de l'annee a ce jour"
+
+      - name: quantite_sortie_ptd_sum_year
+        description: "Cumul des quantites sorties de l'annee a ce jour"
+
+      - name: stock_moyen
+        description: "Moyenne bi-mensuelle du stock."
+
+      - name: sorties_moyennes
+        description: "Moyenne des 6 derniers mois des quantites sorties mensuelles de chaque produit"
+
+      - name: rotation_stock
+        description: "Ratio de rotation des stocks"
+
+
+version: 2
+
+models:
+  - name: iss_produit
+    description: "Etat du stock et des mouvements de stock avec des calculs secondaires tel les ecarts par rapports au periodes passees ou la rotation de stock. Contient aussi les attributs des produits tel que la taille, la marque..."
+    columns:
+      - name: id_produit
+        description: "Clé primaire pour les enregistrements de produits."
+
+      - name: date_month
+        description: "Date marquant le debut du mois"
+
+      - name: date_quarter
+        description: "Date marquant le debut du trimestre"
+
+      - name: date_year
+        description: "Date marquant le debut de l'annee"
+
+      - name: quantite_entree
+        description: "Quantite entrées du produit tel que les achats et la production"
+
+      - name: quantite_sortie
+        description: "Quantite entrées du produit tel que les ventes, les quantités non-conformes et les consommations."
+
+      - name: quantite_restante
+        description: "Quantite en stock du produit"
+
+      - name: quantite_entree_past_month
+        description: "Quantite entrée du mois passe"
+
+      - name: quantite_sortie_past_month
+        description: "Quantite sortie du mois passe"
+
+      - name: quantite_restante_past_month
+        description: "Quantite stock du mois passe"
+
+      - name: quantite_entree_same_month_last_year
+        description: "Quantite entrée du meme mois l'année precedente"
+
+      - name: quantite_sortie_same_month_last_year
+        description: "Quantite sortie du meme mois l'année precedente"
+
+      - name: quantite_restante_same_month_last_year
+        description: "Quantite stock du meme mois l'année precedente"
+
+      - name: quantite_entree_sum_past_3months
+        description: "Cumul des quantites entrées des trois derniers mois"
+
+      - name: quantite_sortie_sum_past_3months
+        description: "Cumul des quantites sorties des trois derniers mois"
+
+      - name: quantite_entree_sum_past_6months
+        description: "Cumul des quantites entrées des six derniers mois"
+
+      - name: quantite_sortie_sum_past_6months
+        description: "Cumul des quantites sorties des six derniers mois"
+
+      - name: quantite_entree_avg_past_3months
+        description: "Moyenne des quantites entrées des 3 derniers mois"
+
+      - name: quantite_sortie_avg_past_3months
+        description: "Moyenne des quantites sorties des 3 derniers mois"
+
+      - name: quantite_entree_avg_past_6months
+        description: "Moyenne des quantites entrées des 6 derniers mois"
+
+      - name: quantite_sortie_avg_past_6months
+        description: "Moyenne des quantites sorties des 6 derniers mois"
+
+      - name: quantite_entree_pop_difference_prev_month
+        description: "Ecart des quantites entrées par rapport au mois precedent"
+
+      - name: quantite_sortie_pop_difference_prev_month
+        description: "Ecart des quantites sorties par rapport au mois precedent"
+
+      - name: quantite_entree_pop_difference_same_month_prev_year
+        description: "Ecart des quantites entrées par rapport a l'annee precedente"
+
+      - name: quantite_sortie_pop_difference_same_month_prev_year
+        description: "Ecart des quantites sorties par rapport a l'annee precedente"
+
+      - name: quantite_entree_ptd_sum_quarter
+        description: "Cumul des quantites entrées du trimestre a ce jour"
+
+      - name: quantite_sortie_ptd_sum_quarter
+        description: "Cumul des quantites sorties du trimestre a ce jour"
+
+      - name: quantite_entree_ptd_sum_year
+        description: "Cumul des quantites entrées de l'annee a ce jour"
+
+      - name: quantite_sortie_ptd_sum_year
+        description: "Cumul des quantites sorties de l'annee a ce jour"
+
+      - name: stock_moyen
+        description: "Moyenne bi-mensuelle du stock."
+
+      - name: sorties_moyennes
+        description: "Moyenne des 6 derniers mois des quantites sorties mensuelles de chaque produit"
+
+      - name: rotation_stock
+        description: "Ratio de rotation des stocks"
+
+      - name: cout_total
+        description: ""
+
+      - name: chiffre_daffaires_brut
+        description: ""
+
+      - name: montant_remise_ligne
+        description: ""
+
+      - name: chiffre_daffaires_net
+        description: ""
+
+      - name: cout_total_past_month
+        description: ""
+
+      - name: chiffre_daffaires_brut_past_month
+        description: ""
+
+      - name: montant_remise_ligne_past_month
+        description: ""
+
+      - name: chiffre_daffaires_net_past_month
+        description: ""
+
+      - name: cout_total_same_month_last_year
+        description: ""
+
+      - name: chiffre_daffaires_brut_same_month_last_year
+        description: ""
+
+      - name: montant_remise_ligne_same_month_last_year
+        description: ""
+
+      - name: chiffre_daffaires_net_same_month_last_year
+        description: ""
+
+      - name: cout_total_sum_past_3months
+        description: ""
+
+      - name: chiffre_daffaires_brut_sum_past_3months
+        description: ""
+
+      - name: montant_remise_ligne_sum_past_3months
+        description: ""
+
+      - name: chiffre_daffaires_net_sum_past_3months
+        description: ""
+
+      - name: cout_total_sum_past_6months
+        description: ""
+
+      - name: chiffre_daffaires_brut_sum_past_6months
+        description: ""
+
+      - name: montant_remise_ligne_sum_past_6months
+        description: ""
+
+      - name: chiffre_daffaires_net_sum_past_6months
+        description: ""
+
+      - name: cout_total_avg_past_3months
+        description: ""
+
+      - name: chiffre_daffaires_brut_avg_past_3months
+        description: ""
+
+      - name: montant_remise_ligne_avg_past_3months
+        description: ""
+
+      - name: chiffre_daffaires_net_avg_past_3months
+        description: ""
+
+      - name: cout_total_avg_past_6months
+        description: ""
+
+      - name: chiffre_daffaires_brut_avg_past_6months
+        description: ""
+
+      - name: montant_remise_ligne_avg_past_6months
+        description: ""
+
+      - name: chiffre_daffaires_net_avg_past_6months
+        description: ""
+
+      - name: cout_total_pop_difference_prev_month
+        description: ""
+
+      - name: chiffre_daffaires_brut_pop_difference_prev_month
+        description: ""
+
+      - name: montant_remise_ligne_pop_difference_prev_month
+        description: ""
+
+      - name: chiffre_daffaires_net_pop_difference_prev_month
+        description: ""
+
+      - name: cout_total_pop_difference_same_month_prev_year
+        description: ""
+
+      - name: chiffre_daffaires_brut_pop_difference_same_month_prev_year
+        description: ""
+
+      - name: montant_remise_ligne_pop_difference_same_month_prev_year
+        description: ""
+
+      - name: chiffre_daffaires_net_pop_difference_same_month_prev_year
+        description: ""
+
+      - name: cout_total_ptd_sum_quarter
+        description: ""
+
+      - name: chiffre_daffaires_brut_ptd_sum_quarter
+        description: ""
+
+      - name: montant_remise_ligne_ptd_sum_quarter
+        description: ""
+
+      - name: chiffre_daffaires_net_ptd_sum_quarter
+        description: ""
+
+      - name: cout_total_ptd_sum_year
+        description: ""
+
+      - name: chiffre_daffaires_brut_ptd_sum_year
+        description: ""
+
+      - name: montant_remise_ligne_ptd_sum_year
+        description: ""
+
+      - name: chiffre_daffaires_net_ptd_sum_year
+        description: ""
+
+      - name: ca_net
+        description: ""
+
+      - name: cout
+        description: ""
+
+      - name: chiffre_daffaires_net_remise
+        description: ""
+
+      - name: montant_remise_promo
+        description: ""
+
+      - name: total_remise
+        description: ""
+
+      - name: marge_ligne
+        description: ""
+
+      - name: nom_produit
+        description: "Nom du produit."
+
+      - name: numero_produit
+        description: "Numéro d'identification unique du produit."
+
+      - name: est_manufacture_paraw
+        description: "0 = le produit est acheté, 1 = le produit est fabriqué en interne."
+
+      - name: est_vendable
+        description: "0 = Le produit n'est pas un article vendable. 1 = Le produit est vendable."
+
+      - name: couleur
+        description: "Couleur du produit."
+
+      - name: stock_securite
+        description: "Quantité d'inventaire minimum."
+
+      - name: stock_alerte
+        description: "Niveau d'inventaire qui déclenche un bon de commande ou un bon de travail."
+
+      - name: cout_standard
+        description: "Coût standard du produit."
+
+      - name: prix_vente
+        description: "Prix ​​de vente."
+
+      - name: taille_produit
+        description: "Taille du produit."
+
+      - name: ligne_produit
+        description: "H = haut, m = milieu, l = bas"
+
+      - name: gamme
+        description: "R = route, m = montagne, t = tournée, s = standard"
+
+      - name: style
+        description: "W = femmes, m = hommes, u = universel"
+
+      - name: nom_sous_categorie
+        description: "Description de la sous-catégorie."
+
+      - name: categorie_produit
+        description: ""

@@ -1,0 +1,238 @@
+version: 2
+
+models:
+  - name: produit_dim
+    description: "Produits vendus ou utilisés dans la manfacturation des produits vendus."
+    columns:
+      - name: id_produit
+        description: "Clé primaire pour les enregistrements de produits."
+
+      - name: nom_produit
+        description: "Nom du produit."
+
+      - name: numero_produit
+        description: "Numéro d'identification unique du produit."
+
+      - name: est_manufacture_paraw
+        description: "0 = le produit est acheté, 1 = le produit est fabriqué en interne."
+
+      - name: est_vendable
+        description: "0 = Le produit n'est pas un article vendable. 1 = Le produit est vendable."
+
+      - name: couleur
+        description: "Couleur du produit."
+
+      - name: stock_securite
+        description: "Quantité d'inventaire minimum."
+
+      - name: stock_alerte
+        description: "Niveau d'inventaire qui déclenche un bon de commande ou un bon de travail."
+
+      - name: cout_standard
+        description: "Coût standard du produit."
+
+      - name: prix_vente
+        description: "Prix ​​de vente."
+
+      - name: taille_produit
+        description: "Taille du produit."
+
+      - name: code_unite_mesure_taille
+        description: "Unité de mesure pour la colonne de taille."
+
+      - name: code_unite_mesure_poids
+        description: "Unité de mesure pour la colonne de poids."
+
+      - name: poids_produit
+        description: "Poids du produit."
+
+      - name: nombre_jours_fabrication_produit
+        description: "Nombre de jours nécessaires pour fabriquer le produit."
+
+      - name: ligne_produit
+        description: "H = haut, m = milieu, l = bas"
+
+      - name: gamme
+        description: "R = route, m = montagne, t = tournée, s = standard"
+
+      - name: style
+        description: "W = femmes, m = hommes, u = universel"
+
+      - name: id_sous_categorie_produit
+        description: "Le produit est membre de cette sous-catégorie de produit. Clé étrangère de produits sous-catégorie.ProductSubCategoryId."
+
+      - name: id_model_produit
+        description: "Le produit est membre de ce modèle de produit. Clé étrangère à ProductModel.ProductModelid."
+
+      - name: date_debut_vente
+        description: "Date que le produit était disponible à la vente."
+
+      - name: date_fin_vente
+        description: "Date que le produit n'était plus disponible à la vente."
+
+      - name: date_interruption
+        description: "Date que le produit a été interrompu."
+
+      - name: id_categorie_produit
+        description: "Clé primaire pour les enregistrements de catégorie ProductCategory."
+
+      - name: nom_sous_categorie
+        description: "Description de la sous-catégorie."
+
+      - name: unite_mesure_taille
+        description: "Unité de mesure pour la colonne de taille."
+
+      - name: unite_mesure_poids
+        description: "Unité de mesure pour la colonne de poids."
+
+      - name: date_debut_cout_produit
+        description: "Date de début du coût du produit."
+
+      - name: date_fin_cout_produit
+        description: "Date de fin du coût du produit."
+
+      - name: nom_categorie
+        description: "Description de la catégorie."
+
+  - name: produit_avec_stock_dim
+    description: "Produits vendus ou utilisés dans la manfacturation des produits vendus avec les dernières quantité de stock."
+    columns:
+      - name: id_produit
+        description: "Clé primaire pour les enregistrements de produits."
+
+      - name: nom_produit
+        description: "Nom du produit."
+
+      - name: numero_produit
+        description: "Numéro d'identification unique du produit."
+
+      - name: est_manufacture_paraw
+        description: "0 = le produit est acheté, 1 = le produit est fabriqué en interne."
+
+      - name: est_vendable
+        description: "0 = Le produit n'est pas un article vendable. 1 = Le produit est vendable."
+
+      - name: couleur
+        description: "Couleur du produit."
+
+      - name: stock_securite
+        description: "Quantité d'inventaire minimum."
+
+      - name: stock_alerte
+        description: "Niveau d'inventaire qui déclenche un bon de commande ou un bon de travail."
+
+      - name: cout_standard
+        description: "Coût standard du produit."
+
+      - name: prix_vente
+        description: "Prix ​​de vente."
+
+      - name: taille_produit
+        description: "Taille du produit."
+
+      - name: code_unite_mesure_taille
+        description: "Unité de mesure pour la colonne de taille."
+
+      - name: code_unite_mesure_poids
+        description: "Unité de mesure pour la colonne de poids."
+
+      - name: poids_produit
+        description: "Poids du produit."
+
+      - name: nombre_jours_fabrication_produit
+        description: "Nombre de jours nécessaires pour fabriquer le produit."
+
+      - name: ligne_produit
+        description: "H = haut, m = milieu, l = bas"
+
+      - name: gamme
+        description: "R = route, m = montagne, t = tournée, s = standard"
+
+      - name: style
+        description: "W = femmes, m = hommes, u = universel"
+
+      - name: id_sous_categorie_produit
+        description: "Le produit est membre de cette sous-catégorie de produit. Clé étrangère de produits sous-catégorie.ProductSubCategoryId."
+
+      - name: id_model_produit
+        description: "Le produit est membre de ce modèle de produit. Clé étrangère à ProductModel.ProductModelid."
+
+      - name: date_debut_vente
+        description: "Date que le produit était disponible à la vente."
+
+      - name: date_fin_vente
+        description: "Date que le produit n'était plus disponible à la vente."
+
+      - name: date_interruption
+        description: "Date que le produit a été interrompu."
+
+      - name: id_categorie_produit
+        description: "Clé primaire pour les enregistrements de catégorie ProductCategory."
+
+      - name: nom_sous_categorie
+        description: "Description de la sous-catégorie."
+
+      - name: unite_mesure_taille
+        description: "Unité de mesure pour la colonne de taille."
+
+      - name: unite_mesure_poids
+        description: "Unité de mesure pour la colonne de poids."
+
+      - name: date_debut_cout_produit
+        description: "Date de début du coût du produit."
+
+      - name: date_fin_cout_produit
+        description: "Date de fin du coût du produit."
+
+      - name: nom_categorie
+        description: "Description de la catégorie."
+
+      - name: etagere
+        description: "Compartiment de stockage dans un emplacement d'inventaire."
+
+      - name: compartiment
+        description: "Conteneur de stockage sur une étagère dans un emplacement d'inventaire."
+
+      - name: quantite_emplacement
+        description: "Quantité de produits dans l'emplacement des stocks."
+
+      - name: date_modification_stock
+        description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+
+      - name: nom_emplacement
+        description: "Description de l'emplacement."
+
+      - name: cout_standard_emplacement
+        description: "Coût horaire standard de l'emplacement de fabrication."
+
+      - name: disponibilite_emplacement
+        description: "Capacité de travail (en heures) de l'emplacement de fabrication."
+  
+  - name: produit_inventaire_fct
+    description: "Produits comptés lors de l'inventaire avec les dernières quantité de stock."
+    columns:
+      - name: id_produit
+        description: "Numéro d'identification du produit. Clé étrangère du produit.productID."
+
+      - name: id_emplacement
+        description: "Numéro d'identification de l'emplacement des stocks. Clé étrangère de localisation.locationId."
+
+      - name: etagere
+        description: "Compartiment de stockage dans un emplacement d'inventaire."
+
+      - name: compartiment
+        description: "Conteneur de stockage sur une étagère dans un emplacement d'inventaire."
+
+      - name: quantite_emplacement
+        description: "Quantité de produits dans l'emplacement des stocks."
+
+      - name: nom_emplacement
+        description: "Description de l'emplacement."
+
+      - name: cout_standard_emplacement
+        description: "Coût horaire standard de l'emplacement de fabrication."
+
+      - name: disponibilite_emplacement
+        description: "Capacité de travail (en heures) de l'emplacement de fabrication."
+
+  

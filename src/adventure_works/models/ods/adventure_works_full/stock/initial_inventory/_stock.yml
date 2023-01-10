@@ -1,0 +1,179 @@
+version: 2
+
+models:
+  - name: mouvements_produit_conso_fct
+    description: "Les enregistrements des mouvements de stock liés aux produits; sert au calcul de la metrique quantite_restante qui represente la quantite en stock de chaque produit chaque jour"
+    columns:
+      - name: id_produit
+        description: "Clé primaire pour les enregistrements de produits."
+
+      - name: date_mouvement
+        description: "Date du mouvement de stock du produit"
+
+      - name: stock_initial
+        description: "Quantité en stock à la création de l'entreprise"
+
+      - name: quantite_entree
+        description: "Quantite entrées du produit tel que les achats et la production"
+
+      - name: quantite_sortie
+        description: "Quantite entrées du produit tel que les ventes, les quantités non-conformes et les consommations."
+
+      - name: quantite_restante
+        description: "Représente la quantité restante chaque jour en prenant le stock_initial en compte. Se calcule comme suit: (quantite_restante = stock_initial - quantite_entree - quantite_sortie) "
+
+      - name: running_quantite_restante
+        description: "Somme cumulée de quantite_restante"
+  
+  - name: mouvements_produit_fct
+    description: "Les enregistrements des mouvements de stock liés aux produits; sert au calcul de les metriques quantite_entree et quantite_sortie qui representent respectivement la quantite en entree et sortie de chaque produit chaque jour"
+    columns:
+      - name: id_produit
+        description: "Clé primaire pour les enregistrements de produits."
+
+      - name: date_mouvement
+        description: "Date du mouvement de stock du produit"
+
+      - name: quantite_entree
+        description: "Quantite entrées du produit tel que les achats et la production"
+
+      - name: quantite_sortie
+        description: "Quantite entrées du produit tel que les ventes, les quantités non-conformes et les consommations."
+
+      - name: quantite_restante
+        description: "Représente la quantité restante chaque jour en prenant le stock_initial en compte. Se calcule comme suit: (quantite_restante = stock_initial - quantite_entree - quantite_sortie) "
+
+  - name: stock_achete_fct
+    description: "Etat mensuel des mouvements liés aux achats de produits; composante de la metrique quantite_entree qui represente la quantite entree de chaque produit chaque mois"
+    columns:
+      - name: date_month
+        description: "Date marquant le debut du mois"
+
+      - name: id_produit
+        description: "Clé primaire pour les enregistrements de produits."
+
+      - name: quantite_achetee
+        description: "Quantites achetees mensuelles de chaque produit."
+
+  - name: stock_actuel
+    description: "Etat mensuel des quantites en stock de chaque produit a chaque debut de mois; sert au calcul de la metrique stock_moyen = [ (stock initial + stock_final) / 2 ] de chaque produit chaque mois"
+    columns:
+      - name: date_month
+        description: "Date marquant le debut du mois"
+
+      - name: id_produit
+        description: "Clé primaire pour les enregistrements de produits."
+
+      - name: quantite_restante
+        description: "Représente la quantité restante chaque jour en prenant le stock_initial en compte. Se calcule comme suit: (quantite_restante = stock_initial - quantite_entree - quantite_sortie)"
+
+      - name: quantite_restante_stock_moyen
+        description: "Moyenne bi-mensuelle du stock. Sert au calcul de la metrique stock_moyen"
+  
+  - name: stock_consomme_fct
+    description: "Etat mensuel des mouvements liés à la consommations de produits pour le besoin de production; composante de la metrique quantite_sortie qui represente les quantites sorties de chaque produit mensuellement"
+    columns:
+      - name: date_month
+        description: "Date marquant le debut du mois"
+
+      - name: id_composant
+        description: "Clé primaire pour les enregistrements de produits utilisés dans la production."
+
+      - name: quantite_consommee
+        description: "Quantites consommees mensuelles de chaque produit pour le besoin de production."
+
+  - name: stock_entrees_fct
+    description: "Etat mensuel des mouvements liés aux entrees de produits; représentation de la metrique quantite entree tel que les achats et la production"
+    columns:
+      - name: date_month
+        description: "Date marquant le debut du mois"
+
+      - name: id_produit
+        description: "Clé primaire pour les enregistrements de produits."
+
+      - name: quantite_entree
+        description: "Quantite entrées des produits tel que les achats et la production"
+
+  - name: stock_final_fct
+    description: "Etat du stock inventorié sans emplacements"
+    columns:
+      - name: date_month
+        description: "Date marquant le debut du mois"
+
+      - name: id_produit
+        description: "Clé primaire pour les enregistrements de produits."
+
+      - name: stock_final
+        description: "Quantite inventorié des produits"
+
+  - name: stock_initial_calcule_fct
+    description: "Table permettant de reconstituer le stock au debut de l'exercice a partir du stock 0 l'inventaire et des mouvements"
+    columns:
+      - name: date_month
+        description: "Date marquant le debut du mois"
+
+      - name: id_produit
+        description: "Clé primaire pour les enregistrements de produits."
+
+      - name: stock_init
+        description: "Quantité en stock à la création de l'entreprise"
+
+      - name: quantite_ent
+        description: "Quantite entrées du produit tel que les achats et la production"
+
+      - name: quantite_sort
+        description: "Quantite entrées du produit tel que les ventes, les quantités non-conformes et les consommations."
+
+      - name: stock_fin
+        description: "Quantite en stock inventorié"
+
+  - name: stock_produit_fct
+    description: "Etat mensuel des mouvements liés à la production de produits"
+    columns:
+      - name: date_month
+        description: "Date marquant le debut du mois"
+
+      - name: id_produit
+        description: "Clé primaire pour les enregistrements de produits."
+
+      - name: quantite_produite
+        description: "Quantites produites mensuelles de chaque produit."
+
+  - name: stock_rejete_fct
+    description: "Etat mensuel des mouvements liés aux rejets de produits non-conformes"
+    columns:
+      - name: date_month
+        description: "Date marquant le debut du mois"
+
+      - name: id_produit
+        description: "Clé primaire pour les enregistrements de produits."
+
+      - name: quantite_rejetee
+        description: "Quantites rejetees mensuelles de chaque produit."
+
+  - name: stock_sorties_fct
+    description: "Etat mensuel des mouvements liés aux sorties de produits tel que les ventes, les quantités non-conformes et les consommations."
+    columns:
+      - name: date_month
+        description: "Date marquant le debut du mois"
+
+      - name: id_produit
+        description: "Clé primaire pour les enregistrements de produits."
+
+      - name: quantite_sortie
+        description: "Quantites sorties mensuelles de chaque produit tel que les ventes, les quantités non-conformes et les consommations."
+
+      - name: quantite_sortie_sorties_moyennes_6mois
+        description: "Cumul des quantites sorties mensuelles de chaque produit tel que les ventes, les quantités non-conformes et les consommations"
+
+  - name: stock_vendu_fct
+    description: "Etat mensuel des mouvements liés aux ventes de produits"
+    columns:
+      - name: date_month
+        description: "Date marquant le debut du mois"
+
+      - name: id_produit
+        description: "Clé primaire pour les enregistrements de produits."
+
+      - name: quantite_vendue
+        description: "Quantites vendues mensuelles de chaque produit."
