@@ -144,7 +144,7 @@ jobs:
 
 
       - name: 'Annotate PR with ${{ matrix.changed_project }} linting violations'
-        uses: yuzutech/annotations-action@v0.3.0
+        uses: yuzutech/annotations-action@v0.4.0
         if: ${{ matrix.changed_project }} != ''
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
