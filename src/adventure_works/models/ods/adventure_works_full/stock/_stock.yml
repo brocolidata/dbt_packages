@@ -235,4 +235,32 @@ models:
       - name: disponibilite_emplacement
         description: "Capacité de travail (en heures) de l'emplacement de fabrication."
 
-  
+  - name: details_transaction_ods
+    description: "Mouvements suite à un achat, une vente ou un ordre de fabrication"
+    columns:
+      - name: id_transaction
+        description: "Clé primaire pour les enregistrements TransactionHistoryArchive."
+
+      - name: id_produit
+        description: "Numéro d'identification du produit. Clé étrangère du produit.productID."
+
+      - name: id_commande
+        description: "Commande d'achat, commande client ou numéro d'identification des bons de travail."
+
+      - name: id_ligne_commande
+        description: "Numéro de ligne associé au bon de commande, à la commande client ou à la commande de travail."
+
+      - name: date_transaction
+        description: "Date et heure de la transaction."
+
+      - name: type_transaction
+        description: "W = bon de travail, S = commande commerciale, p = bon de commande"
+
+      - name: quantite_produit
+        description: "La quantité de produit."
+
+      - name: cout_produit
+        description: "Coût du produit."
+
+      - name: date_modification
+        description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
