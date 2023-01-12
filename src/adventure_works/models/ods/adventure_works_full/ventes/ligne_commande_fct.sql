@@ -39,8 +39,8 @@ ligne_commande as (
     select
         sod.* except(id_commande_commerciale),
         soh.*
-    from sales_order_detail sod
-    left join sales_order_header soh 
+    from sales_order_detail as sod
+    left join sales_order_header as soh
         on sod.id_commande_commerciale = soh.id_commande
 )
 

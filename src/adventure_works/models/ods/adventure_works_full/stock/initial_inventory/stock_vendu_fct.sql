@@ -1,5 +1,5 @@
 with ventes as (
-    select * 
+    select *
     from {{ metrics.calculate(
         metric('quantite_vendue'),
         grain='month',
@@ -7,6 +7,9 @@ with ventes as (
     ) }}
 )
 
-select date_month, id_produit, sum(quantite_vendue) as quantite_vendue
+select
+    date_month,
+    id_produit,
+    sum(quantite_vendue) as quantite_vendue
 from ventes
-group by date_month, id_produit
+group by 1, 2

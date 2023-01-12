@@ -1,6 +1,6 @@
-select * 
-    from {{ metrics.calculate(
+select *
+from {{ metrics.calculate(
         metric('quantite_produite'),
         grain='month',
         dimensions=['id_produit']
-    )}} 
+    ) }}

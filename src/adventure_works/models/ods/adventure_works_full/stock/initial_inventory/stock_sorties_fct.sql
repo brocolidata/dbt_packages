@@ -1,4 +1,3 @@
-
 with sorties as (
     select *
     from {{ metrics.calculate(

@@ -1,4 +1,4 @@
-select * 
+select *
 from {{ metrics.calculate(
     metric('stock_final'),
     grain='month',
