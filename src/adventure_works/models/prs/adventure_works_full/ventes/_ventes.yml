@@ -1,0 +1,281 @@
+version: 2
+models:
+  - name: sales_fct
+    description: Données de ventes par mois
+    columns:
+      - name: id_produit
+        description: ID unique du produit
+      - name: date_month
+        description: Mois concerné.
+      - name: date_quarter
+        description: Trimestre concerné.
+      - name: date_year
+        description: Année concernée.
+      - name: cout_total
+        description: Total des coûts.
+      - name: chiffre_daffaires_brut
+        description: Chiffre d'Affaires Brut.
+      - name: montant_remise_ligne
+        description: Total des remises.
+      - name: chiffre_daffaires_net
+        description: Chiffre d'Affaires Net.
+      - name: cout_total_past_month
+        description: Coût total du mois précédent
+      - name: chiffre_daffaires_brut_past_month
+        description: Chiffre d'Affaires Brut du mois précédent.
+      - name: montant_remise_ligne_past_month
+        description: Total des remises du mois précédent.
+      - name: chiffre_daffaires_net_past_month
+        description: Chiffre d'Affaires Net du mois précédent.
+      - name: cout_total_same_month_last_year
+        description: Coût total du même mois de l'année précédente.
+      - name: chiffre_daffaires_brut_same_month_last_year
+        description: Chiffre d'Affaires Brut du même mois de l'année précédente.
+      - name: montant_remise_ligne_same_month_last_year
+        description: Total des remises du même mois de l'année précédente.
+      - name: chiffre_daffaires_net_same_month_last_year
+        description: Chiffre d'Affaires Net du même mois de l'année précédente.
+      - name: cout_total_sum_past_3months
+        description: Coût total sur les 3 mois précédents.
+      - name: chiffre_daffaires_brut_sum_past_3months
+        description: Chiffre d'Affaires Brut sur les 3 mois précédents.
+      - name: montant_remise_ligne_sum_past_3months
+        description: Total des remises sur les 3 mois précédents.
+      - name: chiffre_daffaires_net_sum_past_3months
+        description: Chiffre d'Affaires Net sur les 3 mois précédents.
+      - name: cout_total_sum_past_6months
+        description: Coût total sur les 6 mois précédents.
+      - name: chiffre_daffaires_brut_sum_past_6months
+        description: Chiffre d'Affaires Brut sur les 6 mois précédents.
+      - name: montant_remise_ligne_sum_past_6months
+        description: Total des remises sur les 6 mois précédents.
+      - name: chiffre_daffaires_net_sum_past_6months
+        description: Chiffre d'Affaires Net sur les 6 mois précédents.
+      - name: cout_total_avg_past_3months
+        description: Moyenne du total des coûts sur les 3 derniers mois.
+      - name: chiffre_daffaires_brut_avg_past_3months
+        description: Chiffre d'Affaires Brut moyen sur les 3 derniers mois.
+      - name: montant_remise_ligne_avg_past_3months
+        description: Moyenne du total des remises sur les 3 derniers mois.
+      - name: chiffre_daffaires_net_avg_past_3months
+        description: Chiffre d'Affaires Net moyen sur les 3 derniers mois.
+      - name: cout_total_avg_past_6months
+        description: Moyenne du total des coûts sur les 6 derniers mois.
+      - name: chiffre_daffaires_brut_avg_past_6months
+        description: Chiffre d'Affaires Brut moyen sur les 6 derniers mois.
+      - name: montant_remise_ligne_avg_past_6months
+        description: Moyenne du total des remises sur les 6 derniers mois.
+      - name: chiffre_daffaires_net_avg_past_6months
+        description: Chiffre d'Affaires Net moyen sur les 6 derniers mois.
+      - name: cout_total_pop_difference_prev_month
+        description: Différence du total des coûts avec le mois dernier.
+      - name: chiffre_daffaires_brut_pop_difference_prev_month
+        description: Différence de Chiffre d'Affaires Brut avec le mois dernier.
+      - name: montant_remise_ligne_pop_difference_prev_month
+        description: Différence du total des remises avec le mois dernier.
+      - name: chiffre_daffaires_net_pop_difference_prev_month
+        description: Différence de Chiffre d'Affaires Net avec le mois dernier.
+      - name: cout_total_pop_difference_same_month_prev_year
+        description: Différence du total des coûts avec le même mois de l'année précédente.
+      - name: chiffre_daffaires_brut_pop_difference_same_month_prev_year
+        description: >
+          Différence de Chiffre d'Affaires Brut avec le même mois de l'année
+          précédente.
+      - name: montant_remise_ligne_pop_difference_same_month_prev_year
+        description: >
+          Différence du total des remises avec le même mois de l'année
+          précédente.
+      - name: chiffre_daffaires_net_pop_difference_same_month_prev_year
+        description: >
+          Différence de Chiffre d'Affaires Net avec le même mois de l'année
+          précédente.
+      - name: cout_total_ptd_sum_quarter
+        description: Total des coûts sur le trimestre.
+      - name: chiffre_daffaires_brut_ptd_sum_quarter
+        description: Total du Chiffre d'Affaires Brut sur le trimestre.
+      - name: montant_remise_ligne_ptd_sum_quarter
+        description: Total des remises sur le trimestre.
+      - name: chiffre_daffaires_net_ptd_sum_quarter
+        description: Total du Chiffre d'Affaires Net sur le trimestre.
+      - name: cout_total_ptd_sum_year
+        description: Total des coûts sur l'année.
+      - name: chiffre_daffaires_brut_ptd_sum_year
+        description: Total du Chiffre d'Affaires Brut sur l'année.
+      - name: montant_remise_ligne_ptd_sum_year
+        description: Total des remises sur l'année.
+      - name: chiffre_daffaires_net_ptd_sum_year
+        description: Total du Chiffre d'Affaires Net sur l'année.
+      - name: ca_net
+        description: Chiffe d'Affaires Net du mois
+      - name: cout
+        description: Coûts du mois.
+      - name: chiffre_daffaires_net_remise
+        description: >
+          Chiffre d'Affaires Net du mois prenant en compte la remise ligne mais
+          ne prenant pas en compte la remise de l'offre promotionnelle.
+      - name: montant_remise_promo
+        description: Montant de la remise de l'offre promotionnelle du mois.
+      - name: total_remise
+        description: Total des remises du mois.
+      - name: marge_ligne
+        description: Marge de la ligne.
+  - name: ventes_ligne_commande
+    description: Ventes par ligne de commande de ventes.
+    columns:
+      - name: id_ligne_commande
+        description: ID unique de la ligne de commande.
+      - name: numero_suivi_transporteur
+        description: Numéro de suivi de l'expédition fournis par l'expéditeur.
+      - name: quantite_commandee
+        description: Quantité commandée par produit.
+      - name: id_produit
+        description: ID unique du produit.
+      - name: id_offre_promotionnelle
+        description: ID unique de l'offre promotionnelle.
+      - name: prix_unitaire
+        description: Prix de vente d'un seul produit.
+      - name: remise
+        description: Montant de réduction.
+      - name: total_ligne
+        description: >
+          Sous-total par produit. Calculé sous forme prix_unitaire * (1 -
+          remise) * quantite_commandee.  
+      - name: id_commande
+        description: ID unique de la commande.
+      - name: date_commande
+        description: Date à laquelle la commande par le client.
+      - name: date_echeance
+        description: Date à laquelle la commande est due au client.
+      - name: date_mouvement
+        description: Date du mouvement de stock.
+      - name: est_une_commande_internet
+        description: >
+          0 = commande passée par le vendeur. 1 = commande passée en ligne par
+          le client.  
+      - name: id_client
+        description: ID unique client
+      - name: id_vendeur
+        description: ID unique du revendeur.
+      - name: id_territoire
+        description: ID unique du territoire de ventes.
+      - name: id_methode_livraison
+        description: ID unique de la méthode de livraison.
+      - name: nom_produit
+        description: Libellé du produit.
+      - name: numero_produit
+        description: Numéro du produit.
+      - name: est_manufacture_paraw
+        description: Indique si le produit est manufacturé par Adventure Works.
+      - name: est_vendable
+        description: >
+          Indique si le produit est un produit destiné à la vente ou la
+          production.
+      - name: couleur
+        description: Couleur du produit.
+      - name: stock_securite
+        description: Stock de sécurité du produit.
+      - name: stock_alerte
+        description: Stock d'alerte du produit.
+      - name: cout_standard
+        description: Coût standard du produit.
+      - name: prix_vente
+        description: Prix de vente du produit.
+      - name: taille_produit
+        description: Taille du produit.
+      - name: code_unite_mesure_taille
+        description: ID unique de l'unité de mesure de la taille.
+      - name: code_unite_mesure_poids
+        description: ID unique de l'unité de mesure de poids.
+      - name: poids_produit
+        description: Poids du produit.
+      - name: nombre_jours_fabrication_produit
+        description: Nombre de jours de fabrication du produit.
+      - name: ligne_produit
+        description: Ligne produit.
+      - name: gamme
+        description: Gamme du produit.
+      - name: style
+        description: Style du produit
+      - name: id_sous_categorie_produit
+        description: ID unique de la sous catégorie du produit.
+      - name: id_model_produit
+        description: ID unique du modèle du produit.
+      - name: date_debut_vente
+        description: Date de début de commercialisation du produit.
+      - name: date_fin_vente
+        description: Date de fin de commercialisation du produit.
+      - name: date_interruption
+        description: Date d'interruption de commercialisation du produit.
+      - name: id_categorie_produit
+        description: ID unique de la catégorie du produit.
+      - name: nom_sous_categorie
+        description: Libellé de la sous catégorie du produit.
+      - name: unite_mesure_taille
+        description: Unité de mesure de taille.
+      - name: unite_mesure_poids
+        description: Unité de mesure de poids.
+      - name: date_debut_cout_produit
+        description: Date de début de validité du coût du produit.
+      - name: date_fin_cout_produit
+        description: Date de fin de validité du coût du produit.
+      - name: nom_categorie
+        description: Libellé de la catégorie du produit.
+      - name: description
+        description: Description de l'offre promotionnelle.
+      - name: pourcentage_remise
+        description: Pourcentage de remise.
+      - name: type_remise
+        description: Type d'offre promotionnelle.
+      - name: beneficiaire_remise
+        description: Bénéficiaire de la réduction (s'applique au revendeur ou au client).
+      - name: date_debut
+        description: Date de début de remise.
+      - name: date_fin
+        description: Date de fin de remise.
+      - name: remise_minimale
+        description: Pourcentage de remise minimum autorisé.
+      - name: remise_maximale
+        description: Pourcentage de remise maximal autorisé.
+      - name: id_magasin
+        description: ID unique magasin
+      - name: numero_compte
+        description: Numéro unique d'identification du client.
+      - name: id_entite_commerciale
+        description: ID unique du revendeur.
+      - name: type_personne
+        description: >
+          Type principal de la personne: SC = Contact de magasin, IN = Client
+          individuel (vente au détail), SP = vendeur, EM = Employé (non-vente),
+          VC = Contact du fournisseur, GC = Contact général  
+      - name: nom_complet_client
+        description: Nom complet du client.
+      - name: nom_magasin
+        description: Nom du magasin.
+      - name: nom_complet_vendeur
+        description: Nom complet du revendeur.
+      - name: pourcentage_commission
+        description: Pourcentage de commission reçu par vente.
+      - name: nom_territoire
+        description: Libellé du territoire de ventes.
+      - name: code_region
+        description: Code de pays ou région standard ISO.
+      - name: zone_geographique
+        description: Zone géographique à laquelle appartient le territoire de ventes.
+      - name: cout_total
+        description: Coût total relatif au produit.
+      - name: chiffre_daffaires_brut
+        description: Chiffre d'Affaires Brut de la ligne de commande.
+      - name: montant_remise_ligne
+        description: Motant de la remise de la ligne de commande.
+      - name: chiffre_daffaires_net_remise
+        description: >
+          Chiffre d'Affaires Net de la ligne prenant en compte la remise ligne
+          mais ne prenant pas en compte la remise de l'offre promotionnelle.
+      - name: chiffre_daffaires_net
+        description: Chiffre d'Affaires Net de la ligne de commande.
+      - name: montant_remise_promo
+        description: Montant de la remise de l'offre promotionnelle.
+      - name: marge
+        description: Marge réalisée sur la ligne de comande
+      - name: total_remise
+        description: Total des remises de la ligne de commande.

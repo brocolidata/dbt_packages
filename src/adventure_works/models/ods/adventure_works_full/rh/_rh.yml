@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: employes_ods
+    description: "Informations sur les employés tels que le salaire, le département et le titre."
+    columns:
+      - name: id_entite_commerciale
+        description: "Clé primaire pour les dossiers des employés. Clé étrangère à Businessentity.businessEntityId."
+
+      - name: noeud_organisation
+        description: "Où l'employé est situé dans la hiérarchie des entreprises."
+
+      - name: niveau_organisation
+        description: "La profondeur de l'employé dans la hiérarchie des entreprises."
+
+      - name: titre_poste
+        description: "Titre de travail tel que l'acheteur ou le représentant des ventes."
+
+      - name: date_naissance
+        description: "Date de naissance."
+
+      - name: etat_civil
+        description: "M = marié, s = célibataire"
+
+      - name: genre
+        description: "M = mâle, f = femelle"
+
+      - name: date_embauche
+        description: "Employé a embauché à cette date."
+
+      - name: est_salarie
+        description: "Classification des emplois. 0 = horaire, non exempté de la négociation collective. 1 = salarié, exempté de négociation collective."
+
+      - name: heures_vacances
+        description: "Nombre d'heures de vacances disponibles."
+
+      - name: heures_conge_maladie
+        description: "Nombre d'heures de congé de maladie disponibles."
+
+      - name: est_actuel
+        description: "0 = inactif, 1 = actif"

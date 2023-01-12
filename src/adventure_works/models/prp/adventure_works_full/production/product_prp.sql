@@ -19,7 +19,7 @@ renamed as (
         cast(listprice as numeric) as prix_vente,
         cast(size as string) as taille_produit,
         cast(sizeunitmeasurecode as string) as code_unite_mesure_taille,
-        cast(weightunitmeasurecode as string ) as code_unite_mesure_poids,
+        cast(weightunitmeasurecode as string) as code_unite_mesure_poids,
         cast(weight as numeric) as poids_produit,
         cast(daystomanufacture as int64) as nombre_jours_fabrication_produit,
         cast(productsubcategoryid as int64) as id_sous_categorie_produit,

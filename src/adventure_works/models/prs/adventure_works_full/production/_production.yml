@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: consommation_production
+    description: "Consommation des commandes de travail de fabrication/montage"
+    columns:
+      - name: id_commande_travail
+        description: "ID de la commande de travail"
+
+      - name: date_mouvement
+        description: "Date du mouvement"
+
+      - name: id_produit
+        description: "ID du produit"
+
+      - name: quantite_produite
+        description: "Quantité produite par la commande de travail"
+
+      - name: quantite_produite_stockee
+        description: "Quantité produite stockée après la commande de travail"
+
+      - name: quantite_produite_supprimee
+        description: "Quantité de produit détruite lors de la commande de travail"
+
+      - name: id_composant
+        description: "ID du composant"
+
+      - name: date_debut_utilisation
+        description: "Date de début d'utilisation"
+
+      - name: date_fin_utilisation
+        description: "Date de fin d'utilisation"
+
+      - name: code_unite_mesure
+        description: "Code de l'unité de mesure"
+
+      - name: niveau_nomenclature
+        description: "Niveau de la nomenclature"
+
+      - name: quantite_par_assemblage
+        description: "Quantité par assemblage"
+
+      - name: quantite_consomee
+        description: "Quantité consommée"

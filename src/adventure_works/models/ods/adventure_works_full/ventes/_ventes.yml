@@ -1,0 +1,212 @@
+version: 2
+models:
+  - name: client_dim
+    description: Clients
+    columns:
+      - name: id_client
+        description: ID unique client
+      - name: id_magasin
+        description: ID unique magasin
+      - name: id_territoire
+        description: ID unique territoire
+      - name: numero_compte
+        description: Numéro unique d'identification du client.
+      - name: id_entite_commerciale
+        description: ID unique entité commerciale
+      - name: type_personne
+        description: >
+          Type principal de la personne: SC = Contact de magasin, IN = Client
+          individuel (vente au détail), SP = vendeur, EM = Employé (non-vente),
+          VC = Contact du fournisseur, GC = Contact général 
+      - name: nom_complet
+        description: >
+          Nom complet. Concaténation de [titre, prenom, deuxieme_prenom,
+          nom_famille, suffixe] (style occidental) 
+      - name: contact_par_email
+        description: >
+          0 = Contact ne souhaite pas recevoir de promotions de messagerie, 1 =
+          Contact souhaite recevoir des promotions de messagerie de l'aventure 
+      - name: coordonnees_supplementaires
+        description: Coordonnées supplémentaires sur la personne stockée au format XML.
+      - name: informations_supplementaires
+        description: >
+          Des informations personnelles telles que des passe-temps et des
+          revenus collectés auprès des acheteurs en ligne. Utilisé pour
+          l'analyse des ventes. 
+      - name: nom_magasin
+        description: Nom du magasin.
+  - name: entete_commande_fct
+    description: En-tête de commandes de Ventes
+    columns:
+      - name: id_commande
+        description: ID unique de la commande.
+      - name: date_commande
+        description: Date de la commande par le client.
+      - name: date_echeance
+        description: Date à laquelle la commande est due au client.
+      - name: date_expedition
+        description: Date à laquelle la commande a été expédiée au client.
+      - name: est_une_commande_internet
+        description: >
+          0 = commande passée par le vendeur. 1 = commande passée en ligne par
+          le client. 
+      - name: id_client
+        description: ID unique du client.
+      - name: id_vendeur
+        description: ID unique du revendeur.
+      - name: id_territoire
+        description: ID unique du territoire de ventes.
+      - name: id_methode_livraison
+        description: ID unique de la méthode de livraison.
+      - name: sous_total
+        description: >
+          Sous-total des ventes. Calculé sous forme de somme
+          (SalesOrderDetail.linetotal) pour le SalesOrderId approprié. 
+      - name: montant_taxe
+        description: Montant de la taxe.
+      - name: fret
+        description: Frais de port.
+      - name: total
+        description: Total dû du client. Calculé comme sous_total + montant_taxe + fret.
+      - name: id_taux_change
+        description: ID unique du taux de change.
+      - name: date_taux_change
+        description: Date et heure du taux de change.
+      - name: change_depuis
+        description: Le taux de change a été converti à partir de ce code de devise.
+      - name: change_vers
+        description: Le taux de change a été converti en ce code de devise.
+      - name: taux_change_moyen
+        description: Taux de change moyen pour la journée.
+      - name: taux_change_fin_journee
+        description: Taux de change final pour la journée.
+      - name: nom_territoire
+        description: Libellé du territoire de ventes.
+      - name: code_region
+        description: Code de pays ou région standard ISO.
+      - name: zone_geographique
+        description: Zone géographique à laquelle appartient le territoire de ventes.
+  - name: ligne_commande_fct
+    description: Lignes de commandes de ventes
+    columns:
+      - name: id_ligne_commande
+        description: ID unique de la ligne de commande.
+      - name: numero_suivi_transporteur
+        description: Numéro de suivi de l'expédition fournis par l'expéditeur.
+      - name: quantite_commandee
+        description: Quantité commandée par produit.
+      - name: id_produit
+        description: ID unique du produit.
+      - name: id_offre_promotionnelle
+        description: ID unique de l'offre promotionnelle.
+      - name: prix_unitaire
+        description: Prix ​​de vente d'un seul produit.
+      - name: remise
+        description: Montant de réduction.
+      - name: total_ligne
+        description: >
+          Sous-total par produit. Calculé sous forme prix_unitaire * (1 -
+          remise) * quantite_commandee. 
+      - name: id_commande
+        description: ID unique de la commande.
+      - name: date_commande
+        description: Date à laquelle la commande par le client.
+      - name: date_echeance
+        description: Date à laquelle la commande est due au client.
+      - name: date_mouvement
+        description: Date du mouvement de stock.
+      - name: est_une_commande_internet
+        description: >
+          0 = commande passée par le vendeur. 1 = commande passée en ligne par
+          le client. 
+      - name: id_client
+        description: ID unique du client.
+      - name: id_vendeur
+        description: ID unique du revendeur.
+      - name: id_territoire
+        description: ID unique du territoire de ventes.
+      - name: id_methode_livraison
+        description: ID unique de la méthode de livraison.
+  - name: offre_promotionnelle_fct
+    description: Offres promotionnelles
+    columns:
+      - name: id_offre_promotionnelle
+        description: ID unique de l'offre promotionnelle.
+      - name: description
+        description: Description de l'offre promotionnelle.
+      - name: pourcentage_remise
+        description: Pourcentage de remise.
+      - name: type_remise
+        description: Type d'offre promotionnelle.
+      - name: beneficiaire_remise
+        description: Bénéficiaire de la réduction (s'applique au revendeur ou au client).
+      - name: date_debut
+        description: Date de début de remise.
+      - name: date_fin
+        description: Date de fin de remise.
+      - name: remise_minimale
+        description: Pourcentage de remise minimum autorisé.
+      - name: remise_maximale
+        description: Pourcentage de remise maximal autorisé.
+      - name: id_produit
+        description: ID unique du produit.
+  - name: vendeur_dim
+    description: Revendeurs
+    columns:
+      - name: id_entite_commerciale
+        description: ID unique du revendeur.
+      - name: id_territoire
+        description: ID unique du territoire de ventes.
+      - name: quota_vente
+        description: Projection des ventes annuelles.
+      - name: prime
+        description: Bonus dû si le quota est rempli.
+      - name: pourcentage_commission
+        description: Pourcentage de commission reçu par vente.
+      - name: ventes_ytd
+        description: Ventes sur le territoire depuis le début de l'année en cours.
+      - name: ventes_annee_derniere
+        description: Ventes sur le territoire l'année précédente.
+      - name: nom_territoire
+        description: Libellé du territoire de ventes.
+      - name: code_region
+        description: Code de pays ou région standard ISO.
+      - name: zone_geographique
+        description: Zone géographique à laquelle appartient le territoire de ventes.
+      - name: nom_complet
+        description: Nom complet.
+  - name: taux_change_aw_fct
+    description: Taux de change
+    columns:
+      - name: id_taux_change
+        description: ID unique du taux de change.
+      - name: date_taux_change
+        description: Date et heure du taux de change.
+      - name: taux_change_moyen
+        description: Taux de change moyen pour la journée.
+      - name: taux_change_fin_journee
+        description: Taux de change final pour la journée.
+      - name: change_depuis
+        description: Le taux de change a été converti à partir de ce code de devise.
+      - name: change_vers
+        description: Le taux de change a été converti en ce code de devise.
+  - name: territoire_vente_dim
+    description: Territoires de Ventes
+    columns:
+      - name: id_territoire
+        description: ID unique du territoire de ventes.
+      - name: nom_territoire
+        description: Libellé du territoire de ventes.
+      - name: code_region
+        description: >
+          Code de pays ou région standard ISO.
+      - name: zone_geographique
+        description: Zone géographique à laquelle appartient le territoire de ventes.
+      - name: ventes_ytd
+        description: Ventes sur le territoire depuis le début de l'année en cours.
+      - name: ventes_annee_derniere
+        description: Ventes sur le territoire l'année précédente.
+      - name: cout_ytd
+        description: Coûts des entreprises du territoire depuis le début de l'année en cours.
+      - name: cout_annee_derniere
+        description: Coûts des entreprises sur le territoire l'année précédente.
