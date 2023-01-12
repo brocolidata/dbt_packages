@@ -100,12 +100,11 @@ models:
       - name: rotation_stock
         description: "Ratio de rotation des stocks"
 
-
-version: 2
-
-models:
   - name: iss_produit
-    description: "Etat du stock et des mouvements de stock avec des calculs secondaires tel les ecarts par rapports au periodes passees ou la rotation de stock. Contient aussi les attributs des produits tel que la taille, la marque..."
+    description: >
+      Etat du stock et des mouvements de stock avec des calculs secondaires tel les ecarts par rapports au periodes passees ou la rotation de stock. 
+      
+      Contient aussi les attributs des produits tel que la taille, la marque...
     columns:
       - name: id_produit
         description: "Clé primaire pour les enregistrements de produits."
@@ -397,3 +396,43 @@ models:
 
       - name: categorie_produit
         description: ""
+
+
+  - name: detail_transaction
+    description: "Mouvements suite à un achat, une vente ou un ordre de fabrication"
+    columns:
+      - name: nom_produit
+        description: "Nom du produit."
+
+      - name: nom_sous_categorie
+        description: "Description de la sous-catégorie."
+
+      - name: numero_produit
+        description: "Numéro d'identification unique du produit."
+
+      - name: nom_categorie
+        description: "Description de la catégorie."
+
+      - name: id_transaction
+        description: "Clé primaire pour les enregistrements TransactionHistoryArchive."
+
+      - name: id_commande
+        description: "Commande d'achat, commande client ou numéro d'identification des bons de travail."
+
+      - name: id_ligne_commande
+        description: "Numéro de ligne associé au bon de commande, à la commande client ou à la commande de travail."
+
+      - name: date_transaction
+        description: "Date et heure de la transaction."
+
+      - name: type_transaction
+        description: "W = bon de travail, S = commande commerciale, p = bon de commande"
+
+      - name: quantite_produit
+        description: "La quantité de produit."
+
+      - name: cout_produit
+        description: "Coût du produit."
+
+      - name: date_modification
+        description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
