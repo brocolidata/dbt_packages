@@ -1,4 +1,3 @@
-
 with entree as (
     select *
     from {{ metrics.calculate(
@@ -8,7 +7,7 @@ with entree as (
         secondary_calculations=[
         metrics.rolling(aggregate="average", interval=2, alias="stock_moyen")
     ]
-    ) }}  
+    ) }}
 )
 
 

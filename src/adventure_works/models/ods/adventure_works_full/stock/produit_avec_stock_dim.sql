@@ -65,14 +65,14 @@ product_union as (
         unitp.nom_unite_mesure as unite_mesure_poids,
         cost.date_debut_cout_produit,
         cost.date_fin_cout_produit,
-        coalesce(cat.nom_categorie, 'Others') as nom_categorie,
         inv.etagere,
         inv.compartiment,
         inv.quantite_emplacement,
         inv.date_modification as date_modification_stock,
         loc.nom_emplacement,
         loc.cout_standard_emplacement,
-        loc.disponibilite_emplacement
+        loc.disponibilite_emplacement,
+        coalesce(cat.nom_categorie, 'Others') as nom_categorie
 
     from product_prp as pdt
     left join

@@ -161,17 +161,17 @@ models:
       Enregistrement de chaque commande d'achat, commande client ou transaction
       de travail à ce jour.
     columns:
-      - name: ID_transaction
+      - name: id_transaction
         description: Clé primaire pour les enregistrements de transaction.
-      - name: ID_produit
+      - name: id_produit
         description: >
           Numéro d'identification du produit. Clé étrangère du
           produit.productID.
-      - name: ID_commande
+      - name: id_commande
         description: >
           Commande d'achat, commande client ou numéro d'identification des bons
           de travail.
-      - name: ID_ligne_commande
+      - name: id_ligne_commande
         description: >
           Numéro de ligne associé au bon de commande, à la commande client ou à
           la commande de travail.
@@ -190,17 +190,17 @@ models:
   - name: TransactionHistoryArchive_prp
     description: Transactions pour les années précédentes.
     columns:
-      - name: ID_transaction
+      - name: id_transaction
         description: Clé primaire pour les enregistrements TransactionHistoryArchive.
-      - name: ID_produit
+      - name: id_produit
         description: >
           Numéro d'identification du produit. Clé étrangère du
           produit.productID.
-      - name: ID_commande
+      - name: id_commande
         description: >
           Commande d'achat, commande client ou numéro d'identification des bons
           de travail.
-      - name: ID_ligne_commande
+      - name: id_ligne_commande
         description: >
           Numéro de ligne associé au bon de commande, à la commande client ou à
           la commande de travail.

@@ -140,11 +140,12 @@ jobs:
             --config src/${{ matrix.changed_project }}/.sqlfluff \
             --format github-annotation \
             --annotation-level failure \
-            ${{steps.read_changed_files.outputs.prop}} > ${{ env.DBT_ROOT_PATH }}/${{ matrix.changed_project }}/annotations.json
+            --write-output ${{ env.DBT_ROOT_PATH }}/${{ matrix.changed_project }}/annotations.json \
+            ${{steps.read_changed_files.outputs.prop}}
 
 
       - name: 'Annotate PR with ${{ matrix.changed_project }} linting violations'
-        uses: yuzutech/annotations-action@v0.3.0
+        uses: yuzutech/annotations-action@v0.4.0
         if: ${{ matrix.changed_project }} != ''
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"

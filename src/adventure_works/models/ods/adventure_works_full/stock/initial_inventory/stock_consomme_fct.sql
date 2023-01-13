@@ -1,6 +1,6 @@
-select * 
-    from {{ metrics.calculate(
+select *
+from {{ metrics.calculate(
         metric('quantite_consommee'),
         grain='month',
         dimensions=['id_composant']
-    )}} where quantite_consommee <> 0
+    ) }} where quantite_consommee != 0

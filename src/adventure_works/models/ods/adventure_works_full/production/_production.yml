@@ -2,64 +2,64 @@ version: 2
 
 models:
   - name: entete_bon_de_travail_fct
-    description: "Table (fact) de l'en-tête du bon de travail"
+    description: "Ordres de fabrication."
     columns:
       - name: id_commande_travail
-        description: "ID de la commande de travail"
+        description: "Clé primaire pour les enregistrements des bons de travail."
 
       - name: id_produit
-        description: "ID du produit"
+        description: "Numéro d'identification du produit. Clé étrangère du produit.productID."
 
       - name: quantite_commandee
-        description: "Quantité commandée"
+        description: "Quantité du produit à construire."
 
       - name: quantite_stockee
-        description: "Quantité stockée"
+        description: "Quantité construite et inventaire."
 
       - name: quantite_supprimee
-        description: "Quantité supprimée"
+        description: "Quantité qui a échoué l'inspection."
 
       - name: date_debut
-        description: "Date de début d'utilisation "
+        description: "Date de début de travail."
 
       - name: date_mouvement
-        description: "Date du mouvement"
+        description: "Date de fin de travail."
 
       - name: date_echeance
-        description: "Date d'échéance"
+        description: "Date d'échéance de commande."
 
       - name: id_raison
-        description: "ID de la raison"
+        description: "Raison de l'échec de l'inspection."
 
       - name: date_modification
-        description: "Date de modification"
-  
+        description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."
+
   - name: liste_composantes_dim
-    description: "Table (dim) de la liste des composantes du produit"
+    description: "List de composantes nécessaires pour fabriquer des vélos. On y trouve aussi identification de relations hiérarchiques entre un produit parent et ses composants."
     columns:
       - name: nomenclature_id
-        description: "ID de la nomenclature"
+        description: "Clé primaire pour les enregistrements de facturation."
 
       - name: id_assemblage_produit
-        description: "ID de l'assemblage du produit"
+        description: "Numéro d'identification du produit parent. Clé étrangère du produit.productID."
 
       - name: id_composant
-        description: "ID du composant"
+        description: "Numéro d'identification des composants. Clé étrangère du produit.productID."
 
       - name: date_debut
-        description: "Date de début d'utilisation"
+        description: "Date que le composant a commencé à être utilisé dans l'élément d'assemblage."
 
       - name: date_fin
-        description: "Date de fin d'utilisation "
+        description: "Date Le composant a cessé d'être utilisé dans l'élément d'assemblage."
 
       - name: code_unite_mesure
-        description: "Code de l'unité de mesure"
+        description: "Code standard identifiant l'unité de mesure pour la quantité."
 
       - name: niveau_nomenclature
-        description: "Niveau de la nomenclature"
+        description: "Indique la profondeur que le composant provient de son parent (assemblyId)."
 
       - name: quantite_par_assemblage
-        description: "Quantité par assemblage"
+        description: "Quantité du composant nécessaire pour créer l'assemblage."
 
       - name: date_modification
-        description: "Date de modification"
+        description: "Date et heure que l'enregistrement a été mise à jour pour la dernière fois."

@@ -16,7 +16,7 @@ with ventes_non_der as (
         metrics.period_to_date(aggregate="sum", period="quarter", alias="ptd_sum_quarter", metric_list=('cout_total','chiffre_daffaires_brut','montant_remise_ligne','chiffre_daffaires_net')),
         metrics.period_to_date(aggregate="sum", period="year", alias="ptd_sum_year", metric_list=('cout_total','chiffre_daffaires_brut','montant_remise_ligne','chiffre_daffaires_net'))
     ]
-    ) }}  
+    ) }}
 ),
 
 vente_der as (
@@ -25,22 +25,28 @@ vente_der as (
         metric_list=[ metric('total_remise'), metric('marge_ligne')],
         grain='month',
         dimensions=['id_produit']
-    ) }}  
+    ) }}
 ),
 
 sales as (
     select
-        coalesce(nd.id_produit, d.id_produit) as id_produit,
-        coalesce(nd.date_month, d.date_month) as date_month,
-        nd.* except(id_produit,date_month),
+        nd.* except(id_produit, date_month),
+        d.* except(
+            id_produit,
+            date_month,
+            chiffre_daffaires_net,
+            cout_total,
+            montant_remise_ligne
+        ),
         d.chiffre_daffaires_net as ca_net,
         d.cout_total as cout,
-        d.* except(id_produit,date_month, chiffre_daffaires_net, cout_total, montant_remise_ligne),
-        
-        
+        coalesce(nd.id_produit, d.id_produit) as id_produit,
+        coalesce(nd.date_month, d.date_month) as date_month
+
+
 
     from ventes_non_der as nd
-    full join vente_der as d 
+    full join vente_der as d
         on nd.id_produit = d.id_produit
             and nd.date_month = d.date_month
 )

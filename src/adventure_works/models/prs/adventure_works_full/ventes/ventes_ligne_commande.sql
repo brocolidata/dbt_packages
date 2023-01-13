@@ -1,7 +1,7 @@
 with ligne_commande_fct as (
 
     select * from {{ ref('ligne_commande_fct') }}
-    
+
 ),
 
 produit_dim as (
