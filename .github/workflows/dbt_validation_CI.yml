@@ -140,7 +140,8 @@ jobs:
             --config src/${{ matrix.changed_project }}/.sqlfluff \
             --format github-annotation \
             --annotation-level failure \
-            ${{steps.read_changed_files.outputs.prop}} > ${{ env.DBT_ROOT_PATH }}/${{ matrix.changed_project }}/annotations.json
+            --write-output ${{ env.DBT_ROOT_PATH }}/${{ matrix.changed_project }}/annotations.json \
+            ${{steps.read_changed_files.outputs.prop}}
 
 
       - name: 'Annotate PR with ${{ matrix.changed_project }} linting violations'
