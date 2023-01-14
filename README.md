@@ -1,5 +1,6 @@
 ![Brocolib Logo](dbt_packages_github_banner.png)
 # dbt_packages
+[![[CI] Lint dbt models](https://github.com/brocolidata/dbt_packages/actions/workflows/dbt_validation_CI.yml/badge.svg)](https://github.com/brocolidata/dbt_packages/actions/workflows/dbt_validation_CI.yml) [![[CD] Release dbt packages](https://github.com/brocolidata/dbt_packages/actions/workflows/release_CD.yml/badge.svg)](https://github.com/brocolidata/dbt_packages/actions/workflows/release_CD.yml)  
 Repository that contains all dbt packages created by Brocoli Data
 
 ## List of dbt projects
