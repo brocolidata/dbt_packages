@@ -1,15 +1,13 @@
 version: 2
 exposures:
   - name: MACO3
+    label: "Cours de change du Dirham"
     type: dashboard
     maturity: low
     url: https://datastudio.google.com/reporting/92c47f6e-e0a3-4a9e-9245-2ade3ea1900f
     description: >
-      **Code** : [MAC03]
-      
-      **Nom** : Evolution de la valeur du MAD par rapport au USD, EUR et Livre 
-      
-      **Détails** : Evolution quotidienne des prix du Dirham Marocain par rapport au Dollars Americain, l'Euro et la Livre sterling
+      Evolution quotidienne des prix du Dirham Marocain par rapport 
+      au Dollars Americain, l'Euro et la Livre sterling
     
     depends_on:
       - ref('currencies_index')
