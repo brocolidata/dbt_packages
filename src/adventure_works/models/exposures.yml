@@ -3,19 +3,30 @@ version: 2
 exposures:
   
   - name: ADW001
+    label: "Analyse achats"
     type: dashboard
     maturity: low
     url: https://datastudio.google.com/reporting/56fa3583-5f5d-49a8-b5c4-794dda86ff10
     description: >
-      **Code** : [ADW001]
-      
-      **Nom** : Analyse des achats de Adventure Works 
-      
-      **Détails** : Analyse des commandes fournisseurs en detail et en general de Adventure Works
+      Analyse des commandes fournisseurs en detail et en general d'Adventure Works
     
     depends_on:
       - ref('achats_fournisseurs')
+      
+    owner:
+      name: admins
+      email: administrators@brocoli.tech
 
+  - name: ADW002
+    label: "Aperçu stocks & ventes"
+    type: dashboard
+    maturity: low
+    url: https://datastudio.google.com/reporting/180b81f8-b751-4938-b354-33d6f61c083a
+    description: >
+      Analyse des produits en termes de stock, ventes et mouvements d'Adventure Works
+    
+    depends_on:
+      - ref('iss_produit')
       
     owner:
       name: admins

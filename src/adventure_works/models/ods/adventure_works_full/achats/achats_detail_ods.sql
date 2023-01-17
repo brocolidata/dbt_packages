@@ -14,7 +14,8 @@ achats as (
         orderdetail.ligne_totale_achat,
         orderdetail.qte_recue,
         orderdetail.qte_rejetee,
-        orderdetail.qte_stockee
+        orderdetail.qte_stockee,
+        orderdetail.date_modifiee
 
 
     from purchaseorderdetail_prp as orderdetail

@@ -59,7 +59,5 @@ models:
           +dataset: adw_achats
         stock:
           +dataset: adw_stock
-
-seeds:
-  adventure_works:
-    +dataset: stg
+        production:
+          +dataset: adw_production
