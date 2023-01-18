@@ -1,9 +1,11 @@
 # Create a brocoli dbt package
 
 ## Table of Contents
-1. [Process to add a dbt project](#process-to-add-a-dbt-project)
-2. [Lint `.sql` files with SQLFluff](#lint-sql-files-with-sqlfluff)
-
+* [Process to add a dbt project](#process-to-add-a-dbt-project)
+* [Create a dbt project](#create-a-dbt-project)
+* [Lint `.sql` files with SQLFluff](#lint-sql-files-with-sqlfluff)
++ [SQLFluff CLI](#sqlfluff-cli)
+* [Synchronize `dbt_packages` & `dataplatform_functions`](#synchronize-dbt_packages--dataplatform_functions)
 
 ## Process to add a dbt project
 
@@ -61,6 +63,7 @@ The `[CI] Lint dbt models` GitHub Action will run SQLFluff and annotate any (re)
 
 All SQLFluff linting rules are listed in [SQLFluff Docs | Rules Reference](https://docs.sqlfluff.com/en/stable/rules.html) ; you can also see if a `rule is sqlfluff fix compatible`.
 
+
 ### SQLFluff CLI
 All SQLFLuff commands follow this pattern :  
 ```
@@ -84,3 +87,30 @@ Examples :
 ```
 docker compose run -w /src/fuel dbt_packages sqlfluff fix -f models/
 ```
+
+## Synchronize `dbt_packages` & `dataplatform_functions`
+```mermaid
+flowchart LR
+    pro2 --> pro1
+    pro3 --> pro1
+    p2 --> p1
+    p3 --> p1
+    subgraph dataplatform_functions
+        pro1[dbt_project.yml]
+        p1[packages.yml]
+    end
+    subgraph dbt_packages
+        subgraph package1
+            pro2[dbt_project.yml]
+            p2[packages.yml]
+        end
+        subgraph package2
+            pro3[dbt_project.yml]
+            p3[packages.yml]
+        end
+    end
+
+```
+When you create/update a dbt package, you must make sure : 
+- The dbt version used to develop the modified dbt packages satisfies the requirement defined in `require-dbt-version` field in the `dbt_project.yml` of the goblet `dbt_functions` in `dataplatform_functions`
+- The versions of the dbt packages defined in `packages.yml` are compliant with the ones in `packages.yml` of the goblet `dbt_functions` in `dataplatform_functions`
